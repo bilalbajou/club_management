@@ -1,0 +1,8 @@
+<template>
+   <footer class="footer">
+          © 2021 Adminwrap by
+          <a href="https://www.wrappixel.com/">wrappixel.com</a>
+        </footer>
+</template>
+
+
