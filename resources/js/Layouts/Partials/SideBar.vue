@@ -2,18 +2,18 @@
 <div class="ui sidebar inverted vertical menu sidebar-menu" id="sidebar">
       
 
-      <Link href="#" class="item">
+      <Link :href="route('dashboard')" class="item">
         <div class="">
           <i class="icon chart line"></i>
           Tableau du bord
         </div>
       </Link>
-      <a href="#" class="item">
+      <Link :href="route('joueurs.index')" class="item">
         <div>
           <i class="icon chart line"></i>
           Joueur 
         </div>
-      </a>
+      </Link>
       <a href="#" class="item">
         <div>
           <i class="icon chart line"></i>
@@ -34,3 +34,5 @@ import {Link} from '@inertiajs/vue3'
 
 
 </script>
+
+

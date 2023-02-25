@@ -10,6 +10,13 @@ import NavBar from './Partials/NavBar.vue';
 import SideBar from './Partials/SideBar.vue';
 import Footer from './Partials/Footer.vue';
 
+$(document).ready(function(){
+ $('.dropdown')
+  .dropdown()
+;
+});
+
+
 </script>
 
 <template>
