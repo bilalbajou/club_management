@@ -12,4 +12,10 @@ class Joueur extends Model
     use HasFactory;
     use SoftDeletes;
 
+
+    public function equipe(){
+        
+        return $this->belongsTo(Equipe::class);
+    }
+
 }

@@ -12,4 +12,8 @@ class Equipe extends Model
     use SoftDeletes;
 
     use HasFactory;
+    
+    public function joueurs(){
+        return $this->hasMany(Joueur::class);
+    }
 }

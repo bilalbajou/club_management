@@ -51,7 +51,7 @@ const showModalAddJoueur = () => {
                 </div>
                 <div class="column">
                     <select name="gender" class="ui dropdown" id="select">
-                        <option selected value="">Poste</option>
+                        <option selected value="all">Tous</option>
                         <option value="male">Gardien</option>
                         <option value="male">Defense</option>
                         <option value="male">Milieu</option>
@@ -61,7 +61,7 @@ const showModalAddJoueur = () => {
                 </div>
                 <div class="column">
                     <select name="gender" class="ui dropdown" id="select"> 
-                        <option selected >Equipe</option>
+                        <option value="all" selected >Tous</option>
                         <option v-for="equipe in equipes" :key="equipe.id" value="{{ equipe.id  }}">{{ equipe.nom }}</option>
                         
                     </select>
