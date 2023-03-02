@@ -11,7 +11,11 @@ import SideBar from './Partials/SideBar.vue';
 import Footer from './Partials/Footer.vue';
 
 $(document).ready(function(){
-
+  $('.button')
+  .popup({
+    on: 'hover'
+  })
+;
  
  $('.dropdown')
   .dropdown()

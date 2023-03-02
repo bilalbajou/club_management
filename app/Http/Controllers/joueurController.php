@@ -17,9 +17,11 @@ class joueurController extends Controller
      */
     public function index()
     {
+        $joueurs=Joueur::all();
        $equipes=Equipe::all(['nom','id']);
-      return Inertia::render('Admin/Joueur',[
-        'equipes'=>$equipes
+      return Inertia::render('Admin/Joueur/Joueur',[
+        'equipes'=>$equipes,
+        'joueurs'=>$joueurs
       ]);
     }
 
@@ -100,7 +102,12 @@ class joueurController extends Controller
      */
     public function edit($id)
     {
-        //
+           $joueur=Joueur::findOrfail($id);
+           $equipes=Equipe::all(['id','nom']);
+         
+           return Inertia::render('Admin/Joueur/Components/updateJoueur',[
+            'joueur'=>$joueur,'equipes'=>$equipes
+           ]);
     }
 
     /**
@@ -110,9 +117,38 @@ class joueurController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(storeJoueurRequest $request, $id)
     {
-        
+        $joueur=Joueur::findOrfail($id);
+        $joueur->nom=$request->nom;
+        $joueur->prenom=$request->prenom;
+        $joueur->age=$request->age;
+        $joueur->salaire=$request->salaire;
+        $joueur->cin=$request->cin;
+        $joueur->adresse=$request->adresse;
+        $joueur->telephone=$request->telephone;
+        $joueur->email=$request->email;
+        $joueur->poste=$request->poste;
+        $joueur->equipe_id=$request->equipe;
+        if($request->file('image')){
+          $image=$request->file('image');
+          $joueur->image=uniqid()."_".$image->getClientOriginalName();
+          $image->move(public_path('joueur/image'),$joueur->image);
+
+        }
+
+        if($request->file('contrat')){
+            $contrat=$request->file('contrat');
+            
+            $joueur->contrat=uniqid()."_".$contrat->getClientOriginalName();
+            $contrat->move(public_path('joueur/contrat'),$joueur->contrat);
+        }
+
+
+         $joueur->save();
+         
+
+    
     }
 
     /**
@@ -123,6 +159,8 @@ class joueurController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        Joueur::findOrFail($id)->delete();
+        return to_route('joueurs.index');
     }
 }

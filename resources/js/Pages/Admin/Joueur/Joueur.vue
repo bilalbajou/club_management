@@ -12,11 +12,13 @@ export default{
 
 <script setup>
 import addModalJoueur from "./Components/addModalJoueur.vue";
+import Cards from "./Components/Cards.vue";
 import { Head } from "@inertiajs/vue3";
 import { ref } from "vue";
 
 const props = defineProps({
     equipes: Array,
+    joueurs:Array
 });
 
 console.log(props.equipes);
@@ -76,7 +78,10 @@ const showModalAddJoueur = () => {
                 </div>
             </div>
         </div>
-
+         <div class="py-12">
+            <Cards :joueurs="joueurs" />
+         </div>
+        
 
         <addModalJoueur :equipes="equipes " />
     <!-- </AdminDash> -->
