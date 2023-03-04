@@ -1,6 +1,23 @@
 <script setup>
 
 import { useForm } from '@inertiajs/vue3';
+toastr.options = {
+  "closeButton": true,
+  "debug": false,
+  "newestOnTop": false,
+  "progressBar": false,
+  "positionClass": "toast-top-right",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "1500",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}
 const props = defineProps({
     joueur: Object
 });
@@ -24,14 +41,14 @@ const deleteJoueur=($id)=>{
   confirmButtonText: 'Oui, Supprimer'
 }).then((result) => {
   if (result.isConfirmed) {
-    form.delete(route('joueurs.destroy', {
-         id:$id,
+    form.delete(route('joueurs.destroy',$id),{
+        preserveScroll:true,
          onSuccess:()=>{
-            // toastr["success"]("Joueur a été supprimé avec succés", "Opération réussi");
+            toastr["success"]("Joueur a été supprimé avec succés", "Opération réussi");
             // console.log("dazd");
         }
 
-    }));
+    });
     
   }
 })

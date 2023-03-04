@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('joueurs', function (Blueprint $table) {
+        Schema::create('staff', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->string('nom');
             $table->string('prenom');
             $table->integer('age');
             $table->string('cin')->nullable();
             $table->string('email')->nullable();
-            $table->string('poste')->nullable();
+            $table->string('fonction')->nullable();
             $table->string('adresse')->nullable();
             $table->string('telephone')->nullable();
             $table->double('salaire')->nullable();
@@ -39,6 +39,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('joueurs');
+        Schema::dropIfExists('staff');
     }
 };

@@ -14,12 +14,13 @@
           Joueur 
         </div>
       </Link>
-      <a href="#" class="item">
+      <Link :href="route('joueurs.index')" class="item">
         <div>
           <i class="icon chart line"></i>
-          Jeueur
+          Staff Techniques
         </div>
-      </a>
+      </Link>
+    
 
      
 </div>
