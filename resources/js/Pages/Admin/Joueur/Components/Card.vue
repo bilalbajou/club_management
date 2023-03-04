@@ -48,12 +48,16 @@ const deleteJoueur=($id)=>{
         <div class="ui centered card">
             <div class="image">
                 <img
-                    src="https://www.kindpng.com/picc/m/235-2350646_login-user-name-user-avatar-svg-hd-png.png"
+                    :src="joueur.image==null ?'https://www.kindpng.com/picc/m/235-2350646_login-user-name-user-avatar-svg-hd-png.png':joueur.image"
                 />
             </div>
             <div class="content">
                 <a v-show="joueur.poste != null" class="ui teal tag label">{{
                     joueur.poste
+                }}</a>
+                &nbsp;
+                 <a v-show="joueur.nom != null" class="ui teal tag label">{{
+                    joueur.nom
                 }}</a>
                 <br /><br />
                 <a class="header">{{ joueur.nom }} {{ joueur.prenom }}</a>
@@ -75,10 +79,10 @@ const deleteJoueur=($id)=>{
                     <i class="icon edit"></i>
                 </button>
                 <button
-                    data-content=""
+                    data-content="Fiche joueur"
                     class="circular ui icon button"
                 >
-                    <i class="icon settings"></i>
+                    <i class="icon eye"></i>
                 </button>
             </div>
         </div>

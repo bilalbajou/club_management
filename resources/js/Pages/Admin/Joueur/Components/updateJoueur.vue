@@ -2,6 +2,8 @@
 import AdminDash from '@/Layouts/AdminDash.vue';
 import {defineProps} from 'vue';
 import { useForm } from '@inertiajs/vue3';
+import { ref } from 'vue';
+import {onMounted} from 'vue';
  export default{
      layout:AdminDash,
 
@@ -10,13 +12,53 @@ import { useForm } from '@inertiajs/vue3';
 </script>
 
 <script setup>
-
+toastr.options = {
+  "closeButton": true,
+  "debug": false,
+  "newestOnTop": false,
+  "progressBar": false,
+  "positionClass": "toast-top-right",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "1500",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}
 
 
 const props = defineProps({
           joueur:Object,
           equipes:Array
        });
+
+
+       onMounted(() => {
+    $(document).ready(function(){
+  $('.button')
+  .popup({
+    on: 'hover'
+  })
+;
+ 
+ $('.dropdown')
+  .dropdown()
+;
+});
+})
+
+let url = ref();
+
+const previewImage = (e) => {
+    const file = e.target.files[0];
+    url = URL.createObjectURL(file);
+   
+
+};
 
 
 const form = useForm({
@@ -31,20 +73,30 @@ const form = useForm({
     contrat: props.joueur.contrat,
     image: props.joueur.image,
     equipe: props.joueur.equipe,
-    age: props.joueur.age,
+    age: props.joueur.age
+  
 });
+
 
 const resetForm=()=>{
     form.reset();
 }
 
 const submitForm=($id)=>{
-    
-       form.put(route('joueurs.update',$id));
+         
+       form.put(route('joueurs.update',$id),{
+        onSuccess:()=>{
+            toastr["success"]("Joueur a été modifié  avec succés", "Opération réussi");
+        },
+        onError:()=>{
+            toastr["opération echoué"]("Joueur a été modifié  avec succés", "Opération réussi");
+        }
+       });
        
 
 
 }
+
 
 </script>
 
@@ -59,6 +111,7 @@ const submitForm=($id)=>{
     </div>
 
     <div class="ui container">
+        <img class="ui medium circular centered fluid image" :src="url">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <form  class="ui form">
                     <div class="three fields">

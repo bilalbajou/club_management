@@ -13,15 +13,52 @@ export default{
 <script setup>
 import addModalJoueur from "./Components/addModalJoueur.vue";
 import Cards from "./Components/Cards.vue";
+import { onMounted } from "vue";
 import { Head } from "@inertiajs/vue3";
 import { ref } from "vue";
+import {reactive} from "vue";
+import {watch} from "vue";
+
+onMounted(() => {
+    $(document).ready(function(){
+    $('.button')
+    .popup({
+      on: 'hover'
+    })
+  ;
+   
+   $('.dropdown')
+    .dropdown()
+  ;
+  });
+})
+
+
 
 const props = defineProps({
     equipes: Array,
     joueurs:Array
 });
 
+const filter = reactive({
+    search:"",
+    equipe:"",
+    poste:""
+})
+watch(filter, (value) => {
+//   Inertia.get(
+//     "/users",
+//     { search: value },
+//     {
+//       preserveState: true,
+//     }
+//   );
+
+     console.log(value);
+}); 
 console.log(props.equipes);
+
+console.log(filter.equipe);
 
 
 const showModalAddJoueur = () => {
@@ -46,25 +83,25 @@ const showModalAddJoueur = () => {
             <div class="ui stackable four column grid">
                 <div class="column">
                     <div class="ui left icon input">
-                        <input type="text" placeholder="Search users..." />
+                        <input v-model="filter.search" type="text" placeholder="Search users..." />
 
                         <i class="users icon"></i>
                     </div>
                 </div>
                 <div class="column">
-                    <select name="gender" class="ui dropdown" id="select">
-                        <option selected value="all">Tous</option>
-                        <option value="male">Gardien</option>
-                        <option value="male">Defense</option>
-                        <option value="male">Milieu</option>
-                        <option value="male">Attack</option>
+                    <select v-model="filter.poste"  class="ui dropdown" id="select">
+                        <option value="all">Tous</option>
+                        <option value="Gardien">Gardien</option>
+                        <option value="Defense">Defense</option>
+                        <option value="Milieu">Milieu</option>
+                        <option value="Attack">Attack</option>
                         
                     </select>
                 </div>
                 <div class="column">
-                    <select name="gender" class="ui dropdown" id="select"> 
-                        <option value="all" selected >Tous</option>
-                        <option v-for="equipe in equipes" :key="equipe.id" value="{{ equipe.id  }}">{{ equipe.nom }}</option>
+                    <select v-model="filter.equipe"  class="ui dropdown" id="select"> 
+                        <option value="all">Tous</option>
+                        <option v-for="equipe in equipes" :key="equipe.id" :value="equipe.id">{{ equipe.nom }}</option>
                         
                     </select>
                 </div>

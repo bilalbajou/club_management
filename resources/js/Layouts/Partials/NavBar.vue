@@ -4,6 +4,7 @@
 
 
 
+
 </script>
 <template>
       <nav class="ui top fixed inverted menu">
@@ -20,9 +21,9 @@
         <a href="#" class="item">
           <i class="bell icon"></i>
         </a>
-        <div class="ui dropdown item active visible" tabindex="0">
+        <div class="ui dropdown item" tabindex="0">
           <i class="user cirlce icon"></i>
-          <div class="menu left transition visible" tabindex="-1" style="display: block !important;">
+          <div class="menu left transition hidden" tabindex="-1" style="display: block !important;">
            
             <Link :href="route('profile.edit')" class="item">
               <i class="info circle icon"></i>
