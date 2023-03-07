@@ -69,7 +69,7 @@ const submitForm = () => {
 
 </script>
 <template>
-    <div class="ui modal">
+    <div class="ui modal" id="modalJoueur">
         <i class="close icon"></i>
         <div class="header">Ajouter nouveau joueur</div>
         <div class="image content">

@@ -32,7 +32,7 @@ toastr.options = {
 
 
 const props = defineProps({
-          joueur:Object,
+          staff:Object,
           equipes:Array
        });
 
@@ -62,18 +62,18 @@ const previewImage = (e) => {
 
 
 const form = useForm({
-    nom: props.joueur.nom,
-    prenom: props.joueur.prenom,
-    cin: props.joueur.cin,
-    email: props.joueur.email,
-    adresse: props.joueur.adresse,
-    poste: props.joueur.poste,
-    telephone: props.joueur.telephone,
-    salaire: props.joueur.salaire,
-    contrat: props.joueur.contrat,
-    image: props.joueur.image,
-    equipe: props.joueur.equipe_id,
-    age: props.joueur.age
+    nom: props.staff.nom,
+    prenom: props.staff.prenom,
+    cin: props.staff.cin,
+    email: props.staff.email,
+    adresse: props.staff.adresse,
+    fonction: props.staff.fonction,
+    telephone: props.staff.telephone,
+    salaire: props.staff.salaire,
+    contrat: props.staff.contrat,
+    image: props.staff.image,
+    equipe: props.staff.equipe_id,
+    age: props.staff.age
   
 });
 
@@ -84,12 +84,12 @@ const resetForm=()=>{
 
 const submitForm=($id)=>{
          
-       form.put(route('joueurs.update',$id),{
+       form.put(route('staffs.update',$id),{
         onSuccess:()=>{
-            toastr["success"]("Joueur a été modifié  avec succés", "Opération réussi");
+            toastr["success"]("Staff a été modifié  avec succés", "Opération réussi");
         },
         onError:()=>{
-            toastr["opération echoué"]("Joueur a été modifié  avec succés", "Opération réussi");
+            toastr["opération echoué"]("Staff a été modifié  avec succés", "Opération réussi");
         }
        });
        
@@ -105,7 +105,7 @@ const submitForm=($id)=>{
     <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="titlePage">
-                    <h2 class="text-4xl font-extrabold">Modifier joueur:{{ joueur.nom }} {{ joueur.prenom }}</h2>
+                    <h2 class="text-4xl font-extrabold">Modifier staff:{{ staff.nom }} {{ staff.prenom }}</h2>
                 </div>
             </div>
     </div>
@@ -182,18 +182,18 @@ const submitForm=($id)=>{
                                 placeholder="Adresse"
                             />
                         </div>
-                        <div class="field" :class="form.errors.poste ? 'error':''">
+                        <div class="field" :class="form.errors.fonction ? 'error':''">
                             <label>Poste</label>
 
                             <select
-                                v-model="form.poste"
+                                v-model="form.fonction"
                                 class="ui dropdown"
                                 id="select"
                             >
-                                <option value="Attack">Attack</option>
-                                <option value="Defense">Défense</option>
-                                <option value="Milieu">Milieu</option>
-                                <option value="Gardien">Gardien</option>
+                            <option value="Directeur technique">Directeur technique</option>
+                                <option value="Entraineur">Entraineur</option>
+                                <option value="Entraineur adjoint">Entraineur adjoint</option>
+                                <option value="Entraineur gardien">Entraineur gardien</option>
                             </select>
                         </div>
                         <div class="field" :class="form.errors.equipe ? 'error':''">
@@ -248,7 +248,7 @@ const submitForm=($id)=>{
                 <div @click="resetForm" class="ui black deny button">Réinitialiser</div>
             <div
                 :disabled="form.processing"
-                @click="submitForm(joueur.id)"
+                @click="submitForm(staff.id)"
                 class="ui primary right labeled icon button"
             >
                 Modifier

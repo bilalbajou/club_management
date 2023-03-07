@@ -1,6 +1,12 @@
 <script setup>
  import { Link } from '@inertiajs/vue3'
 
+ $(document).ready(function(){
+
+   $('.dropdown')
+    .dropdown()
+  ;
+  });
 
 
 
@@ -37,5 +43,7 @@
       </div>
     </nav>
 </template>
+
+
 
 

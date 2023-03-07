@@ -27,13 +27,13 @@ class storeJoueurRequest extends FormRequest
             'nom' => 'bail|required|string',
             'prenom' => 'bail|required|string',
             'age' => 'bail|required|numeric',
-            'equipe' => 'required'
-            // 'cin' => 'string',
-            // 'email' => 'email',
-            // 'adresse' => 'string',
-            // 'salaire' => 'numeric',
-            // 'image' => 'image',
-            // 'telephone' => 'string',
+            'equipe' => 'required',
+            'cin' => 'bail|nullable|string',
+            'email' => 'bail|nullable|email',
+            'adresse' => 'bail|nullable|string',
+            'salaire' => 'bail|nullable|numeric',
+            // 'image' => 'bail|nullable|image',
+            'telephone' => 'bail|nullable|string'
         ];
     }
 }

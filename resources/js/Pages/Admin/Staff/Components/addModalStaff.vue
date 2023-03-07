@@ -1,17 +1,7 @@
-<script>
-import AdminDash from '@/Layouts/AdminDash.vue';
-import {defineProps} from 'vue';
-import { useForm } from '@inertiajs/vue3';
-import { ref } from 'vue';
-import {onMounted} from 'vue';
- export default{
-     layout:AdminDash,
-
- }
-
-</script>
-
 <script setup>
+import { ref } from "vue";
+import { useForm } from "@inertiajs/vue3";
+ // toastr add player
 toastr.options = {
   "closeButton": true,
   "debug": false,
@@ -30,90 +20,64 @@ toastr.options = {
   "hideMethod": "fadeOut"
 }
 
+  
 
 const props = defineProps({
-          joueur:Object,
-          equipes:Array
-       });
-
-
-       onMounted(() => {
-    $(document).ready(function(){
-  $('.button')
-  .popup({
-    on: 'hover'
-  })
-;
- 
- $('.dropdown')
-  .dropdown()
-;
+    equipes: Array,
 });
-})
 
-let url = ref();
+let url = ref(null);
 
 const previewImage = (e) => {
     const file = e.target.files[0];
     url = URL.createObjectURL(file);
-   
-
 };
-
-
 const form = useForm({
-    nom: props.joueur.nom,
-    prenom: props.joueur.prenom,
-    cin: props.joueur.cin,
-    email: props.joueur.email,
-    adresse: props.joueur.adresse,
-    poste: props.joueur.poste,
-    telephone: props.joueur.telephone,
-    salaire: props.joueur.salaire,
-    contrat: props.joueur.contrat,
-    image: props.joueur.image,
-    equipe: props.joueur.equipe_id,
-    age: props.joueur.age
-  
+    nom: null,
+    prenom: null,
+    cin: null,
+    email: null,
+    adresse: null,
+    fonction: null,
+    telephone: null,
+    salaire: null,
+    contrat: null,
+    image: null,
+    equipe: null,
+    age: null,
 });
 
-
-const resetForm=()=>{
-    form.reset();
-}
-
-const submitForm=($id)=>{
-         
-       form.put(route('joueurs.update',$id),{
+const submitForm = () => {
+    // if (this.$refs.image) {
+    //             this.form.image = this.$refs.image.files[0];
+    // }
+    // if (this.$refs.contrat) {
+    //             this.form.contrat = this.$refs.contrat.files[0];
+    // }
+    
+    form.post(route("staffs.store"),{
         onSuccess:()=>{
-            toastr["success"]("Joueur a été modifié  avec succés", "Opération réussi");
+            toastr["success"]("Staff a été ajouté avec succés", "Opération réussi");
+            form.reset();
         },
         onError:()=>{
-            toastr["opération echoué"]("Joueur a été modifié  avec succés", "Opération réussi");
+            toastr["warning"]("Veuillez vérifier votre champs", "Opération echoué");
         }
-       });
-       
 
-
-}
-
+    });
+};
 
 </script>
-
-
 <template>
-    <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="titlePage">
-                    <h2 class="text-4xl font-extrabold">Modifier joueur:{{ joueur.nom }} {{ joueur.prenom }}</h2>
-                </div>
+    <div class="ui modal" id="modalStaff">
+        <i class="close icon"></i>
+        <div class="header">Ajouter  staff</div>
+        <div class="image content">
+            <div class="ui medium image">
+                <img :src="url!=null ? url:'https://www.kindpng.com/picc/m/235-2350646_login-user-name-user-avatar-svg-hd-png.png'" />
             </div>
-    </div>
-
-    <div class="ui container">
-        <img class="ui medium circular centered fluid image" :src="url">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <form  class="ui form">
+            <div class="description">
+                <form @submit.prevent="submitForm" class="ui form">
                     <div class="three fields">
                         <div class="field" :class="form.errors.nom ? 'error':''">
                             <label>Nom</label>
@@ -182,18 +146,18 @@ const submitForm=($id)=>{
                                 placeholder="Adresse"
                             />
                         </div>
-                        <div class="field" :class="form.errors.poste ? 'error':''">
-                            <label>Poste</label>
+                        <div class="field" :class="form.errors.fonction ? 'error':''">
+                            <label>Fonction</label>
 
                             <select
-                                v-model="form.poste"
+                                v-model="form.fonction"
                                 class="ui dropdown"
                                 id="select"
                             >
-                                <option value="Attack">Attack</option>
-                                <option value="Defense">Défense</option>
-                                <option value="Milieu">Milieu</option>
-                                <option value="Gardien">Gardien</option>
+                                <option value="Directeur technique" selected>Directeur technique</option>
+                                <option value="Entraineur">Entraineur</option>
+                                <option value="Entraineur adjoint">Entraineur adjoint</option>
+                                <option value="Entraineur gardien">Entraineur gardien</option>
                             </select>
                         </div>
                         <div class="field" :class="form.errors.equipe ? 'error':''">
@@ -244,23 +208,28 @@ const submitForm=($id)=>{
                         </div>
                     </div>
                     
+                    <!-- <div v-show="form.errors.any" class="ui error message visible">
+                        <i class="close icon"></i>
+                        <div class="header">
+                            Veuillez vérifier les champs
+                        </div>
+                        <ul class="list">
+                            <li v-for="value in form.errors"> {{ value }}</li>
+                        </ul>
+                    </div> -->
                 </form>
-                <div @click="resetForm" class="ui black deny button">Réinitialiser</div>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui black deny button">Annuler</div>
             <div
                 :disabled="form.processing"
-                @click="submitForm(joueur.id)"
-                class="ui primary right labeled icon button"
+                @click="submitForm"
+                class="ui right labeled icon button"
             >
-                Modifier
+                Ajouter
                 <i class="checkmark icon"></i>
             </div>
-            </div>
-          
+        </div>
     </div>
-
-        
-
-
-
-
 </template>

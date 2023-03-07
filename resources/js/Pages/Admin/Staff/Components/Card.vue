@@ -1,6 +1,5 @@
 <script setup>
 
-import FicheClient from './FicheClient.vue';
 
 import { useForm } from '@inertiajs/vue3';
 toastr.options = {
@@ -21,20 +20,20 @@ toastr.options = {
   "hideMethod": "fadeOut"
 }
 const props = defineProps({
-    joueur: Object
+    staff: Object
 });
 
 const form=useForm({});
 
 
-const editJoueur=($id)=>{
-    form.get(route('joueurs.edit',$id))
+const editStaff=($id)=>{
+    form.get(route('staffs.edit',$id))
 }
-const deleteJoueur=($id)=>{
+const deleteStaff=($id)=>{
 
     Swal.fire({
   title: 'Êtes-vous sûr?',
-  text: "Êtes-vous sûr de vouloir supprimer ce joueur !",
+  text: "Êtes-vous sûr de vouloir supprimer ce staff !",
   icon: 'warning',
   showCancelButton: true,
   showCancelButtonText:"Annuler",
@@ -43,10 +42,10 @@ const deleteJoueur=($id)=>{
   confirmButtonText: 'Oui, Supprimer'
 }).then((result) => {
   if (result.isConfirmed) {
-    form.delete(route('joueurs.destroy',$id),{
+    form.delete(route('staffs.destroy',$id),{
         preserveScroll:true,
          onSuccess:()=>{
-            toastr["success"]("Joueur a été supprimé avec succés", "Opération réussi");
+            toastr["success"]("Staff a été supprimé avec succés", "Opération réussi");
             // console.log("dazd");
         }
 
@@ -67,38 +66,37 @@ const deleteJoueur=($id)=>{
         <div class="ui centered card">
             <div class="image">
                 <img
-                    :src="joueur.image==null ?'https://www.kindpng.com/picc/m/235-2350646_login-user-name-user-avatar-svg-hd-png.png':joueur.image"
+                    :src="staff.image==null ?'https://www.kindpng.com/picc/m/235-2350646_login-user-name-user-avatar-svg-hd-png.png':staff.image"
                 />
             </div>
             <div class="content">
-                <a v-show="joueur.poste != null" class="ui teal tag label">{{
-                    joueur.poste
+                <a v-show="staff.fontion != null" class="ui teal tag label">{{
+                    staff.fonction
                 }}</a>
                 &nbsp;
-                 <a v-show="joueur.nom != null" class="ui teal tag label">{{
-                    joueur.nom
+                 <a v-show="staff.nom != null" class="ui teal tag label">{{
+                    staff.nom
                 }}</a>
                 <br /><br />
-                <a class="header">{{ joueur.nom }} {{ joueur.prenom }}</a>
+                <a class="header">{{ staff.nom }} {{ staff.prenom }}</a>
 
                 <div class="meta">
-                    <span class="date">Age:{{ joueur.age }}</span
+                    <span class="date">Age:{{ staff.age }}</span
                     ><br />
-                    <span class="date">Téléphone: {{ joueur.telephone }}</span>
+                    <span class="date">Téléphone: {{ staff.telephone }}</span>
                 </div>
                 <!-- <div class="description">
                             Kristy is an art director living in New York.
                         </div> -->
             </div>
             <div class="extra content">
-                <button @click="deleteJoueur(joueur.id)"  data-content="Supprimer" class="circular ui icon button">
+                <button @click="deleteStaff(staff.id)"  data-content="Supprimer" class="circular ui icon button">
                     <i class="trash icon"></i>
                 </button>
-                <button @click="editJoueur(joueur.id)"  data-content="Modifier" class="circular ui icon button">
+                <button @click="editStaff(staff.id)"  data-content="Modifier" class="circular ui icon button">
                     <i class="icon edit"></i>
                 </button>
                 <button
-                    @click="showFichClient"
                     data-content="Fiche joueur"
                     class="circular ui icon button"
                 >

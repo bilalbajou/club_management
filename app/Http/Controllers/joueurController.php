@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\storeJoueurRequest;
 use App\Models\Equipe;
+use Illuminate\Support\Facades\Request;
 use App\Models\Joueur;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\DB;
 
@@ -18,8 +18,10 @@ class joueurController extends Controller
      */
     public function index()
     {
+     
         $joueurs = Joueur::join('equipes', 'joueurs.equipe_id', '=', 'equipes.id')
         ->get(['joueurs.*', 'equipes.nom']);
+        
         // $joueurs = DB::select("SELECT joueurs.*,equipes.nom from joueurs,equipes where joueurs.equipe_id=equipes.id");
        $equipes=Equipe::all(['nom','id']);
       return Inertia::render('Admin/Joueur/Joueur',[

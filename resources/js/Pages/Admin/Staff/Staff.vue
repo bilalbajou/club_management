@@ -12,9 +12,9 @@ export default{
 
 
 <script setup>
-import addModalJoueur from "./Components/addModalJoueur.vue";
 
 
+import addModalStaff from "./Components/addModalStaff.vue";
 
 import Cards from "./Components/Cards.vue";
 import { onMounted } from "vue";
@@ -30,12 +30,13 @@ onMounted(() => {
         $('.dropdown')
     .dropdown()
   ;
- 
+
     $('.button')
     .popup({
       on: 'hover'
     })
   ;
+  
   });
 })
 
@@ -43,8 +44,9 @@ onMounted(() => {
 
 const props = defineProps({
     equipes: Array,
-    joueurs:Array
+    staffs:Array
 });
+
 
 const filter = reactive({
     search:"",
@@ -65,8 +67,8 @@ watch(filter, (value) => {
 
 
 
-const showModalAddJoueur = () => {
-    $("#modalJoueur").modal("show");
+const showModalAddStaff = () => {
+    $("#modalStaff").modal("show");
 };
 </script>
 
@@ -79,7 +81,7 @@ const showModalAddJoueur = () => {
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="titlePage">
-                    <h2 class="text-4xl font-extrabold">Joueurs</h2>
+                    <h2 class="text-4xl font-extrabold">Staff technique</h2>
                 </div>
             </div>
         </div>
@@ -111,7 +113,7 @@ const showModalAddJoueur = () => {
                 </div>
                 <div class="column">
                     <button
-                        @click="showModalAddJoueur"
+                        @click="showModalAddStaff"
                         class="ui primary button"
                     >
                         Ajouter
@@ -120,10 +122,10 @@ const showModalAddJoueur = () => {
             </div>
         </div>
          <div class="py-12">
-            <Cards :joueurs="joueurs" />
+            <Cards :staffs="staffs" />
          </div>
         
 
-        <addModalJoueur :equipes="equipes " />
+        <addModalStaff :equipes="equipes " />
     <!-- </AdminDash> -->
 </template>

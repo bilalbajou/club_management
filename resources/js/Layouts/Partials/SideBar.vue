@@ -10,13 +10,13 @@
       </Link>
       <Link :href="route('joueurs.index')" class="item">
         <div>
-          <i class="icon chart line"></i>
+          <i class="icon users"></i>
           Joueur 
         </div>
       </Link>
-      <Link :href="route('joueurs.index')" class="item">
+      <Link :href="route('staffs.index')" class="item">
         <div>
-          <i class="icon chart line"></i>
+          <i class="icon user"></i>
           Staff Techniques
         </div>
       </Link>
@@ -32,6 +32,9 @@
 
 <script setup>
 import {Link} from '@inertiajs/vue3'
+
+
+
 
 
 </script>
