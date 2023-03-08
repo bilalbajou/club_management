@@ -2,8 +2,10 @@
 
 import Card from "./Card.vue";
 const props = defineProps({
-   joueurs:Array
+   joueurs:Object
 });
+
+console.log(props.joueurs.data)
 
 
 
@@ -18,7 +20,7 @@ const props = defineProps({
    
     
     <div class="ui three column doubling stackable grid container">
-        <div v-for="joueur in joueurs" class="column">
+        <div v-for="joueur in props.joueurs.data" class="column">
            <Card :joueur="joueur" />
         </div>
     

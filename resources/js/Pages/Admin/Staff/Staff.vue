@@ -44,7 +44,7 @@ onMounted(() => {
 
 const props = defineProps({
     equipes: Array,
-    staffs:Array
+    staffs:Object
 });
 
 

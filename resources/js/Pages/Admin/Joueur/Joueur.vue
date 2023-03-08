@@ -43,7 +43,7 @@ onMounted(() => {
 
 const props = defineProps({
     equipes: Array,
-    joueurs:Array
+    joueurs:Object
 });
 
 const filter = reactive({

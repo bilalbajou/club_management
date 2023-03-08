@@ -31,6 +31,7 @@ let url = ref(null);
 const previewImage = (e) => {
     const file = e.target.files[0];
     url = URL.createObjectURL(file);
+    document.getElementById("img_player").src=url;
 };
 const form = useForm({
     nom: null,
@@ -74,7 +75,7 @@ const submitForm = () => {
         <div class="header">Ajouter nouveau joueur</div>
         <div class="image content">
             <div class="ui medium image">
-                <img :src="url!=null ? url:'https://www.kindpng.com/picc/m/235-2350646_login-user-name-user-avatar-svg-hd-png.png'" />
+                <img id="img_player" src="https://www.kindpng.com/picc/m/235-2350646_login-user-name-user-avatar-svg-hd-png.png" />
             </div>
             <div class="description">
                 <form @submit.prevent="submitForm" class="ui form">

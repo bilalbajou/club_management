@@ -70,12 +70,12 @@ const deleteStaff=($id)=>{
                 />
             </div>
             <div class="content">
-                <a v-show="staff.fontion != null" class="ui teal tag label">{{
+                <a v-show="staff.fonction != null" class="ui teal tag label">{{
                     staff.fonction
                 }}</a>
                 &nbsp;
-                 <a v-show="staff.nom != null" class="ui teal tag label">{{
-                    staff.nom
+                 <a v-show="staff.equipe.nom != null" class="ui teal tag label">{{
+                    staff.equipe.nom
                 }}</a>
                 <br /><br />
                 <a class="header">{{ staff.nom }} {{ staff.prenom }}</a>

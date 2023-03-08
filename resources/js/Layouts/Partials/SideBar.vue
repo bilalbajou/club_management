@@ -20,6 +20,18 @@
           Staff Techniques
         </div>
       </Link>
+      <Link :href="route('staffs.index')" class="item">
+        <div>
+          <i class="icon futbol"></i>
+          Match
+        </div>
+      </Link>
+      <Link :href="route('staffs.index')" class="item">
+        <div>
+          <i class="icon user"></i>
+          Entrainement
+        </div>
+      </Link>
     
 
      

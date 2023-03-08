@@ -31,6 +31,8 @@ let url = ref(null);
 const previewImage = (e) => {
     const file = e.target.files[0];
     url = URL.createObjectURL(file);
+    document.getElementById("img_staff").src=url;
+
 };
 const form = useForm({
     nom: null,
@@ -74,7 +76,7 @@ const submitForm = () => {
         <div class="header">Ajouter  staff</div>
         <div class="image content">
             <div class="ui medium image">
-                <img :src="url!=null ? url:'https://www.kindpng.com/picc/m/235-2350646_login-user-name-user-avatar-svg-hd-png.png'" />
+                <img id="img_staff" src="https://www.kindpng.com/picc/m/235-2350646_login-user-name-user-avatar-svg-hd-png.png" />
             </div>
             <div class="description">
                 <form @submit.prevent="submitForm" class="ui form">

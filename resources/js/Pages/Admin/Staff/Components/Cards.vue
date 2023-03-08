@@ -2,7 +2,7 @@
 
 import Card from "./Card.vue";
 const props = defineProps({
-   staffs:Array
+   staffs:Object
 });
 
 
@@ -18,7 +18,7 @@ const props = defineProps({
    
     
     <div class="ui three column doubling stackable grid container">
-        <div v-for="staff in staffs" class="column">
+        <div v-for="staff in staffs.data" class="column">
            <Card :staff="staff" />
         </div>
     

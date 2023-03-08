@@ -18,9 +18,10 @@ class joueurController extends Controller
      */
     public function index()
     {
-     
-        $joueurs = Joueur::join('equipes', 'joueurs.equipe_id', '=', 'equipes.id')
-        ->get(['joueurs.*', 'equipes.nom']);
+        $joueurs=Joueur::with('equipe')->latest()->paginate(30);
+        // dd($joueurs);
+        // $joueurs = Joueur::join('equipes', 'joueurs.equipe_id', '=', 'equipes.id')
+        // ->get(['joueurs.*', 'equipes.nom']);
         
         // $joueurs = DB::select("SELECT joueurs.*,equipes.nom from joueurs,equipes where joueurs.equipe_id=equipes.id");
        $equipes=Equipe::all(['nom','id']);

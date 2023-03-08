@@ -75,8 +75,8 @@ const deleteJoueur=($id)=>{
                     joueur.poste
                 }}</a>
                 &nbsp;
-                 <a v-show="joueur.nom != null" class="ui teal tag label">{{
-                    joueur.nom
+                 <a v-show="joueur.equipe.nom != null" class="ui teal tag label">{{
+                    joueur.equipe.nom
                 }}</a>
                 <br /><br />
                 <a class="header">{{ joueur.nom }} {{ joueur.prenom }}</a>

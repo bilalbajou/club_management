@@ -16,8 +16,9 @@ class staffControler extends Controller
      */
     public function index()
     {
-        $staffs = Staff::join('equipes', 'staff.equipe_id', '=', 'equipes.id')
-        ->get(['staff.*', 'equipes.nom']);
+        $staffs=Staff::with('equipe')->latest()->paginate(30);
+        // $staffs = Staff::join('equipes', 'staff.equipe_id', '=', 'equipes.id')
+        // ->get(['staff.*', 'equipes.nom']);
         // $joueurs = DB::select("SELECT joueurs.*,equipes.nom from joueurs,equipes where joueurs.equipe_id=equipes.id");
        $equipes=Equipe::all(['nom','id']);
       return Inertia::render('Admin/Staff/Staff',[

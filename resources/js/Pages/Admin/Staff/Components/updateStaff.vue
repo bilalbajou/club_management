@@ -111,7 +111,7 @@ const submitForm=($id)=>{
     </div>
 
     <div class="ui container">
-        <img class="ui medium circular centered fluid image" :src="url">
+        <img class="ui small circular centered fluid image" :src="url!=null ? url:form.image">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <form  class="ui form">
                     <div class="three fields">
