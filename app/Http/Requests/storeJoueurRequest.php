@@ -32,7 +32,7 @@ class storeJoueurRequest extends FormRequest
             'email' => 'bail|nullable|email',
             'adresse' => 'bail|nullable|string',
             'salaire' => 'bail|nullable|numeric',
-            // 'image' => 'bail|nullable|image',
+            'image' => 'bail|nullable|image|dimensions:min_width=500,min_height=500|mimes:jpg,jpeg,png',
             'telephone' => 'bail|nullable|string'
         ];
     }

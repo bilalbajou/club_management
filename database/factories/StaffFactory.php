@@ -31,5 +31,6 @@ class StaffFactory extends Factory
             'equipe_id' => fake()->numberBetween(1,3),
             'image' => fake()->imageUrl(500,500,"sport")
         ];
+        
     }
 }

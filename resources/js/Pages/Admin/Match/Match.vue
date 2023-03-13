@@ -12,19 +12,20 @@ export default{
 
 
 <script setup>
-import addModalJoueur from "./Components/addModalJoueur.vue";
 
 
+// import addModalStaff from "./Components/addModalStaff.vue";
 
-import Cards from "./Components/Cards.vue";
+// import Cards from "./Components/Cards.vue";
+import addModalMatch from "./Components/addModalMatch.vue";
+
 import { onMounted } from "vue";
-import { Head } from "@inertiajs/vue3";
-import { ref } from "vue";
+// import { Head } from "@inertiajs/vue3";
 
+
+import { ref } from "vue";
 import {reactive} from "vue";
 import {watch} from "vue";
-import { router } from '@inertiajs/vue3'
-import { Inertia } from "@inertiajs/inertia";
 
 onMounted(() => {
     $(document).ready(function(){
@@ -42,42 +43,20 @@ onMounted(() => {
 
 
 
+
 const props = defineProps({
     equipes: Array,
-    joueurs:Object
+    joueurs:Array
 });
 
-const search=ref("");
-const equipe=ref("all");
-const poste=ref("all");
 
-const filter=()=>{
-
-    console.log(search.value);
-    console.log(equipe.value);
-    console.log(poste.value);
-    // router.get(route('joueurs.index',{
-    //     search:search.value,poste:poste.value,equipe:equipe.value
-    // }),{
-          
-    // },
-    // {
-    //    preserveState:true,
-    //    replace:true
-    // })
-
-//  router.visit('/joueurs', {
-//   method: 'get',
-//   data: {
-//     search:search.value,
-//     poste:poste.value,
-//     equipe:equipe.value
-//   },
-//   preserveState:true,
-//   replace:true
-// })
-
-Inerita.get(
+const filter = reactive({
+    search:"",
+    equipe:"all",
+    poste:"all"
+})
+watch(filter, (value) => {
+  Inertia.get(
     "/joueurs",
     { search: value },
     {
@@ -85,38 +64,24 @@ Inerita.get(
     }
   );
 
-
-}
-
-// watch(filter, (value) => {
-//   Inertia.get(
-//     "/joueurs",
-//     { search: value },
-//     {
-//       preserveState: true,
-//     }
-//   );
-
      
-// }); 
+}); 
 
 
 
-const showModalAddJoueur = () => {
-    $("#modalJoueur").modal("show");
+const showModalAddStaff = () => {
+    $("#modalMatch").modal("show");
 };
 </script>
 
 
 
 <template>
-    <!-- <Head title="Joueur" /> -->
 
-   
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="titlePage">
-                    <h2 class="text-4xl font-extrabold">Joueurs</h2>
+                    <h2 class="text-4xl font-extrabold">Match</h2>
                 </div>
             </div>
         </div>
@@ -124,13 +89,13 @@ const showModalAddJoueur = () => {
             <div class="ui stackable four column grid">
                 <div class="column">
                     <div class="ui left icon input">
-                        <input @keyup="filter" v-model="search" type="text" placeholder="Search users..." />
+                        <input v-model="filter.search" type="text" placeholder="Search users..." />
 
                         <i class="users icon"></i>
                     </div>
                 </div>
                 <div class="column">
-                    <select @change="filter" v-model="poste"  class="ui dropdown" id="select">
+                    <select v-model="filter.poste"  class="ui dropdown" id="select">
                         <option value="all">Tous</option>
                         <option value="Gardien">Gardien</option>
                         <option value="Defense">Defense</option>
@@ -140,7 +105,7 @@ const showModalAddJoueur = () => {
                     </select>
                 </div>
                 <div class="column">
-                    <select @change="filter" v-model="equipe"  class="ui dropdown" id="select"> 
+                    <select v-model="filter.equipe"  class="ui dropdown" id="select"> 
                         <option value="all">Tous</option>
                         <option v-for="equipe in equipes" :key="equipe.id" :value="equipe.id">{{ equipe.nom }}</option>
                         
@@ -148,7 +113,7 @@ const showModalAddJoueur = () => {
                 </div>
                 <div class="column">
                     <button
-                        @click="showModalAddJoueur"
+                        @click="showModalAddStaff"
                         class="ui primary button"
                     >
                         Ajouter
@@ -156,11 +121,33 @@ const showModalAddJoueur = () => {
                 </div>
             </div>
         </div>
-         <div class="py-12">
-            <Cards :joueurs="joueurs" />
+         <div class="py-12" style="padding-left: 10px !important;padding-right: 10px !important;">
+            <!-- <Cards :staffs="staffs" /> -->
+            <table class="ui celled table stackable">
+  <thead>
+    <tr><th>#</th>
+    <th>Adversaire</th>
+    <th>date</th>
+    <th>championat</th>
+  </tr></thead>
+  <tbody>
+    <tr>
+      <td data-label="Name">James</td>
+      <td data-label="Age">24</td>
+      <td data-label="Job">Engineer</td>
+      <td data-label="Job">Engineer</td>
+
+    </tr>
+
+  </tbody>
+</table>
+            
+
+
          </div>
         
-
-        <addModalJoueur :equipes="equipes " />
+    <addModalMatch :equipes="equipes" :joueurs="joueurs"/>
     <!-- </AdminDash> -->
 </template>
+
+

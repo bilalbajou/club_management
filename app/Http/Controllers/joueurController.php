@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\storeJoueurRequest;
+use App\Jobs\mailWelcomeJoueur;
 use App\Models\Equipe;
 use Illuminate\Support\Facades\Request;
 use App\Models\Joueur;
+use App\Service\emailVerify;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\DB;
 
@@ -16,14 +18,17 @@ class joueurController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $joueurs=Joueur::with('equipe')->latest()->paginate(30);
-        // dd($joueurs);
-        // $joueurs = Joueur::join('equipes', 'joueurs.equipe_id', '=', 'equipes.id')
-        // ->get(['joueurs.*', 'equipes.nom']);
         
-        // $joueurs = DB::select("SELECT joueurs.*,equipes.nom from joueurs,equipes where joueurs.equipe_id=equipes.id");
+        // dd($request);
+        $joueurs=Joueur::with('equipe')
+        ->when($request,function($query) use($request){
+
+        })
+        ->latest()
+        ->paginate(30)
+        ;
        $equipes=Equipe::all(['nom','id']);
       return Inertia::render('Admin/Joueur/Joueur',[
         'equipes'=>$equipes,
@@ -47,8 +52,9 @@ class joueurController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(storeJoueurRequest $request)
+    public function store(storeJoueurRequest $request,emailVerify $emailVerify)
     {
+        
         
         $joueur=new Joueur();
         $joueur->nom=$request->nom;
@@ -61,6 +67,9 @@ class joueurController extends Controller
         $joueur->email=$request->email;
         $joueur->poste=$request->poste;
         $joueur->equipe_id=$request->equipe;
+        // if($joueur->email){
+        //     $emailVerify->verify($joueur->email);
+        // }
         if($request->file('image')){
           $image=$request->file('image');
           $joueur->image=uniqid()."_".$image->getClientOriginalName();
@@ -76,7 +85,12 @@ class joueurController extends Controller
         }
 
 
-        $joueur->save();
+        if($joueur->save()){
+            if($joueur->email){
+                dispatch(new mailWelcomeJoueur($joueur));
+            }
+
+        }
 
         
         
@@ -140,12 +154,10 @@ class joueurController extends Controller
           $image=$request->file('image');
           $joueur->image=uniqid()."_".$image->getClientOriginalName();
           $image->move(public_path('joueur/image'),$joueur->image);
-
         }
 
         if($request->file('contrat')){
             $contrat=$request->file('contrat');
-            
             $joueur->contrat=uniqid()."_".$contrat->getClientOriginalName();
             $contrat->move(public_path('joueur/contrat'),$joueur->contrat);
         }

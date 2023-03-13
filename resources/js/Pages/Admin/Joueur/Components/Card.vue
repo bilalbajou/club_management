@@ -67,7 +67,8 @@ const deleteJoueur=($id)=>{
         <div class="ui centered card">
             <div class="image">
                 <img
-                    :src="joueur.image==null ?'https://www.kindpng.com/picc/m/235-2350646_login-user-name-user-avatar-svg-hd-png.png':joueur.image"
+                    :src="joueur.image==null ?'https://www.kindpng.com/picc/m/235-2350646_login-user-name-user-avatar-svg-hd-png.png':'/joueur/image/'+joueur.image"
+                    
                 />
             </div>
             <div class="content">

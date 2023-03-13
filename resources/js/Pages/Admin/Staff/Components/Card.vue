@@ -66,7 +66,7 @@ const deleteStaff=($id)=>{
         <div class="ui centered card">
             <div class="image">
                 <img
-                    :src="staff.image==null ?'https://www.kindpng.com/picc/m/235-2350646_login-user-name-user-avatar-svg-hd-png.png':staff.image"
+                    :src="staff.image==null ?'https://www.kindpng.com/picc/m/235-2350646_login-user-name-user-avatar-svg-hd-png.png':'/staff/image/'+staff.image"
                 />
             </div>
             <div class="content">

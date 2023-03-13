@@ -6,6 +6,7 @@ use App\Models\Staff;
 use Illuminate\Http\Request;
 use App\Http\Requests\storeJoueurRequest;
 use App\Models\Equipe;
+use App\Jobs\mailWelcomeStaff;
 
 class staffControler extends Controller
 {
@@ -65,13 +66,15 @@ class staffControler extends Controller
 
         if($request->file('contrat')){
             $contrat=$request->file('contrat');
-            
             $staff->contrat=uniqid()."_".$contrat->getClientOriginalName();
             $contrat->move(public_path('staff/contrat'),$staff->contrat);
         }
 
-
-        $staff->save();
+        if($staff->save()){
+        if($staff->email){
+            dispatch(new mailWelcomeStaff($staff));
+        }
+    }
 
     }
 

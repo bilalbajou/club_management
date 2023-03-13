@@ -56,7 +56,7 @@ let url = ref();
 const previewImage = (e) => {
     const file = e.target.files[0];
     url = URL.createObjectURL(file);
-   
+    document.getElementById("img_joueur").src=url;
 
 };
 
@@ -70,8 +70,8 @@ const form = useForm({
     poste: props.joueur.poste,
     telephone: props.joueur.telephone,
     salaire: props.joueur.salaire,
-    contrat: props.joueur.contrat,
-    image: props.joueur.image,
+    contrat: null,
+    image: null,
     equipe: props.joueur.equipe_id,
     age: props.joueur.age
   
@@ -85,6 +85,7 @@ const resetForm=()=>{
 const submitForm=($id)=>{
          
        form.put(route('joueurs.update',$id),{
+        preserveScroll:true,
         onSuccess:()=>{
             toastr["success"]("Joueur a été modifié  avec succés", "Opération réussi");
         },
@@ -111,7 +112,7 @@ const submitForm=($id)=>{
     </div>
 
     <div class="ui container">
-        <img class="ui medium circular centered fluid image" :src="url">
+        <img class="ui medium circular centered fluid image" id="img_joueur" :src="joueur.image!=null ? '/joueur/image/'+joueur.image:'https://www.kindpng.com/picc/m/235-2350646_login-user-name-user-avatar-svg-hd-png.png'  " >
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <form  class="ui form">
                     <div class="three fields">

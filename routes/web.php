@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\joueurController;
+use App\Http\Controllers\matchController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\staffControler;
 use Illuminate\Foundation\Application;
@@ -39,7 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('joueurs',joueurController::class);
     Route::resource('staffs',staffControler::class);
-
+    Route::resource('matches',matchController::class);
     
 });
 

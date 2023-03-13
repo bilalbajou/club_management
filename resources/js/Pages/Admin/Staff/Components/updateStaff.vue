@@ -56,6 +56,7 @@ let url = ref();
 const previewImage = (e) => {
     const file = e.target.files[0];
     url = URL.createObjectURL(file);
+    document.getElementById("img_staff").src=url;
    
 
 };
@@ -90,7 +91,8 @@ const submitForm=($id)=>{
         },
         onError:()=>{
             toastr["opération echoué"]("Staff a été modifié  avec succés", "Opération réussi");
-        }
+        },
+        preserveScroll:true
        });
        
 
@@ -111,13 +113,13 @@ const submitForm=($id)=>{
     </div>
 
     <div class="ui container">
-        <img class="ui small circular centered fluid image" :src="url!=null ? url:form.image">
+        <img class="ui medium circular centered fluid image" id="img_staff" :src="staff.image!=null ? '/staff/image/'+staff.image:'https://www.kindpng.com/picc/m/235-2350646_login-user-name-user-avatar-svg-hd-png.png'">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <form  class="ui form">
                     <div class="three fields">
                         <div class="field" :class="form.errors.nom ? 'error':''">
                             <label>Nom</label>
-
+                             
                             <input
                                 v-model="form.nom"
                                 type="text"
