@@ -5,8 +5,11 @@ namespace App\Http\Middleware;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tightenco\Ziggy\Ziggy;
+use Tofandel\InertiaVueModal\HandlesInertiaModalRequest;
+
 
 class HandleInertiaRequests extends Middleware
+
 {
     /**
      * The root template that is loaded on the first page visit.

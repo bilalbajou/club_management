@@ -2,6 +2,8 @@
 
 
 import { useForm } from '@inertiajs/vue3';
+import  ficheStaff from './ficheStaff.vue';
+import contratStaffModal from './contratStaffModal.vue';
 toastr.options = {
   "closeButton": true,
   "debug": false,
@@ -28,6 +30,17 @@ const form=useForm({});
 
 const editStaff=($id)=>{
     form.get(route('staffs.edit',$id))
+}
+
+const showFicheStaff=($id)=>{
+    $('#ficheStaff'+$id)
+     .modal('show')
+      ;
+}
+const previewContrat=($id)=>{
+    $('#contratStaffModal'+$id)
+     .modal('show')
+      ;
 }
 const deleteStaff=($id)=>{
 
@@ -99,13 +112,23 @@ const deleteStaff=($id)=>{
                 <button
                     data-content="Fiche joueur"
                     class="circular ui icon button"
+                    @click="showFicheStaff(staff.id)"
                 >
                     <i class="icon eye"></i>
+                </button>
+                <button
+                    v-show="staff.contrat"
+                    @click="previewContrat(staff.id)"
+                    data-content="Télecharger contrat"
+                    class="circular ui icon button"
+                >
+                    <i class="icon file"></i>
                 </button>
             </div>
         </div>
     </div>
 
-   <!-- <FicheClient :joueur="joueur"/> -->
+   <ficheStaff :staff="staff"/>
+   <contratStaffModal :staff="staff" />
 
 </template>

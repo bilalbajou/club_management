@@ -20,6 +20,7 @@ import Cards from "./Components/Cards.vue";
 import { onMounted } from "vue";
 import { Head } from "@inertiajs/vue3";
 
+import { router } from '@inertiajs/vue3'
 
 import { ref } from "vue";
 import {reactive} from "vue";
@@ -48,22 +49,28 @@ const props = defineProps({
 });
 
 
-const filter = reactive({
-    search:"",
-    equipe:"all",
-    poste:"all"
-})
-watch(filter, (value) => {
-  Inertia.get(
-    "/joueurs",
-    { search: value },
-    {
-      preserveState: true,
-    }
-  );
+const search=ref("");
+const equipe=ref("all");
+const fonction=ref("all");
 
-     
-}); 
+const filter=()=>{
+
+console.log(search.value);
+console.log(equipe.value);
+console.log(fonction.value);
+router.get(route('staffs.index',{
+    search:search.value,
+    fonction:fonction.value,
+    equipe:equipe.value
+}),{
+      
+},
+{
+   preserveState:true,
+   replace:true,
+   preserveScroll:true
+})
+}
 
 
 
@@ -89,24 +96,25 @@ const showModalAddStaff = () => {
             <div class="ui stackable four column grid">
                 <div class="column">
                     <div class="ui left icon input">
-                        <input v-model="filter.search" type="text" placeholder="Search users..." />
+                        <input @keyup="filter" v-model="search" type="text" placeholder="Rechercher" />
 
                         <i class="users icon"></i>
                     </div>
                 </div>
                 <div class="column">
-                    <select v-model="filter.poste"  class="ui dropdown" id="select">
-                        <option value="all">Tous</option>
-                        <option value="Gardien">Gardien</option>
-                        <option value="Defense">Defense</option>
-                        <option value="Milieu">Milieu</option>
-                        <option value="Attack">Attack</option>
+                    <select @change="filter" v-model="fonction"  class="ui dropdown" id="select">
+                        <option value="all">Choisir fonction</option>
+                        <option value="Entraineur">Entraineur</option>
+                        <option value="Directeur technique">Directeur technique</option>
+                        <option value="Entraineur adjoint">Entraineur adjoint</option>
+                        <option value="Staff médical">Staff médical</option>
+                        <option value="Entraineur du gardien">Entraineur du gardien</option>
                         
                     </select>
                 </div>
                 <div class="column">
-                    <select v-model="filter.equipe"  class="ui dropdown" id="select"> 
-                        <option value="all">Tous</option>
+                    <select @change="filter" v-model="equipe"  class="ui dropdown" id="select"> 
+                        <option value="all">Choisir equipe</option>
                         <option v-for="equipe in equipes" :key="equipe.id" :value="equipe.id">{{ equipe.nom }}</option>
                         
                     </select>

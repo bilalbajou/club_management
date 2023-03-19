@@ -18,6 +18,10 @@
         "vue": "^3.2.41"
     },
     "dependencies": {
-        "@vuepic/vue-datepicker": "^4.2.0"
+        "@inertiajs/inertia": "^0.11.1",
+        "@protonemedia/inertia-vue-modal-poc": "^0.0.1",
+        "@tofandel/inertia-vue-modal": "file:vendor/tofandel/inertia-vue-modal",
+        "@vuepic/vue-datepicker": "^4.2.0",
+        "portal-vue": "^3.0.0"
     }
 }

@@ -1,6 +1,7 @@
 <script setup>
 
-import FicheClient from './FicheClient.vue';
+import FicheClient from './ficheJoueur.vue';
+import contratModal from './contratJoueurModal.vue';
 
 import { useForm } from '@inertiajs/vue3';
 toastr.options = {
@@ -30,9 +31,21 @@ const form=useForm({});
 const editJoueur=($id)=>{
     form.get(route('joueurs.edit',$id))
 }
+
+const showFichClient=($id)=>{
+    $('#ficheClient'+$id)
+     .modal('show')
+      ;
+}
+
+const previewContrat=($id)=>{
+    $('#contratJoueurModal'+$id)
+     .modal('show')
+      ;
+}
 const deleteJoueur=($id)=>{
 
-    Swal.fire({
+  Swal.fire({
   title: 'Êtes-vous sûr?',
   text: "Êtes-vous sûr de vouloir supprimer ce joueur !",
   icon: 'warning',
@@ -68,7 +81,6 @@ const deleteJoueur=($id)=>{
             <div class="image">
                 <img
                     :src="joueur.image==null ?'https://www.kindpng.com/picc/m/235-2350646_login-user-name-user-avatar-svg-hd-png.png':'/joueur/image/'+joueur.image"
-                    
                 />
             </div>
             <div class="content">
@@ -99,16 +111,26 @@ const deleteJoueur=($id)=>{
                     <i class="icon edit"></i>
                 </button>
                 <button
-                    @click="showFichClient"
+                    @click="showFichClient(joueur.id)"
                     data-content="Fiche joueur"
                     class="circular ui icon button"
                 >
                     <i class="icon eye"></i>
                 </button>
+                <button
+                    v-show="joueur.contrat"
+                    @click="previewContrat(joueur.id)"
+                    data-content="Télecharger contrat"
+                    class="circular ui icon button"
+                >
+                    <i class="icon file"></i>
+                </button>
             </div>
         </div>
     </div>
 
-   <!-- <FicheClient :joueur="joueur"/> -->
+     
+   <FicheClient :joueur="joueur"/>
+   <contratModal :joueur="joueur"/>
 
 </template>

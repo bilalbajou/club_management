@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\storeJoueurRequest;
 use App\Models\Equipe;
 use App\Jobs\mailWelcomeStaff;
+use Illuminate\Http\Client\Request as ClientRequest;
 
 class staffControler extends Controller
 {
@@ -15,12 +16,34 @@ class staffControler extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $staffs=Staff::with('equipe')->latest()->paginate(30);
-        // $staffs = Staff::join('equipes', 'staff.equipe_id', '=', 'equipes.id')
-        // ->get(['staff.*', 'equipes.nom']);
-        // $joueurs = DB::select("SELECT joueurs.*,equipes.nom from joueurs,equipes where joueurs.equipe_id=equipes.id");
+        $search=$request->search;
+        $fonction=$request->fonction;
+        $equipe=$request->equipe;
+
+        $staffs=Staff::with('equipe')
+        ->when($search,function($query) use($search){
+            $query->where("nom","like","%${search}%");
+            $query->orWhere("prenom","like","%${search}%");
+        })
+        ->when($fonction,function($query) use($fonction){
+           
+            if($fonction!="all"){
+            $query->where("fonction",$fonction);
+           }
+           
+        })
+        ->when($equipe,function($query) use($equipe){
+            if($equipe!="all"){
+           $query->where("equipe_id",$equipe);
+        }
+        })
+        
+        ->latest()
+        ->paginate(30)
+        ;
+        
        $equipes=Equipe::all(['nom','id']);
       return Inertia::render('Admin/Staff/Staff',[
         'equipes'=>$equipes,

@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\storeJoueurRequest;
 use App\Jobs\mailWelcomeJoueur;
 use App\Models\Equipe;
-use Illuminate\Support\Facades\Request;
+// use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 use App\Models\Joueur;
 use App\Service\emailVerify;
 use Inertia\Inertia;
@@ -20,14 +21,30 @@ class joueurController extends Controller
      */
     public function index(Request $request)
     {
-        
-        // dd($request);
-        $joueurs=Joueur::with('equipe')
-        ->when($request,function($query) use($request){
+        $search=$request->search;
+        $poste=$request->poste;
+        $equipe=$request->equipe;
 
+        $joueurs=Joueur::with('equipe')
+        ->when($search,function($query) use($search){
+            $query->where("nom","like","%$search%");
+            $query->orWhere("prenom","like","%$search%");
         })
+        ->when($poste,function($query) use($poste){
+           
+            if($poste!="all"){
+            $query->where("poste",$poste);
+           }
+           
+        })
+        ->when($equipe,function($query) use($equipe){
+            if($equipe!="all"){
+           $query->where("equipe_id",$equipe);
+        }
+        })
+        
         ->latest()
-        ->paginate(30)
+        ->paginate(9)
         ;
        $equipes=Equipe::all(['nom','id']);
       return Inertia::render('Admin/Joueur/Joueur',[
@@ -111,7 +128,6 @@ class joueurController extends Controller
      */
     public function show($id)
     {
-        //
     }
 
     /**
