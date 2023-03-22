@@ -69,7 +69,7 @@ class joueurController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(storeJoueurRequest $request,emailVerify $emailVerify)
+    public function store(storeJoueurRequest $request)
     {
         
         
@@ -84,9 +84,6 @@ class joueurController extends Controller
         $joueur->email=$request->email;
         $joueur->poste=$request->poste;
         $joueur->equipe_id=$request->equipe;
-        // if($joueur->email){
-        //     $emailVerify->verify($joueur->email);
-        // }
         if($request->file('image')){
           $image=$request->file('image');
           $joueur->image=uniqid()."_".$image->getClientOriginalName();

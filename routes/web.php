@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\equipeController;
 use App\Http\Controllers\joueurController;
 use App\Http\Controllers\matchController;
 use App\Http\Controllers\ProfileController;
@@ -41,6 +42,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('joueurs',joueurController::class);
     Route::resource('staffs',staffControler::class);
     Route::resource('matches',matchController::class);
+    Route::resource('equipes',equipeController::class);
+
     
 });
 

@@ -70,8 +70,8 @@ const form = useForm({
     poste: props.joueur.poste,
     telephone: props.joueur.telephone,
     salaire: props.joueur.salaire,
-    contrat: null,
-    image: null,
+    contrat: props.joueur.contrat,
+    image: props.joueur.image,
     equipe: props.joueur.equipe_id,
     age: props.joueur.age
   

@@ -14,9 +14,7 @@ class serviceEmailVerify extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(emailVerify::class, function ($app) {
-            return new emailVerify(env('KEY_EMAIL_VERIFY'),env('HOST_EMAIL_VERIFY'));
-        });
+       
     }
 
     /**

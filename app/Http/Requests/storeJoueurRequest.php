@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\emailvalid;
 use Illuminate\Foundation\Http\FormRequest;
 
 class storeJoueurRequest extends FormRequest
@@ -29,11 +30,12 @@ class storeJoueurRequest extends FormRequest
             'age' => 'bail|required|numeric',
             'equipe' => 'required',
             'cin' => 'bail|nullable|string',
-            'email' => 'bail|nullable|email',
+            'email' => ['bail','nullable','email',new emailvalid()],
             'adresse' => 'bail|nullable|string',
             'salaire' => 'bail|nullable|numeric',
             'image' => 'bail|nullable|image|dimensions:min_width=500,min_height=500|mimes:jpg,jpeg,png',
-            'telephone' => 'bail|nullable|string'
+            'telephone' => 'bail|nullable|string',
+            'contrat'=>'bail|nullable||mimes:pdf,jpg,jpeg,png'
         ];
     }
 }

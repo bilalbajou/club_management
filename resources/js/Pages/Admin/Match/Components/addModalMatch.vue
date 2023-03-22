@@ -42,7 +42,8 @@ const form = useForm({
     equipe: null,
     exclure: [],
     remarque: null,
-    date: Date(),
+    date: null,
+    championat:null
 });
 
 
@@ -50,6 +51,13 @@ const filterJoueurs=()=>{
     console.log(form.equipe);
     let joueursFilter = props.joueurs.filter(joueur => joueur.equipe_id==form.equipe);
     joueursFilters=joueursFilter;
+}
+
+const resetFieldsForm=()=>{
+     form.reset();
+     $('.dropdown')
+    .dropdown('clear')
+  ;
 }
 
 
@@ -63,6 +71,9 @@ const submitForm = () => {
         onSuccess: () => {
             toastr["success"]("Staff a été ajouté avec succés", "Opération réussi");
             form.reset();
+            $('.dropdown')
+    .dropdown('clear')
+          ;
         },
         onError: () => {
             toastr["warning"]("Veuillez vérifier votre champs", "Opération echoué");
@@ -96,14 +107,14 @@ const submitForm = () => {
                     <div class="two fields">
                         <div class="field" :class="form.errors.date ? 'error' : ''">
                             <label>Date</label>
-                            <input type="date" v-model="form.date">
+                            <input type="datetime-local" v-model="form.date">
 
-                            <!-- <VueDatePicker v-model="form.date" :format="datetime"></VueDatePicker> -->
+                           
                         </div>
                         <div class="field" :class="form.errors.equipe ? 'error' : ''">
                             <label>Equipe</label>
 
-                            <select @change="filterJoueurs()" name="gender" v-model="form.equipe" class="ui dropdown" id="select">
+                            <select @change="filterJoueurs()"  v-model="form.equipe" class="ui dropdown" id="select">
                                 <option v-for="equipe in equipes" :key="equipe.id" :value="equipe.id">
                                     {{ equipe.nom }}
                                 </option>
@@ -111,12 +122,17 @@ const submitForm = () => {
                         </div>
 
                     </div>
-                    <div class="two fields">
+                    <div class="three fields">
                         <div class="field" :class="form.errors.exclure ? 'error' : ''">
                             <label>Exclure</label>
                             <select v-model="form.exclure" class="ui fluid multiple search selection dropdown"  multiple="">
                                <option v-for="joueur in joueursFilters" :value="joueur.id" :key="joueur.id" >{{ joueur.nom }} {{ joueur.prenom }} {{ joueur.equipe_id }}</option>
                             </select>
+                        </div>
+                        <div class="field" :class="form.errors.exclure ? 'error' : ''">
+                            <label>Championat</label>
+                            <input type="text" v-model="form.championat" placeholder="Championat" />
+
                         </div>
 
                         <div class="field" :class="form.errors.remarque ? 'error' : ''">
@@ -127,20 +143,14 @@ const submitForm = () => {
                     </div>
 
 
-                    <!-- <div v-show="form.errors.any" class="ui error message visible">
-                            <i class="close icon"></i>
-                            <div class="header">
-                                Veuillez vérifier les champs
-                            </div>
-                            <ul class="list">
-                                <li v-for="value in form.errors"> {{ value }}</li>
-                            </ul>
-                        </div> -->
+                  
                 </form>
             </div>
         </div>
         <div class="actions">
             <div class="ui black deny button">Annuler</div>
+            <div class="ui black button" @click="resetFieldsForm">Rséinitialiser</div>
+
             <div :disabled="form.processing" @click="submitForm" class="ui right labeled icon button">
                 Ajouter
                 <i class="checkmark icon"></i>

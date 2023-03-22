@@ -29,7 +29,7 @@ class StaffFactory extends Factory
             'telephone' => fake()->phoneNumber(),
             'age' => fake()->numberBetween(4,50),
             'equipe_id' => fake()->numberBetween(1,3),
-            'image' => fake()->imageUrl(500,500,"sport")
+            // 'image' => fake()->imageUrl(500,500,"sport")
         ];
         
     }

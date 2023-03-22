@@ -18,7 +18,7 @@ export default{
 
 // import Cards from "./Components/Cards.vue";
 import addModalMatch from "./Components/addModalMatch.vue";
-
+import Matches from "./Components/Matches.vue";
 import { onMounted } from "vue";
 // import { Head } from "@inertiajs/vue3";
 
@@ -46,7 +46,8 @@ onMounted(() => {
 
 const props = defineProps({
     equipes: Array,
-    joueurs:Array
+    joueurs:Array,
+    matches:Array
 });
 
 
@@ -121,30 +122,7 @@ const showModalAddStaff = () => {
                 </div>
             </div>
         </div>
-         <div class="py-12" style="padding-left: 10px !important;padding-right: 10px !important;">
-            <!-- <Cards :staffs="staffs" /> -->
-            <table class="ui celled table stackable">
-  <thead>
-    <tr><th>#</th>
-    <th>Adversaire</th>
-    <th>date</th>
-    <th>championat</th>
-  </tr></thead>
-  <tbody>
-    <tr>
-      <td data-label="Name">James</td>
-      <td data-label="Age">24</td>
-      <td data-label="Job">Engineer</td>
-      <td data-label="Job">Engineer</td>
-
-    </tr>
-
-  </tbody>
-</table>
-            
-
-
-         </div>
+         <Matches :matches="matches"/>
         
     <addModalMatch :equipes="equipes" :joueurs="joueurs"/>
     <!-- </AdminDash> -->

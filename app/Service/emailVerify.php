@@ -6,14 +6,11 @@ use Illuminate\Support\Facades\Http;
 
 class emailVerify{
 
-    public $key;
-    public $host;
-    public $email;
+   
 
- public function __construct($key,$host)
+ public function __construct()
  {
-    $this->key=$key;
-    $this->host=$host;
+    
 
  }
 
@@ -25,8 +22,10 @@ class emailVerify{
         ]
         )->get('https://validect-email-verification-v1.p.rapidapi.com/v1/verify?email='.$email);
         if($response->json()['status']=='invalid'){
-            dd("invalid".$email);
+            return false;
          }
+
+         return true;
         }
 }
 

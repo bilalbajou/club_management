@@ -13,16 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('joueur_match', function (Blueprint $table) {
+        Schema::create('staff_match', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->foreignId('matche_id')->constrained();
 
-            $table->foreignId('joueur_id')->constrained();
-
-
-       
-
-        
+            $table->foreignId('staff_id')->constrained();
+ 
         });
     }
 
@@ -34,5 +30,6 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('joueur_match');
+
     }
 };

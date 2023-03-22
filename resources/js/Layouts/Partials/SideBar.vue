@@ -8,6 +8,12 @@
           Tableau du bord
         </div>
       </Link>
+      <Link :href="route('equipes.index')" class="item">
+        <div class="">
+          <i class="icon chart line"></i>
+          Equipe
+        </div>
+      </Link>
       <Link :href="route('joueurs.index')" class="item">
         <div>
           <i class="icon users"></i>
