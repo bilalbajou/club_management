@@ -33,7 +33,7 @@ class mailWelcomeStaff implements ShouldQueue
     public function handle()
     {
         $staff=$this->staff;
-        $email = new staffWelcome($staff);
-        Mail::to($staff->email)->send($email);
+        
+        Mail::to($staff->email)->send(new staffWelcome($staff));
     }
 }

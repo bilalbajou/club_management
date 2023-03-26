@@ -33,7 +33,7 @@ class ConvMatchjoueur extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Convocation du match',
+            subject: 'Matche programmé',
         );
     }
 

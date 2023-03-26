@@ -33,7 +33,6 @@ class mailWelcomeJoueur implements ShouldQueue
     public function handle()
     {
         $joueur=$this->joueur;
-        $email = new joueurWelcome($joueur);
-        Mail::to($joueur->email)->send($email);
+        Mail::to($joueur->email)->send(new joueurWelcome($joueur));
     }
 }

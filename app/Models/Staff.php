@@ -19,8 +19,5 @@ class Staff extends Model
     }
 
 
-    public function matches()
-    {
-        return $this->belongsToMany(Matche::class, 'joueur_match', 'match_id', 'staff_id');
-    }
+    
 }

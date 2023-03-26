@@ -17,4 +17,6 @@ class Matche extends Model
         return $this->belongsToMany(Joueur::class, 'joueur_match', 'match_id', 'joueur_id');
     }
 
+ 
+
 }

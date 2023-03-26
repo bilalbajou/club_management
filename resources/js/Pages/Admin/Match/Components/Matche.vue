@@ -1,7 +1,7 @@
 <script setup>
 const props = defineProps({
     matche:Object,
-    index:String
+    index:Number
 });
 
 

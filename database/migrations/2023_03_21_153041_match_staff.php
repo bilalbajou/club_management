@@ -29,7 +29,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('joueur_match');
+        Schema::dropIfExists('staff_match');
 
     }
 };

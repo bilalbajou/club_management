@@ -23,5 +23,9 @@ class Joueur extends Model
     {
         return $this->belongsToMany(Matche::class, 'joueur_match', 'match_id', 'joueur_id');
     }
+    public function entrainements()
+    {
+        return $this->belongsToMany(Entrainement::class, 'joueur_entrainement', 'entrainement_id', 'joueur_id');
+    }
 
 }

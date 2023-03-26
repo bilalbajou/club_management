@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\entrainementController;
 use App\Http\Controllers\equipeController;
 use App\Http\Controllers\joueurController;
 use App\Http\Controllers\matchController;
@@ -43,6 +44,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('staffs',staffControler::class);
     Route::resource('matches',matchController::class);
     Route::resource('equipes',equipeController::class);
+    Route::resource('entrainements',entrainementController::class);
+    Route::put('/annuler/{id}',[entrainementController::class,'annuler'])->name('entrainement.annuler');
 
     
 });

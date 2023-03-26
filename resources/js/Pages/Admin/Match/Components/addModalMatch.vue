@@ -69,7 +69,7 @@ const submitForm = () => {
 
     form.post(route("matches.store"), {
         onSuccess: () => {
-            toastr["success"]("Staff a été ajouté avec succés", "Opération réussi");
+            toastr["success"]("Matche a été ajouté avec succés", "Opération réussi");
             form.reset();
             $('.dropdown')
     .dropdown('clear')

@@ -19,6 +19,9 @@ class Equipe extends Model
     }
 
     public function staffs(){
-        return $this->hasMany(Joueur::class);
+        return $this->hasMany(Staff::class);
+    }
+    public function entrainements(){
+        return $this->hasMany(Entrainement::class);
     }
 }

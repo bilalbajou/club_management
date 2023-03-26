@@ -10,7 +10,7 @@
       </Link>
       <Link :href="route('equipes.index')" class="item">
         <div class="">
-          <i class="icon chart line"></i>
+          <i class="icon sitemap"></i>
           Equipe
         </div>
       </Link>
@@ -32,9 +32,10 @@
           Match
         </div>
       </Link>
-      <Link :href="route('staffs.index')" class="item">
+      <Link :href="route('entrainements.index')" class="item">
         <div>
-          <i class="icon user"></i>
+          <i class="icon calendar
+"></i>
           Entrainement
         </div>
       </Link>
