@@ -249,7 +249,7 @@ const submitForm = () => {
                         </div>
                     </div>
 
-                    <!-- <div v-show="form.errors.any" class="ui error message visible">
+                    <div v-show="form.hasErrors" class="ui error message visible">
                         <i class="close icon"></i>
                         <div class="header">
                             Veuillez vérifier les champs
@@ -257,7 +257,7 @@ const submitForm = () => {
                         <ul class="list">
                             <li v-for="value in form.errors"> {{ value }}</li>
                         </ul>
-                    </div> -->
+                    </div>
                 </form>
             </div>
         </div>

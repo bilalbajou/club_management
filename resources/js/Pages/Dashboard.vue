@@ -1,12 +1,12 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AdminDash.vue';
+import AdminDash from '@/Layouts/AdminDash.vue';
 import { Head } from '@inertiajs/vue3';
 </script>
 
 <template>
     <Head title="Dashboard" />
 
-    <AuthenticatedLayout>
+    <AdminDash>
       
 
         <div class="py-12">
@@ -16,5 +16,5 @@ import { Head } from '@inertiajs/vue3';
                 </div>
             </div>
         </div>
-    </AuthenticatedLayout>
+    </AdminDash>
 </template>

@@ -66,7 +66,7 @@ const submitForm=()=>{
   </div>
   <div class="actions">
     <div class="ui cancel button">Annuler</div>
-    <div @click="submitForm" class="ui black button">Confirmer</div>
+    <div @click="submitForm()" :disabled="form.processing" class="ui black button">Confirmer</div>
   </div>
 </div>
 

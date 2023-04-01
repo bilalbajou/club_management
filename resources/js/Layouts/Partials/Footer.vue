@@ -1,8 +1,7 @@
 <template>
-   <footer class="footer">
-          © 2021 Adminwrap by
-          <a href="https://www.wrappixel.com/">wrappixel.com</a>
-        </footer>
+    <footer class="w-full bg-white text-right p-4">
+                Built by <a target="_blank" href="https://davidgrzyb.com" class="underline">David Grzyb</a>.
+            </footer>
 </template>
 
 

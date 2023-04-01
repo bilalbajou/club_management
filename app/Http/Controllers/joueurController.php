@@ -11,6 +11,7 @@ use App\Models\Joueur;
 use App\Service\emailVerify;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class joueurController extends Controller
 {
@@ -49,7 +50,10 @@ class joueurController extends Controller
        $equipes=Equipe::all(['nom','id']);
       return Inertia::render('Admin/Joueur/Joueur',[
         'equipes'=>$equipes,
-        'joueurs'=>$joueurs
+        'joueurs'=>$joueurs,
+        'search'=>$search,
+        'poste'=>$poste,
+        'equipe'=>$equipe
       ]);
     }
 
@@ -193,5 +197,11 @@ class joueurController extends Controller
 
         Joueur::findOrFail($id)->delete();
         return to_route('joueurs.index');
+    }
+
+    public function generateFicheJoueur($id){
+        $joueur=Joueur::findOrfail($id);
+        $pdf = PDF::loadView('pdf.ficheJoueur',compact('joueur'));
+        return $pdf->download(uniqid().$joueur->nom.' '.$joueur->prenom.'.pdf');    
     }
 }

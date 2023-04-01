@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Equipe;
+use App\Models\Joueur;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -20,6 +21,12 @@ class equipeController extends Controller
             'equipes'=>$equipes
           ]);
         
+    }
+
+    public function getJoueurs(Request $request){
+        $joueurs=Joueur::where('equipe_id',$request->id)->get(['nom','prenom','id']);
+        dd($request->id);
+        return $joueurs;
     }
 
     /**
@@ -79,7 +86,12 @@ class equipeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'nom' => 'required|string'
+        ]);
+        $equipes=Equipe::find($id);
+        $equipes->nom=$request->nom;
+        $equipes->save();
     }
 
     /**

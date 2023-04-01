@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests\storeJoueurRequest;
 use App\Models\Equipe;
 use App\Jobs\mailWelcomeStaff;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Client\Request as ClientRequest;
+use Illuminate\Support\Facades\DB;
 
 class staffControler extends Controller
 {
@@ -47,7 +49,10 @@ class staffControler extends Controller
        $equipes=Equipe::all(['nom','id']);
       return Inertia::render('Admin/Staff/Staff',[
         'equipes'=>$equipes,
-        'staffs'=>$staffs
+        'staffs'=>$staffs,
+        'search'=>$search,
+        'fonction'=>$fonction,
+        'equipe'=>$equipe
       ]);
     }
 
@@ -177,5 +182,12 @@ class staffControler extends Controller
     {
         Staff::findOrFail($id)->delete();
         return to_route('staffs.index');
+    }
+
+
+    public function generateFicheStaff($id){
+        $staff=Staff::findOrfail($id);
+        $pdf = Pdf::loadView('pdf.ficheStaff');
+        return $pdf->download(uniqid().$staff->nom.' '.$staff->prenom.'.pdf');    
     }
 }

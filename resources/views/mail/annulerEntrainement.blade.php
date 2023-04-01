@@ -25,7 +25,7 @@
                     <tr>
                         <td style="text-align:center;">
                           <a href="{{route('dashboard')}}" title="logo" target="_blank">
-                            <img width="100" src="{{ asset('image/logo_club.png') }}" title="logo" alt="logo">
+                            <img src={{url('/image/logo_club.png')}}  alt="logo" width="100">
                           </a>
                         </td>
                     </tr>

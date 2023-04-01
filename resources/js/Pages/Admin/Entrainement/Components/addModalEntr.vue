@@ -114,7 +114,7 @@ const submitForm = () => {
             <div class="ui black deny button">Annuler</div>
             <div class="ui black button" @click="resetFieldsForm">Rséinitialiser</div>
 
-            <div :disabled="form.processing" @click="submitForm" class="ui right labeled icon button">
+            <div :disabled="form.processing" @click="submitForm" class="ui right labeled icon button" >
                 Ajouter
                 <i class="checkmark icon"></i>
             </div>

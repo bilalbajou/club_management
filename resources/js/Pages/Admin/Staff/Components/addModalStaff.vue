@@ -197,7 +197,7 @@ const submitForm = () => {
                             <input type="file" @input="form.contrat = $event.target.files[0]"
  />
                         </div>
-                        <div class="field" :class="form.errors.image ? 'error':''">
+                         <div class="field" :class="form.errors.image ? 'error':''">
                             <label>Image</label>
 
                             <input
@@ -207,7 +207,8 @@ const submitForm = () => {
                                 multiple
                             />
                             
-                        </div>
+                        </div> 
+
                     </div>
                     
                     <!-- <div v-show="form.errors.any" class="ui error message visible">

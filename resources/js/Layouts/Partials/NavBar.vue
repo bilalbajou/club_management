@@ -1,16 +1,10 @@
 <script setup>
  import { Link } from '@inertiajs/vue3'
-
  $(document).ready(function(){
-
    $('.dropdown')
     .dropdown()
   ;
   });
-
-
-
-
 </script>
 <template>
       <nav class="ui top fixed inverted menu">
@@ -43,7 +37,4 @@
       </div>
     </nav>
 </template>
-
-
-
 

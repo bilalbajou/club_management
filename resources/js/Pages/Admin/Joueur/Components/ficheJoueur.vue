@@ -1,9 +1,23 @@
 <script setup>
+import { useForm } from '@inertiajs/inertia-vue3';
 
+const form=useForm({});
 
 const props = defineProps({
     joueur: Object,
 });
+
+const generatePDF=(id)=>{
+  form.get(route('joueurs.generate',id),{
+        preserveScroll:true,
+        onSuccess:()=>{
+            $('#ficheClient'+id)
+            .modal('hide')
+            ;
+        }
+        
+    });
+}
 
 
 </script>
@@ -137,7 +151,7 @@ const props = defineProps({
     <div class="ui black deny button">
       Fermer
     </div>
-    <div class="ui positive right labeled icon button">
+    <div @click="generatePDF(joueur.id)" class="ui positive right labeled icon button">
       Télécharger fiche joueur
       <i class="checkmark icon"></i>
     </div>

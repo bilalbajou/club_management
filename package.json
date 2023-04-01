@@ -22,6 +22,7 @@
         "@protonemedia/inertia-vue-modal-poc": "^0.0.1",
         "@tofandel/inertia-vue-modal": "file:vendor/tofandel/inertia-vue-modal",
         "@vuepic/vue-datepicker": "^4.2.0",
+        "alpinejs": "^3.12.0",
         "portal-vue": "^3.0.0"
     }
 }

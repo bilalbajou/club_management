@@ -71,8 +71,8 @@ const form = useForm({
     fonction: props.staff.fonction,
     telephone: props.staff.telephone,
     salaire: props.staff.salaire,
-    contrat: props.staff.contrat,
-    image: props.staff.image,
+    contrat: null,
+    image: null,
     equipe: props.staff.equipe_id,
     age: props.staff.age
   

@@ -45,7 +45,7 @@ class matcheStoreDetailJob implements ShouldQueue
         $filteredjoueurs = $joueurs->whereNotBetween('id', $this->exclure);
 
         foreach($filteredjoueurs as $joueur){
-             DB::insert('insert into joueur_match (matche_id,joueur_id) values (?,?)', [$this->matche->id,$joueur->id]);
+             DB::insert('insert into joueur_match(matche_id,joueur_id) values (?,?)', [$this->matche->id,$joueur->id]);
              sleep(2);
              if($joueur->email){
              Mail::to($joueur->email)->send(new ConvMatchjoueur($this->matche,$joueur));

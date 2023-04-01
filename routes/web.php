@@ -43,9 +43,16 @@ Route::middleware('auth')->group(function () {
     Route::resource('joueurs',joueurController::class);
     Route::resource('staffs',staffControler::class);
     Route::resource('matches',matchController::class);
+    Route::put('/annuler/matche/{id}',[matchController::class,'annuler'])->name('matches.annuler');
     Route::resource('equipes',equipeController::class);
     Route::resource('entrainements',entrainementController::class);
-    Route::put('/annuler/{id}',[entrainementController::class,'annuler'])->name('entrainement.annuler');
+    Route::put('/annuler/entrainement/{id}',[entrainementController::class,'annuler'])->name('entrainement.annuler');
+    Route::get('/listeJoueurs',[equipeController::class,'getJoueurs'])->name('equipe.joueurs');
+    Route::get('/generatepdf/joueur/{id}',[joueurController::class,'generateFicheJoueur'])->name('joueurs.generate');
+    Route::get('/generatepdf/staff/{id}',[staffControler::class,'generateFicheStaff'])->name('staffs.generate');
+
+
+    
 
     
 });

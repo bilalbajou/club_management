@@ -10,13 +10,20 @@ export default {
 <script setup>
 import Entrainements from "./Components/Entrainements.vue";
 import { onMounted } from "vue";
-import addModalEntr from "./Components/addModalEntr.vue"
+import addModalEntr from "./Components/addModalEntr.vue";
+import { ref } from "vue";
+import { router } from "@inertiajs/vue3";
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css';
 const showModalAddEntrainement = () => {
     $("#modalEntrainement").modal("show");
 };
 
 onMounted(() => {
     $(document).ready(function () {
+        $('.ui.dropdown')
+  .dropdown()
+;
        
 
         $(".button").popup({
@@ -27,9 +34,38 @@ onMounted(() => {
 
 const props = defineProps({
     equipes: Array,
-    entrainements:Array
+    entrainements:Array,
+    etat:String,
+    equipe:String,
+    date:Array,
 
 });
+
+const equipe=ref(props.equipe ?? "all");
+const etat=ref(props.etat ?? "all");
+const date=ref(props.date ?? []);
+
+const filter=_.throttle(()=>{
+
+
+console.log(equipe.value);
+console.log(etat.value);
+console.log(date.value);
+router.get(route('entrainements.index',{
+
+    etat:etat.value,
+    equipe:equipe.value,
+    date:date.value
+}),{
+      
+},
+{
+   preserveState:true,
+   replace:true,
+   preserveScroll:true
+})
+},1000)
+
 
 
 
@@ -50,14 +86,22 @@ const props = defineProps({
             <div class="ui stackable four column grid">
                 <div class="column">
                     <div class="ui left icon input">
-                        <input @keyup="filter" v-model="search" type="text" placeholder="Rechercher" />
-
-                        <i class="users icon"></i>
+                        <VueDatePicker @internal-model-change="filter" model-type="yyyy.MM.dd"  v-model="date" :partial-range="true" range />
                     </div>
                 </div>
                 <div class="column">
+                    <select @change="filter" v-model="etat"  class="ui dropdown" id="select">
+                        <option value="all">Tous</option>
+                        <option value="annulé">Annulé</option>
+                        <option value="reporté">Reporté</option>
+                        <option value="programmé">Programmé</option>
+                        <option value="terminé">Terminé</option>
+                        
+                    </select>
+                </div>
+                <div class="column">
                     <select @change="filter" v-model="equipe"  class="ui dropdown" id="select"> 
-                        <option value="all">Choisir Equipe</option>
+                        <option value="all">Tous</option>
                         <option v-for="equipe in equipes" :key="equipe.id" :value="equipe.id">{{ equipe.nom }}</option>
                         
                     </select>
@@ -69,13 +113,6 @@ const props = defineProps({
                     >
                         Ajouter
                     </button>
-                </div>
-                <div class="column">
-                    <div class="ui left icon input">
-                        <input @keyup="filter" v-model="search" type="text" placeholder="Rechercher" />
-
-                        <i class="users icon"></i>
-                    </div>
                 </div>
             </div>
         </div>

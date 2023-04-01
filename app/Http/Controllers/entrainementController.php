@@ -16,13 +16,38 @@ class entrainementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $entrainements=Entrainement::with('equipe')->get();
+        $etat=$request->etat;
+        $equipe=$request->equipe;
+        $date=$request->date;
+        $entrainements=Entrainement::with('equipe')
+        ->when($etat,function($query) use($etat){
+            if($etat!="all"){
+            $query->where("etat",$etat);
+           }
+        })
+        ->when($equipe,function($query) use($equipe){
+            if($equipe!="all"){
+           $query->where("equipe_id",$equipe);
+        }
+        })
+        ->when($date,function($query) use($date){
+            // if($date!="all"){
+          $query->whereBetween('date',$date);
+        // }
+        })
+        
+        ->latest()
+        ->get();
+        ;
         $equipes=Equipe::all(['nom','id']);
         return Inertia::render('Admin/Entrainement/Entrainement',[
             'equipes'=>$equipes,
-            'entrainements'=>$entrainements
+            'entrainements'=>$entrainements,
+            'etat'=>$etat,
+            'equipe'=>$equipe,
+            'date'=>$date
           ]);
         
     }

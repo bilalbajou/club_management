@@ -44,12 +44,15 @@ onMounted(() => {
 
 const props = defineProps({
     equipes: Array,
-    joueurs:Object
+    joueurs:Object,
+    poste:String,
+    equipe:String,
+    search:String
 });
 
-const search=ref("");
-const equipe=ref("all");
-const poste=ref("all");
+const search=ref(props.search ??"");
+const equipe=ref(props.equipe ?? "all");
+const poste=ref(props.poste ?? "all");
 
 const filter=_.throttle(()=>{
 
@@ -103,7 +106,7 @@ const showModalAddJoueur = () => {
                 </div>
                 <div class="column">
                     <select @change="filter" v-model="poste"  class="ui dropdown" id="select">
-                        <option value="all">Choisir poste</option>
+                        <option value="all">Tous</option>
                         <option value="Gardien">Gardien</option>
                         <option value="Defense">Defense</option>
                         <option value="Milieu">Milieu</option>
@@ -113,7 +116,7 @@ const showModalAddJoueur = () => {
                 </div>
                 <div class="column">
                     <select @change="filter" v-model="equipe"  class="ui dropdown" id="select"> 
-                        <option value="all">Choisir Equipe</option>
+                        <option value="all">Tous</option>
                         <option v-for="equipe in equipes" :key="equipe.id" :value="equipe.id">{{ equipe.nom }}</option>
                         
                     </select>

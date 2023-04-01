@@ -22,10 +22,12 @@ import Matches from "./Components/Matches.vue";
 import { onMounted } from "vue";
 // import { Head } from "@inertiajs/vue3";
 
-
+import {router} from "@inertiajs/vue3";
 import { ref } from "vue";
 import {reactive} from "vue";
 import {watch} from "vue";
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css';
 
 onMounted(() => {
     $(document).ready(function(){
@@ -41,36 +43,46 @@ onMounted(() => {
   });
 })
 
-
-
-
 const props = defineProps({
     equipes: Array,
     joueurs:Array,
-    matches:Array
+    matches:Array,
+    search:String,
+    equipe:String,
+    etat:String,
+    date:Array
 });
 
+const search=ref(props.search ??"");
+const equipe=ref(props.equipe ?? "all");
+const etat=ref(props.etat ?? "all");
+const date=ref(props.date ?? []);
 
-const filter = reactive({
-    search:"",
-    equipe:"all",
-    poste:"all"
+const filter=_.throttle(()=>{
+
+console.log(search.value);
+console.log(equipe.value);
+console.log(etat.value);
+router.get(route('matches.index',{
+    search:search.value,
+    etat:etat.value,
+    equipe:equipe.value,
+    date:date.value
+}),{
+      
+},
+{
+   preserveState:true,
+   replace:true,
+   preserveScroll:true
 })
-watch(filter, (value) => {
-  Inertia.get(
-    "/joueurs",
-    { search: value },
-    {
-      preserveState: true,
-    }
-  );
-
-     
-}); 
+},1000)
 
 
 
-const showModalAddStaff = () => {
+
+
+const showModalAddMatch = () => {
     $("#modalMatch").modal("show");
 };
 </script>
@@ -87,26 +99,31 @@ const showModalAddStaff = () => {
             </div>
         </div>
         <div class="pl-5">
-            <div class="ui stackable four column grid">
+            <div class="ui stackable five column grid">
                 <div class="column">
                     <div class="ui left icon input">
-                        <input v-model="filter.search" type="text" placeholder="Search users..." />
+                        <input @keyup="filter" v-model="search" type="text" placeholder="Rechercher par adversaire" />
 
                         <i class="users icon"></i>
                     </div>
                 </div>
                 <div class="column">
-                    <select v-model="filter.poste"  class="ui dropdown" id="select">
+                    <div class="ui left icon input">
+                        <VueDatePicker @internal-model-change="filter" model-type="yyyy.MM.dd"  v-model="date" range :partial-range="false"/>
+                    </div>
+                </div>
+                <div class="column">
+                    <select @change="filter" v-model="etat"  class="ui dropdown" id="select">
                         <option value="all">Tous</option>
-                        <option value="Gardien">Gardien</option>
-                        <option value="Defense">Defense</option>
-                        <option value="Milieu">Milieu</option>
-                        <option value="Attack">Attack</option>
+                        <option value="Annulé">Annulé</option>
+                        <option value="reporté">Reporté</option>
+                        <option value="programmé">Programmé</option>
+                        <option value="terminé">Terminé</option>
                         
                     </select>
                 </div>
                 <div class="column">
-                    <select v-model="filter.equipe"  class="ui dropdown" id="select"> 
+                    <select @change="filter" v-model="equipe"  class="ui dropdown" id="select"> 
                         <option value="all">Tous</option>
                         <option v-for="equipe in equipes" :key="equipe.id" :value="equipe.id">{{ equipe.nom }}</option>
                         
@@ -114,7 +131,7 @@ const showModalAddStaff = () => {
                 </div>
                 <div class="column">
                     <button
-                        @click="showModalAddStaff"
+                        @click="showModalAddMatch"
                         class="ui primary button"
                     >
                         Ajouter

@@ -12,6 +12,7 @@ import {onMounted} from 'vue';
 </script>
 
 <script setup>
+
 toastr.options = {
   "closeButton": true,
   "debug": false,
@@ -49,6 +50,8 @@ const props = defineProps({
   .dropdown()
 ;
 });
+
+
 })
 
 let url = ref();
@@ -70,8 +73,8 @@ const form = useForm({
     poste: props.joueur.poste,
     telephone: props.joueur.telephone,
     salaire: props.joueur.salaire,
-    contrat: props.joueur.contrat,
-    image: props.joueur.image,
+    contrat: null,
+    image: null,
     equipe: props.joueur.equipe_id,
     age: props.joueur.age
   
@@ -84,7 +87,7 @@ const resetForm=()=>{
 
 const submitForm=($id)=>{
          
-       form.put(route('joueurs.update',$id),{
+       form.patch(route('joueurs.update',$id),{
         preserveScroll:true,
         onSuccess:()=>{
             toastr["success"]("Joueur a été modifié  avec succés", "Opération réussi");
@@ -229,7 +232,7 @@ const submitForm=($id)=>{
                         <div class="field" :class="form.errors.contrat ? 'error':''">
                             <label>Contrat</label>
 
-                            <input type="file" @input="form.contrat = $event.target.files[0]"
+                            <input  type="file" @input="form.contrat = $event.target.files[0]"
  />
                         </div>
                         <div class="field" :class="form.errors.image ? 'error':''">
@@ -239,9 +242,8 @@ const submitForm=($id)=>{
                                 type="file"
                                 @input="form.image = $event.target.files[0]"
                                 @change="previewImage"
-                                multiple
+                                
                             />
-                            
                         </div>
                     </div>
                     
