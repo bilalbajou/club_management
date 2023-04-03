@@ -109,7 +109,7 @@ const showModalAddMatch = () => {
                 </div>
                 <div class="column">
                     <div class="ui left icon input">
-                        <VueDatePicker @internal-model-change="filter" model-type="yyyy.MM.dd"  v-model="date" range :partial-range="false"/>
+                        <VueDatePicker @internal-model-change="filter" model-type="yyyy.MM.dd"  v-model="date" range/>
                     </div>
                 </div>
                 <div class="column">

@@ -49,8 +49,9 @@ class matchController extends Controller
         }
         })
         ->when($date,function($query) use($date){
+            if((count($date)==2)&&($date[1]!=null)){
           $query->whereBetween('date',$date);
-       
+        }
         })
         ->get();
 

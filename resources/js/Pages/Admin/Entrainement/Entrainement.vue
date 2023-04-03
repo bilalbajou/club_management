@@ -86,7 +86,8 @@ router.get(route('entrainements.index',{
             <div class="ui stackable four column grid">
                 <div class="column">
                     <div class="ui left icon input">
-                        <VueDatePicker @internal-model-change="filter" model-type="yyyy.MM.dd"  v-model="date" :partial-range="true" range />
+                      
+                        <VueDatePicker @internal-model-change="filter" model-type="yyyy.MM.dd"  v-model="date"  range />
                     </div>
                 </div>
                 <div class="column">

@@ -6,6 +6,7 @@ use App\Http\Controllers\joueurController;
 use App\Http\Controllers\matchController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\staffControler;
+use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -55,6 +56,15 @@ Route::middleware('auth')->group(function () {
     
 
     
+});
+
+Route::middleware(['auth','isAdmin'])->group(function () {
+    Route::resource('users',UserController::class);
+    Route::patch('/users/activer/{id}',[UserController::class,'activer'])->name('users.activer');
+    Route::patch('/users/desactiver/{id}',[UserController::class,'desactiver'])->name('users.desactiver');
+
+
+
 });
 
 require __DIR__.'/auth.php';

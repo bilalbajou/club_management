@@ -155,6 +155,11 @@ const submit = () => {
                             </li>
                         </ul>
                     </div>
+                    <div v-show="$page.props.flash.error" class="ui error message">
+                        <ul class="list">
+                            <li>{{ $page.props.flash.error }}</li>
+                        </ul>
+                    </div>
                         
                 </form>
 

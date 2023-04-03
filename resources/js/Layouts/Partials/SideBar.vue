@@ -1,3 +1,10 @@
+<script setup>
+import {Link} from '@inertiajs/vue3'
+import { computed } from 'vue'
+import { usePage } from '@inertiajs/vue3'
+
+const user = computed(() => usePage().props.auth.user)
+</script>
 <template>
   <div class="ui sidebar inverted vertical menu sidebar-menu" id="sidebar">
         
@@ -39,6 +46,28 @@
             Entrainement
           </div>
         </Link>
+        <Link :href="route('entrainements.index')" class="item">
+          <div>
+            <i class="money bill alternate
+  "></i>
+            Prime
+          </div>
+        </Link>
+        <Link :href="route('entrainements.index')" class="item">
+          <div>
+            <i class="icon calendar
+  "></i>
+            Salaire
+          </div>
+        </Link>
+        <Link v-show="user.role=='admin'" :href="route('users.index')" class="item">
+          <div>
+            <i class="icon user circle
+
+  "></i>
+            Utilisateur
+          </div>
+        </Link>
       
   
        
@@ -49,6 +78,3 @@
   
   </template>
   
-  <script setup>
-  import {Link} from '@inertiajs/vue3'
-  </script>

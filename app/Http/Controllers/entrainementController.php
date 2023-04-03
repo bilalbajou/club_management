@@ -33,9 +33,9 @@ class entrainementController extends Controller
         }
         })
         ->when($date,function($query) use($date){
-            // if($date!="all"){
+            if((count($date)==2)&&($date[1]!=null)){
           $query->whereBetween('date',$date);
-        // }
+        }
         })
         
         ->latest()
