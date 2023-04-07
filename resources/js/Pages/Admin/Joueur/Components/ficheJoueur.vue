@@ -7,17 +7,17 @@ const props = defineProps({
     joueur: Object,
 });
 
-const generatePDF=(id)=>{
-  form.get(route('joueurs.generate',id),{
-        preserveScroll:true,
-        onSuccess:()=>{
-            $('#ficheClient'+id)
-            .modal('hide')
-            ;
-        }
+// const generatePDF=(id)=>{
+//   form.get(route('joueurs.generate',id),{
+//         preserveScroll:true,
+//         onSuccess:()=>{
+//             $('#ficheClient'+id)
+//             .modal('hide')
+//             ;
+//         }
         
-    });
-}
+//     });
+// }
 
 
 </script>
@@ -151,10 +151,10 @@ const generatePDF=(id)=>{
     <div class="ui black deny button">
       Fermer
     </div>
-    <div @click="generatePDF(joueur.id)" class="ui positive right labeled icon button">
+    <!-- <div @click="generatePDF(joueur.id)" class="ui positive right labeled icon button">
       Télécharger fiche joueur
       <i class="checkmark icon"></i>
-    </div>
+    </div> -->
   </div>
 </div>
 

@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -13,13 +14,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('entrainements', function (Blueprint $table) {
+        Schema::create('reglement_salaires', function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->dateTime('date');
-            $table->text("remarque")->nullable();
-            $table->enum('etat', ['programmé', 'reporté','annulé','terminé'])->default('programmé');
-            $table->foreignId('equipe_id')->constrained();
-            $table->softDeletes();
+            $table->string('mois');
+            $table->double('montant');
+            $table->text('remarque');
+            $table->foreignId('joueur_id')->constrained();
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('entrainements');
+        Schema::dropIfExists('reglement_salaires');
     }
 };

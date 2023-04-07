@@ -9,6 +9,23 @@ import { Link } from '@inertiajs/vue3';
 import NavBar from './Partials/NavBar.vue';
 import SideBar from './Partials/SideBar.vue';
 import Footer from './Partials/Footer.vue';
+
+$(document).ready(function() {
+  $('.ui.dropdown').dropdown();
+  $('.sidebar-menu-toggler').on('click', function() {
+    var target = $(this).data('target');
+    $(target)
+      .sidebar({
+        dinPage: true,
+        transition: 'overlay',
+        mobileTransition: 'overlay'
+      })
+      .sidebar('toggle');
+  });
+});
+
+
+
 </script>
 
 <template>
@@ -19,6 +36,12 @@ import Footer from './Partials/Footer.vue';
           <slot />
       </div>
     </div>
+
+
     
+   
+
+  
+ 
        
 </template>

@@ -19,6 +19,11 @@ class Joueur extends Model
         return $this->belongsTo(Equipe::class);
     }
 
+    public function reglementSalaire(){
+        
+        return $this->belongsTo(reglementSalaire::class);
+    }
+
     public function matches()
     {
         return $this->belongsToMany(Matche::class, 'joueur_match', 'match_id', 'joueur_id');

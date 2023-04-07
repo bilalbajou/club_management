@@ -7,17 +7,17 @@ const props = defineProps({
     staff: Object,
 });
 
-const generatePDF=(id)=>{
-  form.get(route('staffs.generate',id),{
-        preserveScroll:true,
-        onSuccess:()=>{
-            $('#ficheStaff'+id)
-            .modal('hide')
-            ;
-        }
+// const generatePDF=(id)=>{
+//   form.get(route('staffs.generate',id),{
+//         preserveScroll:true,
+//         onSuccess:()=>{
+//             $('#ficheStaff'+id)
+//             .modal('hide')
+//             ;
+//         }
         
-    });
-}
+//     });
+// }
 
 
 </script>
@@ -152,10 +152,10 @@ const generatePDF=(id)=>{
     <div class="ui black deny button">
       Fermer
     </div>
-    <div @click="generatePDF(staff.id)" class="ui positive right labeled icon button">
+    <!-- <div @click="generatePDF(staff.id)" class="ui positive right labeled icon button">
       Télécharger fiche staff
       <i class="checkmark icon"></i>
-    </div>
+    </div> -->
   </div>
 </div>
 

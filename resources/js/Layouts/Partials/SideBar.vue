@@ -48,18 +48,12 @@ const user = computed(() => usePage().props.auth.user)
         </Link>
         <Link :href="route('entrainements.index')" class="item">
           <div>
-            <i class="money bill alternate
+            <i class="icon money
   "></i>
-            Prime
+            Régelement des salaires
           </div>
         </Link>
-        <Link :href="route('entrainements.index')" class="item">
-          <div>
-            <i class="icon calendar
-  "></i>
-            Salaire
-          </div>
-        </Link>
+        
         <Link v-show="user.role=='admin'" :href="route('users.index')" class="item">
           <div>
             <i class="icon user circle

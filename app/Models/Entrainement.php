@@ -9,7 +9,7 @@ class Entrainement extends Model
 {
 
     use HasFactory;
-    protected $fillable=['date','remarque','equipe_id'];
+    protected $fillable=['date','remarque','equipe_id','etat'];
     
     
 

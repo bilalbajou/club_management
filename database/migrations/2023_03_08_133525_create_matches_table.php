@@ -21,7 +21,7 @@ return new class extends Migration
             $table->dateTime('date');
             $table->text("remarque")->nullable();
             $table->string("resultat")->nullable();
-            $table->enum('etat', ['programmé', 'reporté','annulé'])->default('programmé');
+            $table->enum('etat', ['programmé', 'reporté','annulé','terminé'])->default('programmé');
             $table->string('championat')->nullable();
             $table->softDeletes();
             $table->timestamps();

@@ -5,6 +5,9 @@
     .dropdown()
   ;
   });
+
+
+  
 </script>
 <template>
       <nav class="ui top fixed inverted menu">

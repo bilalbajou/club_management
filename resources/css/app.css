@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Karla:400,700&display=swap');
+
 :root {
     --light: #edf2f9;
     --dark: #152e4d;
@@ -63,26 +65,38 @@
   @tailwind base;
   @tailwind components;
   @tailwind utilities;
-  
-  @layer components {
-    .toggle:checked + span {
-      @apply top-0 left-6 bg-primary;
-    }
-    .toggle:disabled + span {
-      @apply bg-gray-500 shadow-none;
-    }
-    .toggle:checked:disabled {
-      @apply bg-gray-200;
-    }
-    .toggle:checked:disabled + span {
-      @apply shadow-none bg-primary-lighter;
-    }
-    .toggle:focus + span {
-      @apply ring ring-primary-lighter;
-    }
-  
-    input:invalid.invalid,
-    textarea:invalid.invalid {
-      @apply ring ring-danger-light dark:ring-danger;
-    }
-  }
+
+
+
+ 
+ .sidebar .item i {
+   font-size: 24px;
+   margin-top: -5px !important;
+ }
+
+ /* .sidebar{
+    background-color: var(--white) !important;
+ }
+ .sidebar .item{
+    color: black !important;
+ } */
+ 
+ /* .logo {
+   height: 48px !important;
+   padding: 10px !important;
+ }
+ 
+ .logo img {
+   width: 100% !important;
+   height: 38px !important;
+ }
+ 
+ .title.item {
+   padding: .92857143em 1.14285714em !important;
+ }
+ 
+ .dropdown .menu .header {
+   padding-top: 3.9px!important;
+   padding-bottom: 3.9px!important;
+ } */
+ 

@@ -5,6 +5,7 @@ use App\Http\Controllers\equipeController;
 use App\Http\Controllers\joueurController;
 use App\Http\Controllers\matchController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\reg_salaireController;
 use App\Http\Controllers\staffControler;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
@@ -51,6 +52,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/listeJoueurs',[equipeController::class,'getJoueurs'])->name('equipe.joueurs');
     Route::get('/generatepdf/joueur/{id}',[joueurController::class,'generateFicheJoueur'])->name('joueurs.generate');
     Route::get('/generatepdf/staff/{id}',[staffControler::class,'generateFicheStaff'])->name('staffs.generate');
+    Route::resource('salaires',reg_salaireController::class);
 
 
     
