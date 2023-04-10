@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('joueur_match', function (Blueprint $table) {
+        Schema::create('personne_match', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->foreignId('matche_id')->constrained();
 
-            $table->foreignId('joueur_id')->constrained();
+            $table->foreignId('personne_id')->constrained();
 
 
        

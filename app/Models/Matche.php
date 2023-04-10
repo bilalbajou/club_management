@@ -12,9 +12,9 @@ class Matche extends Model
 
     protected $fillable=['adversaire','lieu','date','remarque','championat','etat'];
     
-    public function joueurs()
+    public function personnes()
     {
-        return $this->belongsToMany(Joueur::class, 'joueur_match', 'match_id', 'joueur_id');
+        return $this->belongsToMany(Personne::class, 'personne_match', 'match_id', 'personne_id');
     }
 
  

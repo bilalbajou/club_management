@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests\storeJoueurRequest;
 use App\Models\Equipe;
 use App\Jobs\mailWelcomeStaff;
+use App\Models\Personne;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\Prime;
 use Illuminate\Http\Client\Request as ClientRequest;
 use Illuminate\Support\Facades\DB;
 
@@ -24,7 +26,8 @@ class staffControler extends Controller
         $fonction=$request->fonction;
         $equipe=$request->equipe;
 
-        $staffs=Staff::with('equipe')
+        $staffs=Personne::with('equipe')
+        ->where('type','staff')
         ->when($search,function($query) use($search){
             $query->where("nom","like","%${search}%");
             $query->orWhere("prenom","like","%${search}%");
@@ -74,7 +77,7 @@ class staffControler extends Controller
      */
     public function store(storeJoueurRequest $request)
     {
-        $staff=new Staff();
+        $staff=new Personne();
         $staff->nom=$request->nom;
         $staff->prenom=$request->prenom;
         $staff->age=$request->age;
@@ -125,7 +128,7 @@ class staffControler extends Controller
      */
     public function edit($id)
     {
-        $staff=Staff::findOrfail($id);
+        $staff=Personne::findOrfail($id);
         $equipes=Equipe::all(['id','nom']);
       
         return Inertia::render('Admin/Staff/Components/updateStaff',[
@@ -142,7 +145,7 @@ class staffControler extends Controller
      */
     public function update(Request $request, $id)
     {
-        $staff=Staff::findOrfail($id);
+        $staff=Personne::findOrfail($id);
         $staff->nom=$request->nom;
         $staff->prenom=$request->prenom;
         $staff->age=$request->age;
@@ -180,14 +183,32 @@ class staffControler extends Controller
      */
     public function destroy($id)
     {
-        Staff::findOrFail($id)->delete();
+        Personne::findOrFail($id)->delete();
         return to_route('staffs.index');
     }
 
 
     public function generateFicheStaff($id){
-        $staff=Staff::findOrfail($id);
+        $staff=Personne::findOrfail($id);
         $pdf = Pdf::loadView('pdf.ficheStaff');
         return $pdf->download(uniqid().$staff->nom.' '.$staff->prenom.'.pdf');    
+    }
+
+    public function reglerPrime(Request $request){
+        $validated = $request->validate([
+            'libelle' => 'required|string',
+            'montant' => 'required|numeric',
+            'remarque' => 'nullable|string',     
+        ]);
+       $prime= Prime::create([
+            'libellé'=>$request->libelle,
+            'montant'=>$request->montant,
+            'remarque'=>$request->remarque
+        ]);
+
+        if($prime){
+            DB::insert('insert into prime_personne (personne_id, prime_id) values (?, ?)', [$request->staff_id, $prime->id]);
+        }
+         
     }
 }

@@ -10,6 +10,7 @@ use App\Models\Staff;
 use App\Models\Equipe;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\annulerEntrainementMail;
+use App\Models\Personne;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
@@ -36,8 +37,7 @@ class annulerEntrainement implements ShouldQueue
      */
     public function handle()
     {
-        $joueurs=Joueur::all()->where('equipe_id',$this->entrainement->equipe_id);
-        $staffs=Staff::all()->where('equipe_id',$this->entrainement->equipe_id);
+        $joueurs=Personne::all()->where('equipe_id',$this->entrainement->equipe_id);
         $equipe=Equipe::find($this->entrainement->equipe_id);
 
         foreach($joueurs as $joueur){
@@ -46,11 +46,7 @@ class annulerEntrainement implements ShouldQueue
             }
         }
 
-        foreach($staffs as $staff){
-            if($staff->email){
-                Mail::to($staff->email)->send(new annulerEntrainementMail($this->entrainement,$equipe));
-            }
-        }
+        
 
     }
 }

@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('staff_match', function (Blueprint $table) {
+        Schema::create('prime_personne', function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->foreignId('matche_id')->constrained();
+            $table->foreignId('prime_id')->constrained();
 
-            $table->foreignId('staff_id')->constrained();
+            $table->foreignId('personne_id')->constrained();
  
         });
     }
@@ -29,7 +29,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('staff_match');
+        Schema::dropIfExists('prime_personne');
 
     }
 };

@@ -2,6 +2,7 @@
 
 import FicheClient from './ficheJoueur.vue';
 import contratModal from './contratJoueurModal.vue';
+import primeModal from './modalPrime.vue';
 
 import { useForm } from '@inertiajs/vue3';
 toastr.options = {
@@ -34,6 +35,12 @@ const editJoueur=($id)=>{
 
 const showFichClient=($id)=>{
     $('#ficheClient'+$id)
+     .modal('show')
+      ;
+}
+
+const showModalPrime=($id)=>{
+    $('#primeJoueurModal'+$id)
      .modal('show')
       ;
 }
@@ -125,6 +132,14 @@ const deleteJoueur=($id)=>{
                 >
                     <i class="icon file"></i>
                 </button>
+                <button
+                    v-show="[1,2,3].includes(joueur.equipe_id)"
+                    @click="showModalPrime(joueur.id)"
+                    data-content="Affecter prime"
+                    class="circular ui icon button"
+                >
+                    <i class="icon dollar sign"></i>
+                </button>
             </div>
         </div>
     </div>
@@ -132,5 +147,6 @@ const deleteJoueur=($id)=>{
      
    <FicheClient :joueur="joueur"/>
    <contratModal :joueur="joueur"/>
+   <primeModal :joueur="joueur" />
 
 </template>

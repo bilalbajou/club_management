@@ -4,8 +4,7 @@ namespace App\Jobs;
 
 use App\Mail\ConvEntrainementMail;
 use App\Models\Equipe;
-use App\Models\Joueur;
-use App\Models\Staff;
+use App\Models\Personne;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -35,18 +34,13 @@ class ConvEntrainement implements ShouldQueue
      */
     public function handle()
     {
-        $joueurs=Joueur::all()->where('equipe_id',$this->entrainement->equipe_id);
-        $staffs=Staff::all()->where('equipe_id',$this->entrainement->equipe_id);
+        $joueurs=Personne::all()->where('equipe_id',$this->entrainement->equipe_id);
         $equipe=Equipe::find($this->entrainement->equipe_id);
         foreach($joueurs as $joueur){
             if($joueur->email){
                 Mail::to($joueur->email)->send(new ConvEntrainementMail($this->entrainement,$equipe));
             }
         }
-        foreach($staffs as $staff){
-            if($staff->email){
-                Mail::to($staff->email)->send(new ConvEntrainementMail($this->entrainement,$equipe));
-            }
-        }
+     
     }
 }

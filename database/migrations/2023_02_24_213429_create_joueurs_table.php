@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('joueurs', function (Blueprint $table) {
+        Schema::create('personnes', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->string('nom');
             $table->string('prenom');
@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('cin')->nullable();
             $table->string('email')->nullable();
             $table->string('poste')->nullable();
+            $table->string('fonction')->nullable();
+            $table->enum('type',['joueur','staff']);
             $table->string('adresse')->nullable();
             $table->string('telephone')->nullable();
             $table->double('salaire')->nullable();
@@ -39,6 +41,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('joueurs');
+        Schema::dropIfExists('personnes');
     }
 };

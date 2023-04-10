@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-class Joueur extends Model
+class Personne extends Model
 {
     use HasFactory;
     use SoftDeletes;
@@ -19,18 +19,20 @@ class Joueur extends Model
         return $this->belongsTo(Equipe::class);
     }
 
-    public function reglementSalaire(){
+    // public function reglementSalaire(){
         
-        return $this->belongsTo(reglementSalaire::class);
-    }
+    //     return $this->belongsTo(reglementSalaire::class);
+    // }
 
     public function matches()
     {
-        return $this->belongsToMany(Matche::class, 'joueur_match', 'match_id', 'joueur_id');
+        return $this->belongsToMany(Matche::class, 'personne_match', 'match_id', 'personne_id');
     }
-    public function entrainements()
+  
+
+    public function primes()
     {
-        return $this->belongsToMany(Entrainement::class, 'joueur_entrainement', 'entrainement_id', 'joueur_id');
+        return $this->belongsToMany(Prime::class, 'prime_personne', 'prime_id', 'personne_id');
     }
 
 }

@@ -35,19 +35,14 @@ class annulerMatche implements ShouldQueue
      */
     public function handle()
     {
-        $joueurs = DB::table('joueur_match')
-            ->join('joueurs', 'joueur_match.joueur_id', '=', 'joueurs.id')
-            ->join('equipes', 'equipes.id', '=', 'joueurs.equipe_id')
-            ->select('joueurs.email', 'equipes.nom')
-            ->where('joueur_match.matche_id', '=', $this->matche->id)
-            ->get();
+        $joueurs = DB::table('personne_match')
+        ->join('personnes', 'personne_match.personne_id', '=', 'personnes.id')
+        ->join('equipes', 'equipes.id', '=', 'personnes.equipe_id')
+        ->select('personnes.email', 'equipes.nom')
+        ->where('personne_match.matche_id', '=', $this->matche->id)
+        ->get();
 
-        $staffs = DB::table('staff_match')
-            ->join('staff', 'staff_match.staff_id', '=', 'staff.id')
-            ->join('equipes', 'equipes.id', '=', 'staff.equipe_id')
-            ->select('staff.email', 'equipes.nom')
-            ->where('staff_match.matche_id', '=', $this->matche->id)
-            ->get();
+       
 
         foreach ($joueurs as $joueur) {
             if ($joueur->email) {
@@ -55,10 +50,6 @@ class annulerMatche implements ShouldQueue
             }
         }
 
-        foreach ($staffs as $staff) {
-            if ($staff->email) {
-                Mail::to($staff->email)->send(new annulerMatcheMail($this->matche,$staff));
-            }
-        }
+       
     }
 }

@@ -14,13 +14,10 @@ class Equipe extends Model
     use HasFactory;
     protected $fillable=['nom'];
     
-    public function joueurs(){
-        return $this->hasMany(Joueur::class);
+    public function personnes(){
+        return $this->hasMany(Personne::class);
     }
 
-    public function staffs(){
-        return $this->hasMany(Staff::class);
-    }
     public function entrainements(){
         return $this->hasMany(Entrainement::class);
     }

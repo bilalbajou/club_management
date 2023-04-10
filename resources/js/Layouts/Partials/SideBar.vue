@@ -46,11 +46,11 @@ const user = computed(() => usePage().props.auth.user)
             Entrainement
           </div>
         </Link>
-        <Link :href="route('entrainements.index')" class="item">
+        <Link :href="route('primes.index')" class="item">
           <div>
             <i class="icon money
   "></i>
-            Régelement des salaires
+            Prime
           </div>
         </Link>
         

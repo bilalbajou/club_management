@@ -12,6 +12,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\reporterEntrainementMail;
 use App\Models\Equipe;
+use App\Models\Personne;
 use Illuminate\Queue\SerializesModels;
 
 class reporterEntrainement implements ShouldQueue
@@ -36,8 +37,7 @@ class reporterEntrainement implements ShouldQueue
      */
     public function handle()
     {
-        $joueurs=Joueur::all()->where('equipe_id',$this->entrainement->equipe_id);
-        $staffs=Staff::all()->where('equipe_id',$this->entrainement->equipe_id);
+        $joueurs=Personne::all()->where('equipe_id',$this->entrainement->equipe_id);
         $equipe=Equipe::find($this->entrainement->equipe_id);
 
         foreach($joueurs as $joueur){
@@ -46,11 +46,6 @@ class reporterEntrainement implements ShouldQueue
             }
         }
 
-        foreach($staffs as $staff){
-            if($staff->email){
-                Mail::to($staff->email)->send(new reporterEntrainementMail($this->entrainement,$equipe));
-            }
-        }
-
+      
     }
 }

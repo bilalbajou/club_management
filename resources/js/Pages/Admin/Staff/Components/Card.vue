@@ -4,6 +4,7 @@
 import { useForm } from '@inertiajs/vue3';
 import  ficheStaff from './ficheStaff.vue';
 import contratStaffModal from './contratStaffModal.vue';
+import modalPrime from './modalPrime.vue';
 toastr.options = {
   "closeButton": true,
   "debug": false,
@@ -37,11 +38,19 @@ const showFicheStaff=($id)=>{
      .modal('show')
       ;
 }
+
+
+const showModalPrime=(id)=>{
+    $('#primeStaffModal'+id)
+     .modal('show')
+      ;
+}
 const previewContrat=($id)=>{
     $('#contratStaffModal'+$id)
      .modal('show')
       ;
 }
+
 const deleteStaff=($id)=>{
 
     Swal.fire({
@@ -124,11 +133,20 @@ const deleteStaff=($id)=>{
                 >
                     <i class="icon file"></i>
                 </button>
+                <button
+                   
+                    @click="showModalPrime(staff.id)"
+                    data-content="Affecter prime"
+                    class="circular ui icon button"
+                >
+                    <i class="icon dollar sign"></i>
+                </button>
             </div>
         </div>
     </div>
 
    <ficheStaff :staff="staff"/>
    <contratStaffModal :staff="staff" />
+   <modalPrime :staff="staff" />
 
 </template>

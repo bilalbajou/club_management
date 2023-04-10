@@ -4,6 +4,7 @@ use App\Http\Controllers\entrainementController;
 use App\Http\Controllers\equipeController;
 use App\Http\Controllers\joueurController;
 use App\Http\Controllers\matchController;
+use App\Http\Controllers\primeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\reg_salaireController;
 use App\Http\Controllers\staffControler;
@@ -53,6 +54,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/generatepdf/joueur/{id}',[joueurController::class,'generateFicheJoueur'])->name('joueurs.generate');
     Route::get('/generatepdf/staff/{id}',[staffControler::class,'generateFicheStaff'])->name('staffs.generate');
     Route::resource('salaires',reg_salaireController::class);
+    Route::resource('primes',primeController::class);
+
+    Route::post('/joueurs/prime',[joueurController::class,'reglerPrime'])->name('joueurs.prime');
+    Route::post('/staffs/prime',[staffControler::class,'reglerPrime'])->name('staffs.prime');
+
+
 
 
     

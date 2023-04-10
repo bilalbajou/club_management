@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Mail\ConvMatchjoueur;
 use App\Models\Joueur;
+use App\Models\Personne;
 use App\Models\Staff;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -40,29 +41,21 @@ class matcheStoreDetailJob implements ShouldQueue
      */
     public function handle()
     {
-        $joueurs=Joueur::all('id','equipe_id','email','nom','prenom')->where('equipe_id',$this->equipe);
-        $staffs=Staff::all('id','equipe_id','email','nom','prenom')->where('equipe_id',$this->equipe);
+        $joueurs=Personne::all('id','equipe_id','email','nom','prenom','type')->where('equipe_id',$this->equipe);
         $filteredjoueurs = $joueurs->whereNotBetween('id', $this->exclure);
 
         foreach($filteredjoueurs as $joueur){
-             DB::insert('insert into joueur_match(matche_id,joueur_id) values (?,?)', [$this->matche->id,$joueur->id]);
-             sleep(2);
+             DB::insert('insert into personne_match(matche_id,personne_id) values (?,?)', [$this->matche->id,$joueur->id]);
+        
              if($joueur->email){
              Mail::to($joueur->email)->send(new ConvMatchjoueur($this->matche,$joueur));
             }
 
 
-
         }
 
         
-        foreach($staffs as $staff){
-          DB::insert('insert into staff_match (matche_id,staff_id) values (?,?)', [$this->matche->id,$staff->id]);
-          sleep(2);
-          if($staff->email){
-          Mail::to($staff->email)->send(new ConvMatchjoueur($this->matche,$staff));
-           }
-        }
+       
 
 
 

@@ -9,6 +9,7 @@ use App\Jobs\reporterMatche;
 use App\Models\Equipe;
 use App\Models\Joueur;
 use App\Models\Matche;
+use App\Models\Personne;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -28,10 +29,12 @@ class matchController extends Controller
         $equipe=$request->equipe;
         $date=$request->date;
         $matches=$matches = DB::table('matches')
-        ->join('joueur_match', 'joueur_match.matche_id', '=', 'matches.id')
-        ->join('joueurs', 'joueurs.id', '=', 'joueur_match.joueur_id')
-        ->select('matches.*', DB::raw('count(joueur_match.joueur_id) as nb_joueurs'))
-        ->groupBy('joueur_match.matche_id')
+        ->join('personne_match', 'personne_match.matche_id', '=', 'matches.id')
+        ->join('personnes', 'personnes.id', '=', 'personne_match.personne_id')
+        ->select('matches.*', DB::raw('count(personne_match.personne_id) as nb_joueurs'))
+        ->where('personnes.type','joueur')
+        ->groupBy('personne_match.matche_id')
+      
         ->when($search,function($query) use($search){
             $query->where("matches.adversaire","like","%${search}%");
           
@@ -45,7 +48,7 @@ class matchController extends Controller
         })
         ->when($equipe,function($query) use($equipe){
             if($equipe!="all"){
-           $query->where("joueurs.equipe_id",$equipe);
+           $query->where("personnes.equipe_id",$equipe);
         }
         })
         ->when($date,function($query) use($date){
@@ -56,7 +59,7 @@ class matchController extends Controller
         ->get();
 
 
-        $joueurs=Joueur::all(['id','nom','prenom','equipe_id']);
+        $joueurs=Personne::all(['id','nom','prenom','equipe_id','type']);
         $equipes=Equipe::all(['id','nom']);
         return Inertia::render('Admin/Match/Match',[
             'equipes'=>$equipes,

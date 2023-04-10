@@ -8,6 +8,8 @@ use App\Models\Equipe;
 // use Illuminate\Support\Facades\Request;
 use Illuminate\Http\Request;
 use App\Models\Joueur;
+use App\Models\Personne;
+use App\Models\Prime;
 use App\Service\emailVerify;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\DB;
@@ -26,7 +28,8 @@ class joueurController extends Controller
         $poste=$request->poste;
         $equipe=$request->equipe;
 
-        $joueurs=Joueur::with('equipe')
+        $joueurs=Personne::with('equipe')
+        ->where('type','joueur')
         ->when($search,function($query) use($search){
             $query->where("nom","like","%$search%");
             $query->orWhere("prenom","like","%$search%");
@@ -45,7 +48,7 @@ class joueurController extends Controller
         })
         
         ->latest()
-        ->paginate(9)
+        ->paginate(12)
         ;
        $equipes=Equipe::all(['nom','id']);
       return Inertia::render('Admin/Joueur/Joueur',[
@@ -77,7 +80,7 @@ class joueurController extends Controller
     {
         
         
-        $joueur=new Joueur();
+        $joueur=new Personne();
         $joueur->nom=$request->nom;
         $joueur->prenom=$request->prenom;
         $joueur->age=$request->age;
@@ -88,6 +91,7 @@ class joueurController extends Controller
         $joueur->email=$request->email;
         $joueur->poste=$request->poste;
         $joueur->equipe_id=$request->equipe;
+        $joueur->type="joueur";
         if($request->file('image')){
           $image=$request->file('image');
           $joueur->image=uniqid()."_".$image->getClientOriginalName();
@@ -139,7 +143,7 @@ class joueurController extends Controller
      */
     public function edit($id)
     {
-           $joueur=Joueur::findOrfail($id);
+           $joueur=Personne::findOrfail($id);
            $equipes=Equipe::all(['id','nom']);
          
            return Inertia::render('Admin/Joueur/Components/updateJoueur',[
@@ -156,7 +160,7 @@ class joueurController extends Controller
      */
     public function update(storeJoueurRequest $request, $id)
     {
-        $joueur=Joueur::findOrfail($id);
+        $joueur=Personne::findOrfail($id);
         $joueur->nom=$request->nom;
         $joueur->prenom=$request->prenom;
         $joueur->age=$request->age;
@@ -195,13 +199,31 @@ class joueurController extends Controller
     public function destroy($id)
     {
 
-        Joueur::findOrFail($id)->delete();
+        Personne::findOrFail($id)->delete();
         return to_route('joueurs.index');
     }
 
     public function generateFicheJoueur($id){
-        $joueur=Joueur::findOrfail($id);
+        $joueur=Personne::findOrfail($id);
         $pdf = PDF::loadView('pdf.ficheJoueur',compact('joueur'));
         return $pdf->download(uniqid().$joueur->nom.' '.$joueur->prenom.'.pdf');    
+    }
+
+    public function reglerPrime(Request $request){
+        $validated = $request->validate([
+            'libelle' => 'required|string',
+            'montant' => 'required|numeric',
+            'remarque' => 'nullable|string',     
+        ]);
+       $prime= Prime::create([
+            'libellé'=>$request->libelle,
+            'montant'=>$request->montant,
+            'remarque'=>$request->remarque
+        ]);
+
+        if($prime){
+            DB::insert('insert into prime_personne (personne_id, prime_id) values (?, ?)', [$request->joueur_id, $prime->id]);
+        }
+         
     }
 }
