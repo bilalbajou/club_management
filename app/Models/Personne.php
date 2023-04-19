@@ -12,6 +12,7 @@ class Personne extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    protected $fillable =['nom', 'prenom', 'age', 'salaire', 'cin', 'adresse', 'telephone', 'email', 'poste','type','equipe_id','image','contrat'];
 
 
     public function equipe(){
@@ -33,6 +34,11 @@ class Personne extends Model
     public function primes()
     {
         return $this->belongsToMany(Prime::class, 'prime_personne', 'prime_id', 'personne_id');
+    }
+
+    public function reglementSalaire()
+    {
+        return $this->hasMany(ReglementSalaire::class);
     }
 
 }

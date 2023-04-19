@@ -2,9 +2,10 @@
 
 import Utilisateur from "./Utilisateur.vue";
 
-const props=defineProps({
+const props= defineProps({
     users:Array
 })
+
 
 </script>
 

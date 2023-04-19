@@ -74,7 +74,9 @@ const form = useForm({
     contrat: null,
     image: null,
     equipe: props.staff.equipe_id,
-    age: props.staff.age
+    age: props.staff.age,
+    _method: 'put'
+
   
 });
 
@@ -85,12 +87,13 @@ const resetForm=()=>{
 
 const submitForm=($id)=>{
          
-       form.put(route('staffs.update',$id),{
+       form.post(route('staffs.update',$id),{
         onSuccess:()=>{
             toastr["success"]("Staff a été modifié  avec succés", "Opération réussi");
         },
         onError:()=>{
             toastr["opération echoué"]("Staff a été modifié  avec succés", "Opération réussi");
+            
         },
         preserveScroll:true
        });
@@ -240,7 +243,7 @@ const submitForm=($id)=>{
                                 type="file"
                                 @input="form.image = $event.target.files[0]"
                                 @change="previewImage"
-                                multiple
+                                
                             />
                             
                         </div>

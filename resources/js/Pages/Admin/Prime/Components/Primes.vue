@@ -2,7 +2,7 @@
 import Prime from './Prime.vue';
 
 const props = defineProps({
-    results:Array
+  joueurs:Array
 });
 
 
@@ -22,8 +22,7 @@ const props = defineProps({
     <th>Equipe</th>
   </tr></thead>
   <tbody>
-     <Prime v-for="(result, index)  in results" :result="result" :index="index"/>
-
+     <Prime v-for="(result, index)  in props.joueurs" :result="result" :index="index"/>
   </tbody>
 </table>
             

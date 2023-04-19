@@ -12,7 +12,7 @@ class Prime extends Model
     use HasFactory;
     public function personnes()
     {
-        return $this->belongsToMany(Joueur::class, 'prime_personne', 'match_id', 'personne_id');
+        return $this->belongsToMany(Personne::class, 'prime_personne', 'match_id', 'personne_id');
     }
 
 

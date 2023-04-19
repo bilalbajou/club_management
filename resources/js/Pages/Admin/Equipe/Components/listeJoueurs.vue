@@ -8,7 +8,7 @@ const props = defineProps({
 });
 
 
-onMounted(() => {
+// onMounted(() => {
 //    router.get(route('equipe.joueurs',{
 //     id:props.id
    
@@ -26,13 +26,13 @@ onMounted(() => {
 
 
 
-});
+// });
 </script>
 <template>
      <div class="ui longer modal" :id="'modalListeJoueurs'+props.id">
   <div class="header">Header {{ props.id }}</div>
   <div class="content">
-     <p></p>
+     <p><p></p></p>
   </div>
 </div>
 

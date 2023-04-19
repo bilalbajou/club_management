@@ -2,10 +2,10 @@
 import {useForm} from "@inertiajs/vue3";
 
 import UpdateUtilisateur from './UpdateUtilisateur.vue';
-import { computed } from 'vue'
+// import { computed } from 'vue'
 import { usePage } from '@inertiajs/vue3'
 
-const user = computed(() => usePage().props.auth.user)
+// const user = computed(() => usePage().props.auth.user)
 
 
 
@@ -30,6 +30,8 @@ const props = defineProps({
     user:Object,
     index:Number
 });
+
+// console.log(props.user);
 
 const form=useForm({});
 
@@ -117,7 +119,7 @@ const showModalEditUser = (id) => {
       
     </tr>
  
-      <UpdateUtilisateur :user="user"/> 
+      <UpdateUtilisateur :user="props.user"/> 
    
 
 

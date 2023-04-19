@@ -10,10 +10,12 @@ use Illuminate\Http\Request;
 use App\Models\Joueur;
 use App\Models\Personne;
 use App\Models\Prime;
+use App\Models\reglementSalaire;
 use App\Service\emailVerify;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
+use DateTime;
 
 class joueurController extends Controller
 {
@@ -78,40 +80,63 @@ class joueurController extends Controller
      */
     public function store(storeJoueurRequest $request)
     {
-        
-        
-        $joueur=new Personne();
-        $joueur->nom=$request->nom;
-        $joueur->prenom=$request->prenom;
-        $joueur->age=$request->age;
-        $joueur->salaire=$request->salaire;
-        $joueur->cin=$request->cin;
-        $joueur->adresse=$request->adresse;
-        $joueur->telephone=$request->telephone;
-        $joueur->email=$request->email;
-        $joueur->poste=$request->poste;
-        $joueur->equipe_id=$request->equipe;
-        $joueur->type="joueur";
-        if($request->file('image')){
-          $image=$request->file('image');
-          $joueur->image=uniqid()."_".$image->getClientOriginalName();
-          $image->move(public_path('joueur/image'),$joueur->image);
 
+
+        // $joueur=new Personne();
+        // $joueur->nom=$request->nom;
+        // $joueur->prenom=$request->prenom;
+        // $joueur->age=$request->age;
+        // $joueur->salaire=$request->salaire;
+        // $joueur->cin=$request->cin;
+        // $joueur->adresse=$request->adresse;
+        // $joueur->telephone=$request->telephone;
+        // $joueur->email=$request->email;
+        // $joueur->poste=$request->poste;
+        // $joueur->equipe_id=$request->equipe;
+        // $joueur->type="joueur";
+        // if($request->file('image')){
+        //   $image=$request->file('image');
+        //   $joueur->image=uniqid()."_".$image->getClientOriginalName();
+        //   $image->move(public_path('joueur/image'),$joueur->image);
+
+        // }
+
+        // if($request->file('contrat')){
+        //     $contrat=$request->file('contrat');
+
+        //     $joueur->contrat=uniqid()."_".$contrat->getClientOriginalName();
+        //     $contrat->move(public_path('joueur/contrat'),$joueur->contrat);
+        // }
+
+
+        // if($joueur->save()){
+        //     if($joueur->email){
+        //         dispatch(new mailWelcomeJoueur($joueur));
+        //     }
+
+        // }
+
+        $joueur = new Personne();
+        $data = $request->only(['nom', 'prenom', 'age', 'salaire', 'cin', 'adresse', 'telephone', 'email', 'poste']);
+        $data['equipe_id'] = $request->equipe;
+        $data['type'] = 'joueur';
+
+        if ($request->file('image')) {
+            $image = $request->file('image');
+            $data['image'] = uniqid() . "_" . $image->getClientOriginalName();
+            $image->move(public_path('joueur/image'), $data['image']);
         }
 
-        if($request->file('contrat')){
-            $contrat=$request->file('contrat');
-            
-            $joueur->contrat=uniqid()."_".$contrat->getClientOriginalName();
-            $contrat->move(public_path('joueur/contrat'),$joueur->contrat);
+        if ($request->file('contrat')) {
+            $contrat = $request->file('contrat');
+            $data['contrat'] = uniqid() . "_" . $contrat->getClientOriginalName();
+            $contrat->move(public_path('joueur/contrat'), $data['contrat']);
         }
 
+        $joueur->fill($data);
 
-        if($joueur->save()){
-            if($joueur->email){
-                dispatch(new mailWelcomeJoueur($joueur));
-            }
-
+        if ($joueur->save() && $joueur->email) {
+            dispatch(new mailWelcomeJoueur($joueur));
         }
 
         
@@ -175,9 +200,12 @@ class joueurController extends Controller
           $image=$request->file('image');
           $joueur->image=uniqid()."_".$image->getClientOriginalName();
           $image->move(public_path('joueur/image'),$joueur->image);
+         
         }
 
         if($request->file('contrat')){
+          
+
             $contrat=$request->file('contrat');
             $joueur->contrat=uniqid()."_".$contrat->getClientOriginalName();
             $contrat->move(public_path('joueur/contrat'),$joueur->contrat);
@@ -224,6 +252,33 @@ class joueurController extends Controller
         if($prime){
             DB::insert('insert into prime_personne (personne_id, prime_id) values (?, ?)', [$request->joueur_id, $prime->id]);
         }
+         
+    }
+
+    public function reglerSalaire(Request $request){
+
+        $validated = $request->validate([
+            'libelle' => 'bail|nullable',
+            'montant' => 'bail|required|numeric',
+            'mois' => 'bail|required',     
+        ]);
+       $joueur=Personne::find($request->joueur_id);
+       $reglementSalaire=new reglementSalaire();
+       $reglementSalaire->libellé=$request->libelle;
+       if($request->montant===$joueur->salaire){
+        $reglementSalaire->montant=$request->montant;
+    }   else{
+        $reglementSalaire->montant=$request->montant;
+        $reglementSalaire->reste=$joueur->salaire-$request->montant;
+    }
+       $reglementSalaire->mois=$request->mois;
+        $reglementSalaire->personne_id=$request->joueur_id;
+        $reglementSalaire->reglement_date=Date('Y-m-d H:i:s');
+        $reglementSalaire->save();
+       
+
+
+      
          
     }
 }

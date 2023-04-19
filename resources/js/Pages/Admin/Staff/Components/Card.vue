@@ -4,6 +4,7 @@
 import { useForm } from '@inertiajs/vue3';
 import  ficheStaff from './ficheStaff.vue';
 import contratStaffModal from './contratStaffModal.vue';
+import reglerSalaire from './reglerSalaire.vue';
 import modalPrime from './modalPrime.vue';
 toastr.options = {
   "closeButton": true,
@@ -35,6 +36,12 @@ const editStaff=($id)=>{
 
 const showFicheStaff=($id)=>{
     $('#ficheStaff'+$id)
+     .modal('show')
+      ;
+}
+
+const showModalSalaire=(id)=>{
+    $('#salaireStaffModal'+id)
      .modal('show')
       ;
 }
@@ -141,6 +148,13 @@ const deleteStaff=($id)=>{
                 >
                     <i class="icon dollar sign"></i>
                 </button>
+                <button
+                   
+                   @click="showModalSalaire(staff.id)"
+                   data-content="Régler salaire"
+                   class="circular ui icon button"
+               >
+               <i class="check circle icon"></i>               </button>
             </div>
         </div>
     </div>
@@ -148,5 +162,7 @@ const deleteStaff=($id)=>{
    <ficheStaff :staff="staff"/>
    <contratStaffModal :staff="staff" />
    <modalPrime :staff="staff" />
+   <reglerSalaire :staff="staff" />
+
 
 </template>

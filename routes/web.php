@@ -7,8 +7,11 @@ use App\Http\Controllers\matchController;
 use App\Http\Controllers\primeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\reg_salaireController;
+use App\Http\Controllers\regSalaireController;
+use App\Http\Controllers\salaireReglelemntController;
 use App\Http\Controllers\staffControler;
 use App\Http\Controllers\UserController;
+use App\Models\reglementSalaire;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -57,7 +60,13 @@ Route::middleware('auth')->group(function () {
     Route::resource('primes',primeController::class);
 
     Route::post('/joueurs/prime',[joueurController::class,'reglerPrime'])->name('joueurs.prime');
+    Route::post('/joueurs/salaire',[joueurController::class,'reglerSalaire'])->name('joueurs.salaire');
+
     Route::post('/staffs/prime',[staffControler::class,'reglerPrime'])->name('staffs.prime');
+    Route::post('/staffs/salaire',[staffControler::class,'reglerSalaire'])->name('staffs.salaire');
+
+    Route::resource('salaires',salaireReglelemntController::class);
+
 
 
 

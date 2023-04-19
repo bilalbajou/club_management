@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\storeJoueurRequest;
 use App\Models\Equipe;
 use App\Jobs\mailWelcomeStaff;
+use App\Models\reglementSalaire;
 use App\Models\Personne;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Prime;
@@ -77,36 +78,29 @@ class staffControler extends Controller
      */
     public function store(storeJoueurRequest $request)
     {
-        $staff=new Personne();
-        $staff->nom=$request->nom;
-        $staff->prenom=$request->prenom;
-        $staff->age=$request->age;
-        $staff->salaire=$request->salaire;
-        $staff->cin=$request->cin;
-        $staff->adresse=$request->adresse;
-        $staff->telephone=$request->telephone;
-        $staff->email=$request->email;
-        $staff->fonction=$request->poste;
-        $staff->equipe_id=$request->equipe;
-        if($request->file('image')){
-          $image=$request->file('image');
-          $staff->image=uniqid()."_".$image->getClientOriginalName();
-          $image->move(public_path('staff/image'),$staff->image);
 
+        $staff = new Personne();
+        $data = $request->only(['nom', 'prenom', 'age', 'salaire', 'cin', 'adresse', 'telephone', 'email', 'poste']);
+        $data['equipe_id'] = $request->equipe;
+        $data['type'] = 'staff';
+
+        if ($request->file('image')) {
+            $image = $request->file('image');
+            $data['image'] = uniqid() . "_" . $image->getClientOriginalName();
+            $image->move(public_path('staff/image'), $data['image']);
         }
 
-        if($request->file('contrat')){
-            $contrat=$request->file('contrat');
-            $staff->contrat=uniqid()."_".$contrat->getClientOriginalName();
-            $contrat->move(public_path('staff/contrat'),$staff->contrat);
+        if ($request->file('contrat')) {
+            $contrat = $request->file('contrat');
+            $data['contrat'] = uniqid() . "_" . $contrat->getClientOriginalName();
+            $contrat->move(public_path('staff/contrat'), $data['contrat']);
         }
 
-        if($staff->save()){
-        if($staff->email){
+        $staff->fill($data);
+
+        if ($staff->save() && $staff->email) {
             dispatch(new mailWelcomeStaff($staff));
         }
-    }
-
     }
 
     /**
@@ -210,5 +204,25 @@ class staffControler extends Controller
             DB::insert('insert into prime_personne (personne_id, prime_id) values (?, ?)', [$request->staff_id, $prime->id]);
         }
          
+    }
+    public function reglerSalaire(Request $request){
+        $validated = $request->validate([
+            'libelle' => 'bail|nullable',
+            'montant' => 'bail|required|numeric',
+            'mois' => 'bail|required',     
+        ]);
+       $staff=Personne::find($request->staff_id);
+       $reglementSalaire=new reglementSalaire();
+       $reglementSalaire->libellé=$request->libelle;
+       if($request->montant===$staff->salaire){
+        $reglementSalaire->montant=$request->montant;
+    }   else{
+        $reglementSalaire->montant=$request->montant;
+        $reglementSalaire->reste=$staff->salaire-$request->montant;
+    }
+       $reglementSalaire->mois=$request->mois;
+        $reglementSalaire->personne_id=$request->staff_id;
+        $reglementSalaire->reglement_date=Date('Y-m-d H:i:s');
+        $reglementSalaire->save();
     }
 }

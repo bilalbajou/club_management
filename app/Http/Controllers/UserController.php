@@ -18,7 +18,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users=User::all(['id','name','email','role']);
+        $users=User::all(['id','name','email','role','etat']);
         return Inertia::render('Admin/Utilisateur/Utilisateur',[
             'users'=>$users
         ]);
@@ -59,7 +59,7 @@ class UserController extends Controller
         ]);
 
         if($user){
-            Mail::to($user->email)->send(new userMail($user,$password));
+            Mail::to($user->email)->queue(new userMail($user,$password));
         }
     }
 

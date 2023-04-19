@@ -3,6 +3,8 @@
 import FicheClient from './ficheJoueur.vue';
 import contratModal from './contratJoueurModal.vue';
 import primeModal from './modalPrime.vue';
+import reglerSalaire from './reglerSalaire.vue';
+
 
 import { useForm } from '@inertiajs/vue3';
 toastr.options = {
@@ -44,6 +46,13 @@ const showModalPrime=($id)=>{
      .modal('show')
       ;
 }
+
+const showModalSalaire=(id)=>{
+    $('#salaireJoueurModal'+id)
+     .modal('show')
+      ;
+}
+
 
 const previewContrat=($id)=>{
     $('#contratJoueurModal'+$id)
@@ -140,6 +149,14 @@ const deleteJoueur=($id)=>{
                 >
                     <i class="icon dollar sign"></i>
                 </button>
+                <button
+                    v-show="[1,2,3].includes(joueur.equipe_id)"
+                    @click="showModalSalaire(joueur.id)"
+                    data-content="Régler Salaire"
+                    class="circular ui icon button"
+                >
+                <i class="check circle icon"></i>
+                </button>
             </div>
         </div>
     </div>
@@ -148,5 +165,6 @@ const deleteJoueur=($id)=>{
    <FicheClient :joueur="joueur"/>
    <contratModal :joueur="joueur"/>
    <primeModal :joueur="joueur" />
+   <reglerSalaire :joueur="joueur" />
 
 </template>

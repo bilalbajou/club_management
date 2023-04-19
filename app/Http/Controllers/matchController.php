@@ -172,4 +172,9 @@ class matchController extends Controller
             dispatch(new annulerMatche($matche));
         }
     }
+
+    public function getListeJoueurs($id){
+        $joueurs=Personne::where('equipe_id',$id)->where('type','joueur')->get(['id','nom','prenom']);
+        
+    }
 }

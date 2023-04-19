@@ -45,17 +45,15 @@ const showModalEditEquipe = (id) => {
         <button data-content="Modifier nom d'équipe" @click="showModalEditEquipe(equipe.id)" class="ui icon button">
                <i class="edit icon" ></i>
              </button>
-             <button @click="showModalListeJoeurs(equipe.id)" class="ui icon button" data-content="Liste des joueurs">
-               <i class="users icon" ></i>
-             </button>
+             
          </td>
+       
 
       
       
     </tr>
 
     <editModalEquipe :equipe="equipe"/>
-    <listeJoueurs :id="equipe.id"/>
 
 
 

@@ -3,9 +3,11 @@
 namespace App\Jobs;
 
 use App\Mail\ConvMatchjoueur;
+use App\Mail\joueurConvt;
 use App\Models\Joueur;
 use App\Models\Personne;
 use App\Models\Staff;
+use Dompdf\Dompdf;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -50,19 +52,17 @@ class matcheStoreDetailJob implements ShouldQueue
              if($joueur->email){
              Mail::to($joueur->email)->send(new ConvMatchjoueur($this->matche,$joueur));
             }
-
-
         }
+       $joueursConvt=DB::table('personne_match')
+       ->join('personnes', 'personne_match.personne_id', '=', 'personnes.id')
+       ->select('personnes.nom', 'personnes.prenom')
+       ->where('personnes.type', '=', 'joueur')
+       ->where('personne_match.matche_id', '=', $this->matche->id)
+       ->get();
 
-        
-       
+   
+    Mail::to('bilalbajou05@gmail.com')->send(new joueurConvt($this->matche,$joueursConvt));
 
-
-
-
-
-
-        
-        
+      
     }
 }

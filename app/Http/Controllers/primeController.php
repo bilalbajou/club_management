@@ -17,21 +17,52 @@ class primeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $results = DB::table('primes')
+
+        $search=$request->search;
+        $type=$request->type;
+        $equipe=$request->equipe;
+        
+        $joueurs = DB::table('primes')
                 ->join('prime_personne', 'primes.id', '=', 'prime_personne.prime_id')
                 ->join('personnes', 'prime_personne.personne_id', '=', 'personnes.id')
                 ->join('equipes', 'personnes.equipe_id', '=', 'equipes.id')
                 ->select('personnes.nom', 'personnes.prenom', 'personnes.type', 'personnes.fonction', 'personnes.poste', 'primes.libellé', 'primes.montant', 'equipes.nom as nom_equipe')
+                ->when($search,function($query) use($search){
+
+                    $query->where("personnes.nom","like","%${search}%");
+                    $query->orWhere("personnes.prenom","like","%${search}%");
+
+
+                  
+                })
+                ->when($type,function($query) use($type){
+                   
+                    if($type!="all"){
+                    $query->where("personnes.type",$type);
+                   }
+                   
+                })
+                ->when($equipe,function($query) use($equipe){
+                    if($equipe!="all"){
+                   $query->where("personnes.equipe_id",$equipe);
+                }
+                })
                 ->get();
+
+
+              
 
         $personnes=Personne::all('id','nom','prenom','equipe_id','type');
         $equipes=Equipe::all('id','nom');
         return Inertia::render('Admin/Prime/Prime',[
             'personnes'=>$personnes,
             'equipes'=>$equipes,
-            'results'=>$results
+            'joueurs'=>$joueurs,
+            'search'=>$search,
+            'type'=>$type,
+            'equipe'=>$equipe
         ]);
     }
 

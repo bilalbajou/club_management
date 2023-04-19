@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Equipe;
 use App\Models\Joueur;
+use App\Models\Personne;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -24,7 +25,7 @@ class equipeController extends Controller
     }
 
     public function getJoueurs(Request $request){
-        $joueurs=Joueur::where('equipe_id',$request->id)->get(['nom','prenom','id']);
+        $joueurs=Personne::where('equipe_id',$request->id)->get(['nom','prenom','id']);
         dd($request->id);
         return $joueurs;
     }

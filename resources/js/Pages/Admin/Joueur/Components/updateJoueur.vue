@@ -76,7 +76,9 @@ const form = useForm({
     contrat: null,
     image: null,
     equipe: props.joueur.equipe_id,
-    age: props.joueur.age
+    age: props.joueur.age,
+    _method: 'put'
+
   
 });
 
@@ -87,7 +89,7 @@ const resetForm=()=>{
 
 const submitForm=($id)=>{
          
-       form.patch(route('joueurs.update',$id),{
+       form.post(route('joueurs.update',$id),{
         preserveScroll:true,
         onSuccess:()=>{
             toastr["success"]("Joueur a été modifié  avec succés", "Opération réussi");

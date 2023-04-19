@@ -22,7 +22,7 @@ const props = defineProps({
 
 </script>
 <template>
-<div class="ui  modal"  :id="'ficheStaff'+staff.id">
+<div class="ui small modal"  :id="'ficheStaff'+staff.id">
   <i class="close icon"></i>
   <div class="header">
     Joueur :  {{ staff.nom }} {{ staff.prenom }}
@@ -32,120 +32,16 @@ const props = defineProps({
       <img :src="staff.image ? '/staff/image/'+staff.image:'https://www.kindpng.com/picc/m/235-2350646_login-user-name-user-avatar-svg-hd-png.png'">
     </div>
     <div class="description">
-      <form @submit.prevent="submitForm" class="ui form">
-                    <div class="three fields">
-                        <div class="field">
-                          <label>Nom</label>
-                            <input
-                                type="text"
-                                
-                                :placeholder="staff.nom"
-                                readonly
-                            />
-                        </div>
-                        <div class="field">
-                          <label>Prénom</label>
-
-                            <input
-                                type="text"
-                                 
-                                :placeholder="staff.prenom"
-                                readonly
-                            />
-                        </div>
-                        <div class="field" >
-                          <label>Age</label>
-
-
-                            <input
-                               
-                                type="text"
-                                 
-                                :placeholder="staff.age"
-                                readonly
-                            />
-                        </div>
-                    </div>
-                    <div class="three fields">
-                        <div class="field">
-                       
-                          <label>CIN</label>
-
-                            <input
-                                type="text"
-                                 
-                                :placeholder="staff.cin"
-                                readonly
-                            />
-                        </div>
-                        <div class="field">
-                  
-                          <label>Email</label>
-
-                            <input
-                                type="text"
-                                 
-                                :placeholder="staff.email"
-                                readonly
-                            />
-                        </div>
-                        <div class="field">
-                          <label>Téléphone</label>
-
-                            <input
-                                type="text"
-                                 
-                              :placeholder="staff.telephone"
-                                readonly
-                            />
-                        </div>
-                    </div>
-                    <div class="three fields">
-                        <div class="field">
-                          <label>Adresse</label>
-
-                            <input
-                                type="text"
-                                 
-                                :placeholder="staff.adresse"
-                                readonly
-                            />
-                        </div>
-                        <div class="field">
-                            <label>Poste</label>
-
-                            <input
-                                type="text"
-                                 
-                                :placeholder="staff.fonction"
-                                 readonly
-                                
-                            />
-                        </div>
-                        <div class="field">
-                            <label>Equipe</label>
-                            <input
-                                type="text"
-                                 
-                                :placeholder="staff.equipe.nom"
-                                readonly
-                            />
-                        </div>
-                    </div>
-                    <div class="three fields">
-                        <div class="field">
-                            <label>Salaire</label>
-
-                            <input
-                                type="text"
-                                :placeholder="staff.salaire"
-                                readonly
-                            />
-                        </div>
-                    </div>
-                    
-                   
-                </form>
+      <div class="ui header">Informations personnelles</div>
+      <p><b>Nom : </b> {{ staff.nom }}</p>
+      <p><b>Prénom : </b> {{ staff.prenom }}</p>
+      <p><b>Adresse : </b> {{ staff.adresse }}</p>
+      <p><b>Téléphone : </b> {{ staff.telephone }}</p>
+      <p><b>Email : </b> {{ staff.email }}</p>
+      <p><b>Age : </b> {{ staff.age }}</p>
+      <p><b>Salaire : </b> {{ staff.salaire }}</p>
+      <p><b>Fonction : </b> {{ staff.fonction }}</p>
+      <p><b>Equipe : </b> {{ staff.equipe.nom }}</p>
     </div>
   </div>
   <div class="actions">

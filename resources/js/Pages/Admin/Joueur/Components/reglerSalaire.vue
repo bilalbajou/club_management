@@ -1,5 +1,6 @@
 <script setup>
-import {useForm} from "@inertiajs/vue3";
+import { useForm } from "@inertiajs/vue3";
+// toastr add player
 toastr.options = {
     "closeButton": true,
     "debug": false,
@@ -17,73 +18,93 @@ toastr.options = {
     "showMethod": "fadeIn",
     "hideMethod": "fadeOut"
 }
+
+
+
 const props = defineProps({
-    user: Object
-});
-
-const form = useForm({
-    name: props.user.name,
-    email: props.user.email,
-    role: props.user.role
+    joueur:Object
 });
 
 
-const submitForm=()=>{
-    form.patch(route('users.update',props.user.id),{
-        preserveScroll:true,
-        onSuccess:()=>{
-            $('#updateUser'+props.user.id)
-            .modal('hide')
-            ;
-
-            toastr["success"]("Utilisateur a été modifié avec succés", "Opération réussi");
-
-
-
-
-        },
-        onError:()=>{
-          
-            toastr["warning"]("Veuillez vérifier votre champs", "Opération echoué");
-
-        }
-    });
+const resetFieldsForm=()=>{
+        form.reset();
+      
 }
 
 
-  
+
+
+const form = useForm({
+    libelle:null,
+    montant:props.joueur.salaire,
+    mois:"janvier",
+    joueur_id:props.joueur.id
+});
+
+
+
+
+const submitForm = () => {
+
+
+    form.post(route("joueurs.salaire"), {
+        preserveScroll:true,
+        onSuccess: () => {
+            toastr["success"]("Salaire a été reglé avec succés", "Opération réussi");
+            form.reset();
+
+        },
+        onError: () => {
+            toastr["warning"]("Veuillez vérifier votre champs", "Opération echoué");
+        }
+
+    });
+};
+
 </script>
 <template>
-  <div class="ui small modal" :id="'updateUser'+props.user.id">
-  <div class="header">Modifier utilisateur</div>
-  <div class="content">
-    <form @submit.prevent="submitForm" class="ui form">
+    <div class="ui modal" :id="'salaireJoueurModal'+props.joueur.id">
+    <i class="close icon"></i>
+    <div class="header">Régler salaire pour {{ joueur.nom }} {{  joueur.prenom  }}</div>
+    <div class="image content">
+
+        <div class="description">
+            <form @submit.prevent="submitForm" class="ui form">
                     <div class="three fields">
-                        <div class="field" :class="form.errors.adversaire ? 'error' : ''">
-                            <label>Nom</label>
+                        <div class="field" :class="form.errors.libelle ? 'error' : ''">
+                            <label>Libellé</label>
 
-                            <input v-model="form.name" type="text" placeholder="Nom" />
+                            <input v-model="form.libelle" type="text" placeholder="Libellé" />
                         </div>
-                        <div class="field" :class="form.errors.email ? 'error' : ''">
-                            <label>Email</label>
+                        <div class="field" :class="form.errors.montant ? 'error' : ''">
+                            <label>Montant en (DH)</label>
 
-                            <input v-model="form.email" type="text" placeholder="Email" />
+                            <input v-model="form.montant" type="text" placeholder="Montant" />
                         </div>
-                        <div class="field" :class="form.errors.role ? 'error' : ''">
-                            <label>Type</label>
+                        <div class="field" :class="form.errors.mois ? 'error' : ''">
+                            <label>Mois</label>
                             <select
-                                
-                                v-model="form.role"
+                                v-model="form.mois"
                                 class="ui dropdown"
                                 id="select"
                             >
-                                <option value="admin">
-                                    Admin
-                                </option>
-                                <option value="user">
-                                    User
-                                </option>
+                                <option value="janvier">Janvier</option>
+                                <option value="fevrier">Février</option>
+                                <option value="mars">Mars</option>
+                                <option value="avril">Avril</option>
+                                <option value="mai">Mai</option>
+                                <option value="juin">Juin</option>
+                                <option value="juillet">Juillet</option>
+                                <option value="aout">Août</option>
+                                <option value="septembre">Septembre</option>
+                                <option value="octobre">Octobre</option>
+                                <option value="novembre">Novembre</option>
+                                <option value="decembre">Décembre</option>
+
+                               
+                                
                             </select>
+
                         </div>
 
                     </div>
@@ -92,13 +113,16 @@ const submitForm=()=>{
 
                   
                 </form>
-      
-  </div>
-  <div class="actions">
-    <div class="ui cancel button">Annuler</div>
-    <div @click="submitForm()" :disabled="form.processing" class="ui black button">Confirmer</div>
-  </div>
-</div>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui black deny button">Annuler</div>
+            <div class="ui black button" @click="resetFieldsForm">Rséinitialiser</div>
 
-       
+            <div :disabled="form.processing" @click="submitForm"  class="ui right labeled icon button">
+                Ajouter
+                <i class="checkmark icon"></i>
+            </div>
+        </div>
+    </div>
 </template>

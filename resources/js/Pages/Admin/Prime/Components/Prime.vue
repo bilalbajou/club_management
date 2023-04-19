@@ -4,10 +4,10 @@ const props = defineProps({
     index:Number
 });
 
+
 </script>
 
 <template>
-    <template>
      <tr>
       <td>{{index+1}}</td>
       <td>{{ result.nom }}</td>
@@ -16,13 +16,10 @@ const props = defineProps({
       <td>{{ result.libellé }}</td>
       <td>{{ result.montant }}</td>
       <td>
-        <div class="ui label">
-          {{ result.equipe_nom }}
-        </div>
+        {{ result.nom_equipe }}
       </td>
     </tr>
 
 
 
-</template>
 </template>
