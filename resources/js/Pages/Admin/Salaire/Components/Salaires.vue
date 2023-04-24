@@ -20,6 +20,7 @@ const props = defineProps({
     <th>Date de réglement</th>
     <th>Reste</th>
     <th>Equipe</th>
+    <th>Actions</th>
   </tr></thead>
   <tbody>
      <Salaire v-for="(result, index)  in props.salaires" :result="result" :index="index"/>

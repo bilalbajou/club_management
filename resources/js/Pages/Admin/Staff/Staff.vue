@@ -15,6 +15,7 @@ export default{
 
 
 import addModalStaff from "./Components/addModalStaff.vue";
+import Pagination from './Components/Pagination.vue';
 
 import Cards from "./Components/Cards.vue";
 import { onMounted } from "vue";
@@ -134,7 +135,10 @@ const showModalAddStaff = () => {
         </div>
          <div class="py-12">
             <Cards :staffs="staffs" />
+            <Pagination class="mt-6 flex justify-center items-center" :links="staffs.links" :search="search" :equipe="equipe" :fonction="fonction" />
+
          </div>
+         
         
 
         <addModalStaff :equipes="equipes " />

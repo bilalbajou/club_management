@@ -20,6 +20,7 @@ export default{
 import addModalMatch from "./Components/addModalMatch.vue";
 import Matches from "./Components/Matches.vue";
 import { onMounted } from "vue";
+// import Pagination from './Components/Pagination.vue';
 // import { Head } from "@inertiajs/vue3";
 
 import {router} from "@inertiajs/vue3";
@@ -140,6 +141,9 @@ const showModalAddMatch = () => {
             </div>
         </div>
          <Matches :matches="matches"/>
+         <!-- <Pagination class="mt-6 flex justify-center items-center" :links="matches.links" :search="search" :equipe="equipe" :etat="etat" :date="date" /> -->
+
+
         
     <addModalMatch :equipes="equipes" :joueurs="joueurs"/>
     <!-- </AdminDash> -->

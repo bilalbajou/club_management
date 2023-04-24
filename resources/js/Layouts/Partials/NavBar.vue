@@ -15,8 +15,10 @@
         <a href="#" class="sidebar-menu-toggler item" data-target="#sidebar">
           <i class="sidebar icon"></i>
         </a>
+        <img class="ui mini circular image" src="image/logo_club.png">
+
         <a href="#" class="header item">
-          WAC
+          Casa football club
         </a>
       </div>
 

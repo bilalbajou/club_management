@@ -40,8 +40,7 @@ const resetFieldsForm=()=>{
 
 const form = useForm({
     libelle:null,
-    montant:null,
-    remarque:null,
+    mois:null,
     exclure:[],
     equipe:null
 });
@@ -59,9 +58,9 @@ const filterJoueurs=()=>{
 const submitForm = () => {
 
 
-    form.post(route("primes.store"), {
+    form.post(route("salaires.store"), {
         onSuccess: () => {
-            toastr["success"]("Prime a été affecté avec succés", "Opération réussi");
+            toastr["success"]("Salaire a été régle avec succés", "Opération réussi");
             $('.dropdown')
     .dropdown('clear')
           ;
@@ -88,11 +87,29 @@ const submitForm = () => {
 
                             <input v-model="form.libelle" type="text" placeholder="Libellé" />
                         </div>
-                        <div class="field" :class="form.errors.montant ? 'error' : ''">
-                            <label>Montant</label>
+                        <div class="field" :class="form.errors.mois ? 'error' : ''">
+                            <label>Mois</label>
+                            <select v-model="form.mois" class="ui dropdown" id="select">
+                                <option value="janvier">Janvier</option>
+                                <option value="fevrier">Février</option>
+                                <option value="mars">Mars</option>
+                                <option value="avril">Avril</option>
+                                <option value="mai">Mai</option>
+                                <option value="juin">Juin</option>
+                                <option value="juillet">Juillet</option>
+                                <option value="aout">Août</option>
+                                <option value="septembre">Septembre</option>
+                                <option value="octobre">Octobre</option>
+                                <option value="novembre">Novembre</option>
+                                <option value="decembre">Décembre</option>
+                            </select>
 
-                            <input v-model="form.montant" type="text" placeholder="Montant" />
+                            
                         </div>
+                        
+
+                    </div>
+                    <div class="two fields">
                         <div class="field" :class="form.errors.equipe ? 'error' : ''">
                             <label>Equipe</label>
 
@@ -102,13 +119,7 @@ const submitForm = () => {
                                 </option>
                             </select>
                         </div>
-
-                    </div>
-                    <div class="two fields">
-                        <div class="field" :class="form.errors.date ? 'error' : ''">
-                            <label>Remarque</label>
-                            <input type="text" placeholder="Remarque" v-model="form.remarque">
-                        </div>
+                       
                         <div class="field" :class="form.errors.exclure ? 'error' : ''">
                             <label>Exclure</label>
                             <select v-model="form.exclure" class="ui fluid multiple search selection dropdown"  multiple="">

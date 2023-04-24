@@ -47,7 +47,7 @@ class staffControler extends Controller
         })
         
         ->latest()
-        ->paginate(30)
+        ->paginate(9)
         ;
         
        $equipes=Equipe::all(['nom','id']);
@@ -223,6 +223,8 @@ class staffControler extends Controller
        $reglementSalaire->mois=$request->mois;
         $reglementSalaire->personne_id=$request->staff_id;
         $reglementSalaire->reglement_date=Date('Y-m-d H:i:s');
-        $reglementSalaire->save();
+        if($reglementSalaire->montant<=$staff->salaire){
+            $reglementSalaire->save();
+            }
     }
 }

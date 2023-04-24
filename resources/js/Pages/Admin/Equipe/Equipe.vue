@@ -38,7 +38,7 @@ const showModalAddEquipe = () => {
     <div class="pt-10">
         <div class="ui grid" style="padding-left: 20px !important;padding-right: 20px !important;">
             <div class="left floated five wide column">
-                <h1 class="ui header">Equipe</h1>
+                <h1 class="ui header font-extrabold">Equipe</h1>
 
 
             </div>

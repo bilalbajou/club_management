@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Jobs\salaireDetailsStore;
 use Inertia\Inertia;
 
 
@@ -8,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Personne;
 use App\Models\Equipe;
-
+use App\Models\reglementSalaire;
 
 class salaireReglelemntController extends Controller
 {
@@ -22,11 +24,13 @@ class salaireReglelemntController extends Controller
         $search=$request->search;
         $type=$request->type;
         $equipe=$request->equipe;
+        $date=$request->date;
         $salaires = DB::table('reglement_salaires')
         ->join('personnes', 'personnes.id', '=', 'reglement_salaires.personne_id')
         ->join('equipes', 'equipes.id', '=', 'personnes.equipe_id')
         ->select('reglement_salaires.id', 'personnes.nom','personnes.prenom', 'reglement_salaires.montant', 'reglement_salaires.reglement_date', 'reglement_salaires.reste', 'reglement_salaires.mois', 'equipes.nom as nom_equipe')
-     
+        ->where('reglement_salaires.deleted_at',null)
+        
         ->when($search, function ($query) use ($search) {
 
             $query->where("personnes.nom", "like", "%${search}%");
@@ -38,12 +42,22 @@ class salaireReglelemntController extends Controller
                     $query->where("personnes.type", $type);
                 }
             })
+
             ->when($equipe, function ($query) use ($equipe) {
                 if ($equipe != "all") {
                     $query->where("personnes.equipe_id", $equipe);
                 }
             })
+            ->when($date,function($query) use($date){
+                if((count($date)==2)&&($date[1]!=null)){
+              $query->whereBetween('reglement_date',$date);
+            }
+            })
+
             ->get();
+
+          
+            
 
             
 
@@ -80,7 +94,21 @@ class salaireReglelemntController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'libelle' => 'bail|nullable|string',
+            'mois' => 'bail|required',
+            'equipe'=>'bail|required'
+        ]);
+
+       
+            $mois=$request->mois;
+            $libelle=$request->libelle;
+            
+            $personnes=Personne::where('equipe_id',$request->equipe)->get();
+            $filteredPersonnes = $personnes->whereNotBetween('id', $request->exclure);
+            dispatch(new salaireDetailsStore($filteredPersonnes,$mois,$libelle));
+        
+
     }
 
     /**
@@ -114,7 +142,31 @@ class salaireReglelemntController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'montant' => 'bail|required|numeric',
+            'mois' => 'bail|required',
+            'reglement_date' => 'bail|required|date',
+            'reste' => 'bail|nullable|numeric',
+        ]);
+
+        $reglementSalaire=reglementSalaire::findOrFail($id);
+        $personne=Personne::findOrfail($reglementSalaire->personne_id);
+        $reglementSalaire->montant=$request->montant;
+        
+        $reglementSalaire->mois=$request->mois;
+
+        $reglementSalaire->reste=$request->reste;
+        $reglementSalaire->reglement_date=$request->reglement_date;
+        if($request->montant>$personne->salaire){
+            return redirect()->back();
+        }
+
+
+        if($request->montant<$personne->salaire){
+            $reglementSalaire->reste=($personne->salaire)-($request->montant);       
+        }
+
+        $reglementSalaire->save();
     }
 
     /**
@@ -125,6 +177,6 @@ class salaireReglelemntController extends Controller
      */
     public function destroy($id)
     {
-        //
+        reglementSalaire::findOrFail($id)->delete();
     }
 }

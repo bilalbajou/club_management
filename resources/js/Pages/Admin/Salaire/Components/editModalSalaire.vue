@@ -22,12 +22,17 @@ toastr.options = {
 
 
 const props = defineProps({
-    staff:Object
+    salaire:Object
 });
+
 
 
 const resetFieldsForm=()=>{
         form.reset();
+        $('.dropdown')
+            .dropdown('clear')
+             ;
+        
       
 }
 
@@ -35,10 +40,9 @@ const resetFieldsForm=()=>{
 
 
 const form = useForm({
-    libelle:null,
-    montant:props.staff.salaire,
-    mois:"janvier",
-    staff_id:props.staff.id
+    montant:props.salaire.montant,
+    mois:props.salaire.mois,
+    reglement_date:props.salaire.reglement_date
 });
 
 
@@ -47,16 +51,19 @@ const form = useForm({
 const submitForm = () => {
 
 
-    form.post(route("staffs.salaire"), {
+    form.patch(route("salaires.update",props.salaire.id), {
         preserveScroll:true,
         onSuccess: () => {
-            toastr["success"]("Salaire a été reglé avec succés", "Opération réussi");
-            form.reset();
-            $('#salaireStaffModal'+props.staff.id).modal('hide');
+           
+            toastr["success"]("Régelement de salaire a été modifié avec succés", "Opération réussi");
+         
+
+            $('#editModalSalaire'+props.salaire.id).modal('hide');
 
         },
         onError: () => {
             toastr["warning"]("Veuillez vérifier votre champs", "Opération echoué");
+           
         }
 
     });
@@ -64,18 +71,18 @@ const submitForm = () => {
 
 </script>
 <template>
-    <div class="ui modal" :id="'salaireStaffModal'+props.staff.id">
+    <div class="ui modal" :id="'editModalSalaire'+props.salaire.id">
     <i class="close icon"></i>
-    <div class="header">Régler salaire pour {{ staff.nom }} {{  staff.prenom  }}</div>
+    <div class="header">Modifier </div>
     <div class="image content">
 
         <div class="description">
             <form @submit.prevent="submitForm" class="ui form">
                     <div class="three fields">
-                        <div class="field" :class="form.errors.libelle ? 'error' : ''">
-                            <label>Libellé</label>
+                        <div class="field" :class="form.errors.reglement_date ? 'error' : ''">
+                            <label>Date de réglement</label>
 
-                            <input v-model="form.libelle" type="text" placeholder="Libellé" />
+                            <input v-model="form.reglement_date" type="datetime-local" placeholder="Date de réglement" />
                         </div>
                         <div class="field" :class="form.errors.montant ? 'error' : ''">
                             <label>Montant en (DH)</label>
@@ -90,7 +97,7 @@ const submitForm = () => {
                                 id="select"
                             >
                                 <option value="janvier">Janvier</option>
-                                <option value="fevrier">Février</option>
+                                <option value="février">Février</option>
                                 <option value="mars">Mars</option>
                                 <option value="avril">Avril</option>
                                 <option value="mai">Mai</option>
@@ -100,10 +107,7 @@ const submitForm = () => {
                                 <option value="septembre">Septembre</option>
                                 <option value="octobre">Octobre</option>
                                 <option value="novembre">Novembre</option>
-                                <option value="decembre">Décembre</option>
-
-                               
-                                
+                                <option value="decembre">Décembre</option>    
                             </select>
 
                         </div>
@@ -121,7 +125,7 @@ const submitForm = () => {
             <div class="ui black button" @click="resetFieldsForm">Rséinitialiser</div>
 
             <div :disabled="form.processing" @click="submitForm"  class="ui right labeled icon button">
-                Ajouter
+                Modifier
                 <i class="checkmark icon"></i>
             </div>
         </div>

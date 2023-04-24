@@ -23,6 +23,7 @@ console.log(props.joueurs.data)
         <div v-for="joueur in props.joueurs.data" class="column">
            <Card :joueur="joueur" />
         </div>
+        
     
     </div>
 </template>

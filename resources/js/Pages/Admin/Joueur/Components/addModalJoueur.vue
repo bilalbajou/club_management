@@ -57,6 +57,8 @@ const submitForm = () => {
                 "Opération réussi"
             );
             form.reset();
+          
+            
         },
         onError: () => {
             toastr["warning"](

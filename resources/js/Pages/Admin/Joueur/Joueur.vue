@@ -133,7 +133,7 @@ const showModalAddJoueur = () => {
         </div>
          <div class="py-12">
             <Cards :joueurs="joueurs" />
-            <!-- <Pagination class="mt-6" :links="joueurs.links"/> -->
+            <Pagination class="mt-6 flex justify-center items-center" :links="joueurs.links" :search="search" :equipe="equipe" :poste="poste" />
          </div>
         
 

@@ -16,6 +16,7 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
 use DateTime;
+use Illuminate\Support\Facades\Date;
 
 class joueurController extends Controller
 {
@@ -50,7 +51,7 @@ class joueurController extends Controller
         })
         
         ->latest()
-        ->paginate(12)
+        ->paginate(9)
         ;
        $equipes=Equipe::all(['nom','id']);
       return Inertia::render('Admin/Joueur/Joueur',[
@@ -251,6 +252,7 @@ class joueurController extends Controller
 
         if($prime){
             DB::insert('insert into prime_personne (personne_id, prime_id) values (?, ?)', [$request->joueur_id, $prime->id]);
+            
         }
          
     }
@@ -264,17 +266,21 @@ class joueurController extends Controller
         ]);
        $joueur=Personne::find($request->joueur_id);
        $reglementSalaire=new reglementSalaire();
+
        $reglementSalaire->libellé=$request->libelle;
        if($request->montant===$joueur->salaire){
         $reglementSalaire->montant=$request->montant;
-    }   else{
+    }else{
         $reglementSalaire->montant=$request->montant;
         $reglementSalaire->reste=$joueur->salaire-$request->montant;
     }
        $reglementSalaire->mois=$request->mois;
         $reglementSalaire->personne_id=$request->joueur_id;
         $reglementSalaire->reglement_date=Date('Y-m-d H:i:s');
+        if($reglementSalaire->montant<=$joueur->salaire){
         $reglementSalaire->save();
+        }
+    
        
 
 

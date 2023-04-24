@@ -57,7 +57,7 @@ class matchController extends Controller
         }
         })
         ->get();
-
+        
 
         $joueurs=Personne::all(['id','nom','prenom','equipe_id','type']);
         $equipes=Equipe::all(['id','nom']);

@@ -52,7 +52,8 @@ const submitForm = () => {
         onSuccess: () => {
             toastr["success"]("Salaire a été reglé avec succés", "Opération réussi");
             form.reset();
-
+            $('#salaireJoueurModal'+props.joueur.id).modal('hide');
+          
         },
         onError: () => {
             toastr["warning"]("Veuillez vérifier votre champs", "Opération echoué");

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->enum('mois',['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre']);
             $table->dateTime('reglement_date');
             $table->foreignId('personne_id')->constrained();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

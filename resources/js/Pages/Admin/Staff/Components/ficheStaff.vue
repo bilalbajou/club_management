@@ -39,7 +39,7 @@ const props = defineProps({
       <p><b>Téléphone : </b> {{ staff.telephone }}</p>
       <p><b>Email : </b> {{ staff.email }}</p>
       <p><b>Age : </b> {{ staff.age }}</p>
-      <p><b>Salaire : </b> {{ staff.salaire }}</p>
+      <p><b>Salaire : </b> {{ staff.salaire }} DH</p>
       <p><b>Fonction : </b> {{ staff.fonction }}</p>
       <p><b>Equipe : </b> {{ staff.equipe.nom }}</p>
     </div>

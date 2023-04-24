@@ -166,7 +166,7 @@ const submit = () => {
                 <div class="ui message">
                     Mot de passe oublié
                     <Link
-                        v-if="canResetPassword"
+                      
                         :href="route('password.request')"
                         ><b>Réinitialisez mot de passe</b>
                     </Link>

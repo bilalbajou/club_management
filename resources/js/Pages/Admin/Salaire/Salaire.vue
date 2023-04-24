@@ -11,7 +11,9 @@ export default {
 import { defineProps } from "vue";
 import { ref } from "vue";
 import {router} from "@inertiajs/vue3";
-
+import Pagination from "./Components/Pagination.vue";
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css';
 import Salaires from './Components/Salaires.vue';
 import addModalSalaire from './Components/addModalSalaire.vue';
 import { onMounted } from "vue";
@@ -37,21 +39,28 @@ const props = defineProps({
     search:String,
     equipe:String,
     type:String,
+    date:Array
 });
+
+
 
 const search=ref(props.search ??"");
 const equipe=ref(props.equipe ?? "all");
 const type=ref(props.type ?? "all");
+const date=ref(props.date ?? []);
+
 
 const filter=_.throttle(()=>{
 
 console.log(search.value);
 console.log(equipe.value);
 console.log(type.value);
+console.log(date.value);
 router.get(route('salaires.index',{
     search:search.value,
     type:type.value,
-    equipe:equipe.value
+    equipe:equipe.value,
+    date:date.value
 }),{
       
 },
@@ -86,12 +95,17 @@ const showModalSalaire = () => {
     </div>
 
     <div class="pl-5">
-            <div class="ui stackable four column grid">
+            <div class="ui stackable five column grid">
                 <div class="column">
                     <div class="ui left icon input">
                         <input @keyup="filter" v-model="search" type="text" placeholder="Rechercher" />
 
                         <i class="users icon"></i>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="ui left icon input">
+                        <VueDatePicker @internal-model-change="filter" model-type="yyyy.MM.dd"  v-model="date" range/>
                     </div>
                 </div>
                 <div class="column">
@@ -120,6 +134,9 @@ const showModalSalaire = () => {
         </div>
 
     <Salaires :salaires="salaires" />
+    <!-- <Pagination class="mt-6 flex justify-center items-center" :links="salaires.links" :search="search" :equipe="equipe" :type="type"/> -->
+
+
 
   <addModalSalaire :equipes="equipes" :personnes="personnes"/>
     <!-- </AdminDash> -->

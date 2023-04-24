@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id()->autoIncrement();
             $table->string('libellé');
             $table->double('montant');
-            $table->text('remarque');        
+            $table->text('remarque')->nullable();        
             $table->timestamps();
         });
     }

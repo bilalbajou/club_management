@@ -11,6 +11,8 @@ use App\Http\Controllers\regSalaireController;
 use App\Http\Controllers\salaireReglelemntController;
 use App\Http\Controllers\staffControler;
 use App\Http\Controllers\UserController;
+use App\Models\Personne;
+use App\Models\Prime;
 use App\Models\reglementSalaire;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -28,18 +30,29 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
+    return Inertia::render('Auth/Login', [
         'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
+        'phpVersion' => PHP_VERSION
+       
     ]);
 });
-Route::get('/test',function(){
-    return Inertia::render('Test');
-});
+
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    $nb_joueurs=Personne::where('type','joueur')->count();
+    $nb_staffs=Personne::where('type','staff')->count();
+    $montant_primes=Prime::all()->sum('montant');
+    $montant_salaire=reglementSalaire::all()->sum('montant');
+
+ 
+
+    return Inertia::render('Dashboard',[
+        'nb_joueurs'=>$nb_joueurs,
+        'nb_staffs'=>$nb_staffs,
+        'montant_primes'=>$montant_primes,
+        'montant_salaire'=>$montant_salaire
+
+    ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
