@@ -62,9 +62,8 @@ const submitForm = () => {
 
         },
         onError: () => {
-            toastr["warning"]("Veuillez vérifier votre champs", "Opération echoué");
-           
-        }
+            toastr["error"]("Une erreur s'est produite", "Opération échoué");
+        },
 
     });
 };

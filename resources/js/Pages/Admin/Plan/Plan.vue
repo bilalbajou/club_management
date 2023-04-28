@@ -8,8 +8,8 @@ export default {
 
 <script setup>
 import { onMounted } from "vue";
-import addModalEquipe from './Components/addModalEquipe.vue';
-import Equipes from './Components/Equipes.vue';
+import addPlan from './Components/addPlan.vue';
+import Plans from './Components/Plans.vue';
 
 onMounted(() => {
     $(document).ready(function () {
@@ -21,29 +21,26 @@ onMounted(() => {
 });
 
 const props = defineProps({
-    equipes: Array,
+    plans: Array,
 });
 
 
-const showModalAddEquipe = () => {
-    $("#modalEquipe").modal("show");
+const showModalPlan = () => {
+    $("#modalPlan").modal("show");
 };
 
 </script>
 
 <template>
-    <!-- <Head title="Joueur" /> -->
 
     <div class="pt-10">
         <div class="ui grid" style="padding-left: 20px !important;padding-right: 20px !important;">
             <div class="left floated five wide column">
-                <h1 class="ui header font-extrabold">Equipe</h1>
-
-
+                <h1 class="ui header font-extrabold">Plans</h1>
             </div>
             <div class="right floated three wide column">
                 <button
-                        @click="showModalAddEquipe"
+                        @click="showModalPlan"
                         class="ui primary button"
                     >
                         Ajouter
@@ -52,7 +49,6 @@ const showModalAddEquipe = () => {
         </div>
     </div>
 
-    <Equipes :equipes="equipes"/>
-    <addModalEquipe />
-    <!-- </AdminDash> -->
+    <Plans :plans="plans"/>
+    <addPlan />
 </template>

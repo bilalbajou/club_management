@@ -12,12 +12,19 @@ class Personne extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $fillable =['nom', 'prenom', 'age', 'salaire', 'cin', 'adresse', 'telephone', 'email', 'poste','type','equipe_id','image','contrat'];
+    protected $fillable =['nom', 'prenom', 'age','plan_id','salaire', 'cin', 'adresse', 'telephone', 'email', 'poste','type','equipe_id','image','contrat'];
 
+    public function plan(){
+        return $this->belongsTo(Plan::class);
+    }
 
     public function equipe(){
         
         return $this->belongsTo(Equipe::class);
+    }
+
+    public function adhesions(){
+        return $this->hasMany(Adhesion::class);
     }
 
     // public function reglementSalaire(){

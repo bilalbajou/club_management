@@ -59,6 +59,32 @@ const previewContrat=($id)=>{
      .modal('show')
       ;
 }
+const reglerAbonnement=(id)=>{
+    Swal.fire({
+  title: 'Êtes-vous sûr?',
+  text: "Êtes-vous sûr de vouloir régler le paiement de d'adhésion du joueur !",
+  icon: 'warning',
+  showCancelButton: true,
+  showCancelButtonText:"Annuler",
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Oui, Confirmer'
+}).then((result) => {
+  if (result.isConfirmed) {
+    form.put(route('joueurs.adhesion',id),{
+        preserveScroll:true,
+         onSuccess:()=>{
+            toastr["success"]("Paiement des frais d'adhésion a été reglé avec succés", "Opération réussi");
+        },
+        onError:()=>{
+            toastr["error"]("Erreur lors du paiement des frais d'adhésion", "Opération échoué");
+        }
+
+    });
+    
+  }
+})
+}
 const deleteJoueur=($id)=>{
 
   Swal.fire({
@@ -77,6 +103,9 @@ const deleteJoueur=($id)=>{
          onSuccess:()=>{
             toastr["success"]("Joueur a été supprimé avec succés", "Opération réussi");
             // console.log("dazd");
+        },
+        onError:()=>{
+            toastr["error"]("Erreur lors de la suppression du joueur", "Opération échoué");
         }
 
     });
@@ -157,6 +186,15 @@ const deleteJoueur=($id)=>{
                 >
                 <i class="check circle icon"></i>
                 </button>
+                <button
+                    v-show="[4,5,6,7].includes(joueur.equipe_id) && joueur.plan_id"
+                    @click="reglerAbonnement(joueur.id)"
+                    data-content="Régler abonnement"
+                    class="circular ui icon button"
+                >
+                <i class="check icon"></i>
+                </button>
+                
             </div>
         </div>
     </div>

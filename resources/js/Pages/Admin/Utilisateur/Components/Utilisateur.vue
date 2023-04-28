@@ -55,7 +55,10 @@ const desactiver=(id)=>{
         preserveScroll:true,
          onSuccess:()=>{
             toastr["success"]("Compte a été désactiver avec succés", "Opération réussi");
-        }
+        },
+        onError:()=>{
+            toastr["error"]("Une erreur s'est produite lors de la désactivation de ce compte", "Opération échoué");
+        } 
 
     });
     

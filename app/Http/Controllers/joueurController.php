@@ -4,15 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\storeJoueurRequest;
 use App\Jobs\mailWelcomeJoueur;
+use App\Models\Adhesion;
 use App\Models\Equipe;
 // use Illuminate\Support\Facades\Request;
 use Illuminate\Http\Request;
 use App\Models\Joueur;
 use App\Models\Personne;
+use App\Models\Plan;
 use App\Models\Prime;
 use App\Models\reglementSalaire;
 use App\Service\emailVerify;
 use Inertia\Inertia;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
 use DateTime;
@@ -31,7 +34,7 @@ class joueurController extends Controller
         $poste=$request->poste;
         $equipe=$request->equipe;
 
-        $joueurs=Personne::with('equipe')
+        $joueurs=Personne::with(['equipe','plan'])
         ->where('type','joueur')
         ->when($search,function($query) use($search){
             $query->where("nom","like","%$search%");
@@ -53,13 +56,18 @@ class joueurController extends Controller
         ->latest()
         ->paginate(9)
         ;
+
+     
+        $plans=Plan::all();
+
        $equipes=Equipe::all(['nom','id']);
       return Inertia::render('Admin/Joueur/Joueur',[
         'equipes'=>$equipes,
         'joueurs'=>$joueurs,
         'search'=>$search,
         'poste'=>$poste,
-        'equipe'=>$equipe
+        'equipe'=>$equipe,
+        'plans'=>$plans
       ]);
     }
 
@@ -119,6 +127,7 @@ class joueurController extends Controller
 
         $joueur = new Personne();
         $data = $request->only(['nom', 'prenom', 'age', 'salaire', 'cin', 'adresse', 'telephone', 'email', 'poste']);
+        $data['plan_id'] =$request->plan_id;
         $data['equipe_id'] = $request->equipe;
         $data['type'] = 'joueur';
 
@@ -171,9 +180,11 @@ class joueurController extends Controller
     {
            $joueur=Personne::findOrfail($id);
            $equipes=Equipe::all(['id','nom']);
+           $plans=Plan::all();
          
            return Inertia::render('Admin/Joueur/Components/updateJoueur',[
-            'joueur'=>$joueur,'equipes'=>$equipes
+            'joueur'=>$joueur,'equipes'=>$equipes,'plans'=>$plans
+
            ]);
     }
 
@@ -197,6 +208,8 @@ class joueurController extends Controller
         $joueur->email=$request->email;
         $joueur->poste=$request->poste;
         $joueur->equipe_id=$request->equipe;
+        $joueur->plan_id=$request->plan_id;
+
         if($request->file('image')){
           $image=$request->file('image');
           $joueur->image=uniqid()."_".$image->getClientOriginalName();
@@ -286,5 +299,26 @@ class joueurController extends Controller
 
       
          
+    }
+
+    public function reglerAdhesion($id){
+       $joueur=Personne::findOrfail($id);
+     if($joueur->plan_id){
+       $plan=Plan::findOrfail($joueur->plan_id);
+       $joueur->montant_global=$joueur->montant_global+$plan->montant;
+
+       $joueur->derniere_paiement=Carbon::now()->format('Y-m-d');
+       $joueur->date_echeance=Carbon::now()->addMonths($plan->duree)->format('Y-m-d');
+        if($joueur->save()){
+          
+        }
+   
+
+    }
+
+
+
+
+
     }
 }

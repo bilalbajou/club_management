@@ -1,11 +1,11 @@
 <script>
 import AdminDash from "@/Layouts/AdminDash.vue";
-// import route from "vendor/tightenco/ziggy/src/js";
 
 
 export default{
 
     layout:AdminDash
+    
 }
 
 
@@ -19,11 +19,8 @@ import addModalJoueur from "./Components/addModalJoueur.vue";
 
 import Cards from "./Components/Cards.vue";
 import { onMounted } from "vue";
-import { Head } from "@inertiajs/vue3";
 import { ref } from "vue";
 import Pagination from "./Components/Pagination.vue";
-import {reactive} from "vue";
-import {watch} from "vue";
 import { router } from '@inertiajs/vue3'
 
 onMounted(() => {
@@ -44,10 +41,11 @@ onMounted(() => {
 
 const props = defineProps({
     equipes: Array,
-    joueurs:Object,
+    joueurs:Array,
     poste:String,
     equipe:String,
-    search:String
+    search:String,
+    plans:Object
 });
 
 const search=ref(props.search ??"");
@@ -85,7 +83,6 @@ const showModalAddJoueur = () => {
 
 
 <template>
-    <!-- <Head title="Joueur" /> -->
 
    
         <div class="py-12">
@@ -137,6 +134,5 @@ const showModalAddJoueur = () => {
          </div>
         
 
-        <addModalJoueur :equipes="equipes " />
-    <!-- </AdminDash> -->
+        <addModalJoueur :equipes="equipes" :plans="plans"/>
 </template>

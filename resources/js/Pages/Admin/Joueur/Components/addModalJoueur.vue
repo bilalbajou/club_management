@@ -23,7 +23,10 @@ toastr.options = {
 
 const props = defineProps({
     equipes: Array,
+    plans:Array
 });
+
+console.log(props.plans);
 
 let url = ref(null);
 
@@ -38,13 +41,14 @@ const form = useForm({
     cin: null,
     email: null,
     adresse: null,
-    poste: null,
+    poste: "Attack",
     telephone: null,
     salaire: null,
     contrat: null,
     image: null,
-    equipe: null,
+    equipe: 1,
     age: null,
+    plan_id:null
 });
 
 const submitForm = () => {
@@ -62,7 +66,7 @@ const submitForm = () => {
         },
         onError: () => {
             toastr["warning"](
-                "Veuillez vérifier votre champs",
+                "Une erreur inattendue s'est produite, veuillez réessayer",
                 "Opération echoué"
             );
         },
@@ -214,6 +218,7 @@ const submitForm = () => {
                     </div>
                     <div class="three fields">
                         <div
+                          v-show="[1,2,3].includes(form.equipe)"
                             class="field"
                             :class="form.errors.salaire ? 'error' : ''"
                         >
@@ -224,6 +229,29 @@ const submitForm = () => {
                                 v-model="form.salaire"
                                 placeholder="Salaire"
                             />
+                        </div>
+                        <div
+                          v-show="[4,5,6,7].includes(form.equipe)"
+                            class="field"
+                            :class="form.errors.plan_id ? 'error' : ''"
+                        >
+                            <label>Plan d'adhésion</label>
+                            <select
+                               
+                                v-model="form.plan_id"
+                                class="ui dropdown"
+                                id="select"
+                            >
+                            <option
+                                    v-for="plan in props.plans"
+                                    :key="plan.id"
+                                    :value="plan.id" 
+                                >
+                                    {{ plan.duree }} Mois --- {{ plan.montant }} DH
+                                </option>
+                                </select>
+
+                            
                         </div>
                         <div
                             class="field"
@@ -251,15 +279,7 @@ const submitForm = () => {
                         </div>
                     </div>
 
-                    <!-- <div v-show="form.hasErrors" class="ui error message visible">
-                        <i class="close icon"></i>
-                        <div class="header">
-                            Veuillez vérifier les champs
-                        </div>
-                        <ul class="list">
-                            <li v-for="value in form.errors"> {{ value }}</li>
-                        </ul>
-                    </div> -->
+           
                 </form>
             </div>
         </div>

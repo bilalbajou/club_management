@@ -1,5 +1,4 @@
 <script setup>
-import { ref } from "vue";
 import { useForm } from "@inertiajs/vue3";
 // toastr add player
 toastr.options = {
@@ -65,9 +64,11 @@ const submitForm = () => {
             .dropdown('clear')
              ;
         },
+
         onError: () => {
-            toastr["warning"]("Veuillez vérifier votre champs", "Opération echoué");
-        }
+            toastr["error"]("Une erreur inattendue s'est produite, veuillez réessayer", "Erreur");
+        },
+        
 
     });
 };

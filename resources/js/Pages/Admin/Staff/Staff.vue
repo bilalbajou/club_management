@@ -19,13 +19,11 @@ import Pagination from './Components/Pagination.vue';
 
 import Cards from "./Components/Cards.vue";
 import { onMounted } from "vue";
-import { Head } from "@inertiajs/vue3";
 
 import { router } from '@inertiajs/vue3'
 
 import { ref } from "vue";
-import {reactive} from "vue";
-import {watch} from "vue";
+
 
 onMounted(() => {
     $(document).ready(function(){
@@ -86,7 +84,6 @@ const showModalAddStaff = () => {
 
 
 <template>
-    <!-- <Head title="Joueur" /> -->
 
    
         <div class="py-12">
@@ -142,5 +139,5 @@ const showModalAddStaff = () => {
         
 
         <addModalStaff :equipes="equipes " />
-    <!-- </AdminDash> -->
+   
 </template>

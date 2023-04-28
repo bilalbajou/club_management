@@ -1,27 +1,25 @@
 <script setup>
-import Prime from './Prime.vue';
 
-const props = defineProps({
-  joueurs:Array
-});
+import Plan from "./Plan.vue";
 
+const props=defineProps({
+    plans:Array
+})
 
 </script>
+
 
 <template>
     <div class="py-12" style="padding-left: 10px !important;padding-right: 10px !important;">
             <table class="ui celled table stackable">
   <thead>
     <tr><th>#</th>
-    <th>Nom</th>
-    <th>Prénom</th>
-    <th>Type</th>
-    <th>Libellé prime</th>
+    <th>Durée</th>
     <th>Montant</th>
-    <th>Equipe</th>
+    <th>Action</th>
   </tr></thead>
   <tbody>
-     <Prime v-for="(result, index)  in props.joueurs" :result="result" :index="index"/>
+     <Plan v-for="(plan, index)  in plans" :plan="plan" :index="index" :key="index"/>
   </tbody>
 </table>
             

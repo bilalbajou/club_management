@@ -45,7 +45,11 @@ const annulerMatche=(id)=>{
         preserveScroll:true,
          onSuccess:()=>{
             toastr["success"]("ce matches a été annulé avec succés", "Opération réussi");
+        },
+        onError:()=>{
+            toastr["error"]("Une erreur s'est produite lors de l'annulation de ce matche", "Opération échoué");
         }
+
 
     });
     

@@ -1,6 +1,5 @@
 <script>
 import AdminDash from "@/Layouts/AdminDash.vue";
-// import route from "vendor/tightenco/ziggy/src/js";
 
 export default {
     layout: AdminDash,

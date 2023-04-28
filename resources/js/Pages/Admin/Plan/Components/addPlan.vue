@@ -1,6 +1,5 @@
 <script setup>
 import { useForm } from "@inertiajs/vue3";
- // toastr add player
 toastr.options = {
   "closeButton": true,
   "debug": false,
@@ -25,42 +24,59 @@ toastr.options = {
 
 
 const form = useForm({
-    nom: null
+    duree: "1",
+    montant:null
 });
 
 const submitForm = () => {
    
     
-    form.post(route("equipes.store"),{
+    form.post(route("plans.store"),{
         onSuccess:()=>{
-            toastr["success"]("Equipe a été ajouté avec succés", "Opération réussi");
+            toastr["success"]("Plan a été ajouté avec succés", "Opération réussi");
             form.reset();
         },
         onError:()=>{
-            toastr["warning"]("Une erreur inattendue s'est produite, veuillez réessayer", "Opération echoué");
+            toastr["error"]("Une erreur s'est produite", "Opération échoué");
         }
+        
 
     });
 };
 
 </script>
 <template>
-    <div class="ui tiny modal" id="modalEquipe">
+    <div class="ui tiny modal" id="modalPlan">
         <i class="close icon"></i>
-        <div class="header">Ajouter nouveau equipe</div>
+        <div class="header">Ajouter nouveau plan</div>
         <div class="image content">
             <div class="description">
                 <form @submit.prevent="submitForm" class="ui form">
+                    <div class="two fields">
                
-                        <div class="field" :class="form.errors.nom ? 'error':''">
-                            <label>Nom d'équipe</label>
+                        <div class="field" :class="form.errors.duree ? 'error':''">
+                            <label>Durée</label>
+                            <select
+                                v-model="form.duree"
+                                class="ui dropdown"
+                                id="select"
+                            >
+                                <option value="1">1 Mois</option>
+                                <option value="3">3 Mois</option>
+                                <option value="6">6 Mois</option>
+                                <option value="12">12 Mois</option>
+                            </select>
+                        </div>
+                        <div class="field" :class="form.errors.montant ? 'error':''">
+                            <label>Montant (DH)</label>
 
                             <input
-                                v-model="form.nom"
+                                v-model="form.montant"
                                 type="text"
-                                placeholder="Nom"
+                                placeholder="Montant"
                             />
                         </div>
+                    </div>
                         
                        
                  

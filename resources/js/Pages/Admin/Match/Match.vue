@@ -14,19 +14,14 @@ export default{
 <script setup>
 
 
-// import addModalStaff from "./Components/addModalStaff.vue";
-
-// import Cards from "./Components/Cards.vue";
 import addModalMatch from "./Components/addModalMatch.vue";
 import Matches from "./Components/Matches.vue";
 import { onMounted } from "vue";
-// import Pagination from './Components/Pagination.vue';
-// import { Head } from "@inertiajs/vue3";
+
 
 import {router} from "@inertiajs/vue3";
 import { ref } from "vue";
-import {reactive} from "vue";
-import {watch} from "vue";
+
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 
@@ -141,12 +136,10 @@ const showModalAddMatch = () => {
             </div>
         </div>
          <Matches :matches="matches"/>
-         <!-- <Pagination class="mt-6 flex justify-center items-center" :links="matches.links" :search="search" :equipe="equipe" :etat="etat" :date="date" /> -->
 
 
         
     <addModalMatch :equipes="equipes" :joueurs="joueurs"/>
-    <!-- </AdminDash> -->
 </template>
 
 

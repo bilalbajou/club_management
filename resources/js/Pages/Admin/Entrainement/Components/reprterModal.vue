@@ -42,7 +42,7 @@ const submitForm=()=>{
         },
         onError:()=>{
           
-            toastr["warning"]("Veuillez vérifier votre champs", "Opération echoué");
+            toastr["warning"]("Une erreur inattendue s'est produite, veuillez réessayer", "Opération echoué");
 
         }
     });

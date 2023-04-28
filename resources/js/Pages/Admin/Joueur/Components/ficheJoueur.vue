@@ -7,17 +7,7 @@ const props = defineProps({
     joueur: Object,
 });
 
-// const generatePDF=(id)=>{
-//   form.get(route('joueurs.generate',id),{
-//         preserveScroll:true,
-//         onSuccess:()=>{
-//             $('#ficheClient'+id)
-//             .modal('hide')
-//             ;
-//         }
-        
-//     });
-// }
+
 
 
 </script>
@@ -39,19 +29,18 @@ const props = defineProps({
       <p><b>Téléphone : </b> {{ joueur.telephone }}</p>
       <p><b>Email : </b> {{ joueur.email }}</p>
       <p><b>Age : </b> {{ joueur.age }}</p>
-      <p><b>Salaire : </b> {{ joueur.salaire }} DH</p>
+      <p v-show="[1,2,3].includes(joueur.equipe_id) && joueur.salaire"><b>Salaire : </b> {{ joueur.salaire }} DH</p>
+      <!-- <p v-show="[4,5,6,7].includes(joueur.equipe_id)"><b>Plan d'adhésion : </b> {{ joueur.plan.duree }} Mois --- {{ joueur.plan.montant }} DH</p> -->
       <p><b>Poste : </b> {{ joueur.poste }}</p>
       <p><b>Equipe : </b> {{ joueur.equipe.nom }}</p>
+     
     </div>
   </div>
   <div class="actions">
     <div class="ui black deny button">
       Fermer
     </div>
-    <!-- <div @click="generatePDF(joueur.id)" class="ui positive right labeled icon button">
-      Télécharger fiche joueur
-      <i class="checkmark icon"></i>
-    </div> -->
+    
   </div>
 </div>
 

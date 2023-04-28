@@ -1,7 +1,6 @@
 <script>
 import AdminDash from "@/Layouts/AdminDash.vue";
 
-// import route from "vendor/tightenco/ziggy/src/js";
 
 export default {
     layout: AdminDash
@@ -75,7 +74,6 @@ const showModalPrime = () => {
 </script>
 
 <template>
-    <!-- <Head title="Joueur" /> -->
 
     <div class="pt-10">
         <div class="ui grid" style="padding-left: 20px !important;padding-right: 20px !important;">
@@ -123,5 +121,4 @@ const showModalPrime = () => {
     <Primes :joueurs="joueurs" />
 
   <addPrime :equipes="equipes" :personnes="personnes"/>
-    <!-- </AdminDash> -->
 </template>

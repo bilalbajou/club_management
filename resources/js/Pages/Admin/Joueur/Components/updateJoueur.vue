@@ -34,7 +34,8 @@ toastr.options = {
 
 const props = defineProps({
           joueur:Object,
-          equipes:Array
+          equipes:Array,
+          plans:Array
        });
 
 
@@ -73,6 +74,7 @@ const form = useForm({
     poste: props.joueur.poste,
     telephone: props.joueur.telephone,
     salaire: props.joueur.salaire,
+    plan_id: props.joueur.plan_id,
     contrat: null,
     image: null,
     equipe: props.joueur.equipe_id,
@@ -95,8 +97,8 @@ const submitForm=($id)=>{
             toastr["success"]("Joueur a été modifié  avec succés", "Opération réussi");
         },
         onError:()=>{
-            toastr["opération echoué"]("Joueur a été modifié  avec succés", "Opération réussi");
-        }
+            toastr["error"]("Une erreur s'est produite", "Opération échoué");
+        },
        });
        
 
@@ -220,9 +222,29 @@ const submitForm=($id)=>{
                                 </option>
                             </select>
                         </div>
+
+                       
                     </div>
                     <div class="three fields">
-                        <div class="field" :class="form.errors.salaire ? 'error':''">
+                        <div v-show="[4,5,6,7].includes(joueur.equipe_id)" class="field" :class="form.errors.plan_id ? 'error':''">
+                            <label>Plan d'adhésion</label>
+
+                            <select
+                                name="gender"
+                                v-model="form.plan_id"
+                                class="ui dropdown"
+                                id="select"
+                            >
+                                <option
+                                    v-for="plan in plans"
+                                    :key="plan.id"
+                                    :value="plan.id"
+                                >
+                                    {{ plan.duree }} Mois --- {{ plan.montant }} DH
+                                </option>
+                            </select>
+                        </div>
+                        <div v-show="[1,2,3].includes(joueur.equipe_id)" class="field" :class="form.errors.salaire ? 'error':''">
                             <label>Salaire</label>
 
                             <input

@@ -48,6 +48,9 @@ const annulerEntrainement=(id)=>{
         preserveScroll:true,
          onSuccess:()=>{
             toastr["success"]("Scéance d'entrainement a été annulé avec succés", "Opération réussi");
+        },
+        onError:()=>{
+            toastr["error"]("Une erreur s'est produite lors de l'annulation de la scéance d'entrainement", "Opération échoué");
         }
 
     });

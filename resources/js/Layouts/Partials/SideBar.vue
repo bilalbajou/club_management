@@ -59,6 +59,13 @@ const user = computed(() => usePage().props.auth.user)
            Reg Salaire
           </div>
         </Link>
+        <Link :href="route('plans.index')" class="item">
+          <div>
+            <i class="file alternate
+ icon"></i>
+           Plans
+          </div>
+        </Link>
         
         <Link v-show="user.role=='admin'" :href="route('users.index')" class="item">
           <div>

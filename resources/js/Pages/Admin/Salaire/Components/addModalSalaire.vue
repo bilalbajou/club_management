@@ -1,7 +1,6 @@
 <script setup>
 import { useForm } from "@inertiajs/vue3";
 import {ref} from "vue";
-// toastr add player
 toastr.options = {
     "closeButton": true,
     "debug": false,
@@ -66,7 +65,7 @@ const submitForm = () => {
           ;
         },
         onError: () => {
-            toastr["warning"]("Veuillez vérifier votre champs", "Opération echoué");
+            toastr["error"]("Vérifier les champs", "Opération échoué");
         }
 
     });

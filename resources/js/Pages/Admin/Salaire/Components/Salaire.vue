@@ -34,6 +34,9 @@ const deleteReglement = (id) => {
         onSuccess: () => {
           toastr["success"]("Réglement a été supprimé avec succés", "Opération réussi");
 
+        },
+        onError: () => {
+          toastr["error"]("Une erreur s'est produite lors de la suppression de ce réglement", "Opération échoué");
         }
 
       });

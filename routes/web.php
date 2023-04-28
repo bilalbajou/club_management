@@ -4,6 +4,7 @@ use App\Http\Controllers\entrainementController;
 use App\Http\Controllers\equipeController;
 use App\Http\Controllers\joueurController;
 use App\Http\Controllers\matchController;
+use App\Http\Controllers\planController;
 use App\Http\Controllers\primeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\reg_salaireController;
@@ -74,11 +75,14 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/joueurs/prime',[joueurController::class,'reglerPrime'])->name('joueurs.prime');
     Route::post('/joueurs/salaire',[joueurController::class,'reglerSalaire'])->name('joueurs.salaire');
+    Route::put('/joueurs/adhesion/{id}',[joueurController::class,'reglerAdhesion'])->name('joueurs.adhesion');
+
 
     Route::post('/staffs/prime',[staffControler::class,'reglerPrime'])->name('staffs.prime');
     Route::post('/staffs/salaire',[staffControler::class,'reglerSalaire'])->name('staffs.salaire');
 
     Route::resource('salaires',salaireReglelemntController::class);
+    Route::resource('plans',planController::class);
 
 
 

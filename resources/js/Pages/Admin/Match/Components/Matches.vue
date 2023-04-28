@@ -10,7 +10,6 @@ const props = defineProps({
 
 <template>
     <div class="py-12" style="padding-left: 10px !important;padding-right: 10px !important;">
-            <!-- <Cards :staffs="staffs" /> -->
             <table class="ui celled table stackable">
   <thead>
     <tr><th>#</th>

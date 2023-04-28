@@ -25,9 +25,10 @@ class personneFactory extends Factory
             'adresse' => fake()->address(),
             'poste' => fake()->randomElement(["Défense","Attack","Gardien","Milieu"]),
             'telephone' => fake()->phoneNumber(),
-            'type'=>'joueur',
+            'type'=>'staff',
             'age' => fake()->numberBetween(6,30),
             'equipe_id' => fake()->numberBetween(1,7),
+            'plan_id'=> fake()->numberBetween(6,8)
             // 'image' => fake()->imageUrl(500,500,"sport")
         ];
     }

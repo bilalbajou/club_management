@@ -3,7 +3,6 @@ import { ref } from "vue";
 import { useForm } from "@inertiajs/vue3";
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
-// toastr add player
 toastr.options = {
     "closeButton": true,
     "debug": false,
@@ -76,7 +75,7 @@ const submitForm = () => {
           ;
         },
         onError: () => {
-            toastr["warning"]("Veuillez vérifier votre champs", "Opération echoué");
+            toastr["error"]("Matche n'a pas été programmé", "Opération échoué");
         }
 
     });

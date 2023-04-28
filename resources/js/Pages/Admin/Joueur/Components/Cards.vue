@@ -15,7 +15,7 @@ console.log(props.joueurs.data)
 
 
 <template>
-     <h3 v-show="joueurs.length==0" class="ui center aligned header">
+     <h3 v-show="joueurs.length===0" class="ui center aligned header">
         Aucun joueur trouvé</h3>
    
     

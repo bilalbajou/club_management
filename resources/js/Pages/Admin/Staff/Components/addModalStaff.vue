@@ -1,7 +1,6 @@
 <script setup>
 import { ref } from "vue";
 import { useForm } from "@inertiajs/vue3";
- // toastr add player
 toastr.options = {
   "closeButton": true,
   "debug": false,
@@ -50,12 +49,7 @@ const form = useForm({
 });
 
 const submitForm = () => {
-    // if (this.$refs.image) {
-    //             this.form.image = this.$refs.image.files[0];
-    // }
-    // if (this.$refs.contrat) {
-    //             this.form.contrat = this.$refs.contrat.files[0];
-    // }
+    
     
     form.post(route("staffs.store"),{
         onSuccess:()=>{
@@ -63,7 +57,7 @@ const submitForm = () => {
             form.reset();
         },
         onError:()=>{
-            toastr["warning"]("Veuillez vérifier votre champs", "Opération echoué");
+            toastr["error"]("Staff n'a pas été ajouté", "Opération échoué");
         }
 
     });
@@ -211,15 +205,7 @@ const submitForm = () => {
 
                     </div>
                     
-                    <!-- <div v-show="form.errors.any" class="ui error message visible">
-                        <i class="close icon"></i>
-                        <div class="header">
-                            Veuillez vérifier les champs
-                        </div>
-                        <ul class="list">
-                            <li v-for="value in form.errors"> {{ value }}</li>
-                        </ul>
-                    </div> -->
+                
                 </form>
             </div>
         </div>

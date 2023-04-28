@@ -44,8 +44,7 @@ const submitForm=()=>{
         },
         onError:()=>{
           
-            toastr["warning"]("Veuillez vérifier votre champs", "Opération echoué");
-
+            toastr["error"]("Utilisateur n'a pas été modifié", "Opération échoué");
         }
     });
 }

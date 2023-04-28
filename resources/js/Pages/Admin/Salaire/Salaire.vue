@@ -83,7 +83,6 @@ const showModalSalaire = () => {
 </script>
 
 <template>
-    <!-- <Head title="Joueur" /> -->
 
     <div class="pt-10">
         <div class="ui grid" style="padding-left: 20px !important;padding-right: 20px !important;">
@@ -134,10 +133,8 @@ const showModalSalaire = () => {
         </div>
 
     <Salaires :salaires="salaires" />
-    <!-- <Pagination class="mt-6 flex justify-center items-center" :links="salaires.links" :search="search" :equipe="equipe" :type="type"/> -->
 
 
 
   <addModalSalaire :equipes="equipes" :personnes="personnes"/>
-    <!-- </AdminDash> -->
 </template>

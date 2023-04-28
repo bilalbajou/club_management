@@ -77,6 +77,10 @@ const deleteStaff=($id)=>{
             toastr["success"]("Staff a été supprimé avec succés", "Opération réussi");
             // console.log("dazd");
         }
+        ,
+        onError:()=>{
+            toastr["error"]("Une erreur s'est produite lors de la suppression de ce staff", "Opération échoué");
+        }
 
     });
     
@@ -114,9 +118,7 @@ const deleteStaff=($id)=>{
                     ><br />
                     <span class="date">Téléphone: {{ staff.telephone }}</span>
                 </div>
-                <!-- <div class="description">
-                            Kristy is an art director living in New York.
-                        </div> -->
+              
             </div>
             <div class="extra content">
                 <button @click="deleteStaff(staff.id)"  data-content="Supprimer" class="circular ui icon button">

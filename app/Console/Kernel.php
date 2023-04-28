@@ -18,6 +18,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('matcheTerminé')
         ->everyMinute();
         $schedule->command('entrainementTerminé')->everyMinute();
+        $schedule->command('alertAdhesion')->daily();
+
     }
 
     /**

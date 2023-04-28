@@ -5,14 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css" integrity="sha512-KXol4x3sVoO+8ZsWPFI/r5KBVB/ssCGB5tsv2nVOKwLg33wTFP3fmnXa47FdSVIshVTgsYk/1734xSk9aFIa4A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>Fiche Joueur</title>
+    <title>Reçu pe</title>
 </head>
 <body>
 
-    <h2 class="ui center aligned icon header">
-        <img class="circular users icon" src="joueur/image/">
-        {{$joueur->prenom}}  {{$joueur->nom}}
-      </h2>
+    <p>sdsqd
+        
+    </p>
      
 
 

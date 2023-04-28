@@ -1,7 +1,6 @@
 <script setup>
 import {useForm} from "@inertiajs/vue3";
 import editModalEquipe from "./editModalEquipe.vue";
-import listeJoueurs from "./listeJoueurs.vue";
 
 
 toastr.options = {
@@ -27,9 +26,7 @@ const props = defineProps({
 });
 
 
-const showModalListeJoeurs=(id)=>{
-    $("#modalListeJoueurs"+id).modal("show");
-}
+
 
 const showModalEditEquipe = (id) => {
     $("#modalEditEquipe"+id).modal("show");

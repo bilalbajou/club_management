@@ -28,6 +28,10 @@ return new class extends Migration
             $table->double('salaire')->nullable();
             $table->string('contrat')->nullable();
             $table->string('image')->nullable();
+            $table->date('derniere_paiement')->nullable();
+            $table->date('date_echeance')->nullable();
+            $table->double('montant_global')->nullable();
+            $table->foreignId('plan_id')->nullable()->constrained();
             $table->foreignId('equipe_id')->constrained();
             $table->softDeletes();
             $table->timestamps();
