@@ -31,6 +31,44 @@ const props = defineProps({
 const form=useForm({});
 
 
+const VerfiyAdherationExpiration=()=>{
+    let date_echeance=props.joueur.date_echeance
+    let date_today = new Date();
+    let day = ("0" + date_today.getDate()).slice(-2);
+    let month = ("0" + (date_today.getMonth() + 1)).slice(-2);
+    let year = date_today.getFullYear();
+    let formatted_date = `${year}-${month}-${day}`;
+    if(date_echeance < formatted_date){
+        return true
+    }else{
+        return false
+    }
+
+       
+}
+const verifyEcheance3Days=()=>{
+    let date_echeance=props.joueur.date_echeance
+    let date_today = new Date();
+    date_today.setDate(date_today.getDate() + 3);
+    let day = ("0" + date_today.getDate()).slice(-2);
+    let month = ("0" + (date_today.getMonth() + 1)).slice(-2);
+    let year = date_today.getFullYear();
+    let formatted_date = `${year}-${month}-${day}`;
+    if(date_echeance <= formatted_date){
+        return true
+    }else{
+        return false
+    }
+
+       
+}
+
+
+
+
+
+
+
 const editJoueur=($id)=>{
     form.get(route('joueurs.edit',$id))
 }
@@ -123,6 +161,7 @@ const deleteJoueur=($id)=>{
 <template>
     <div class="ui">
         <div class="ui centered card">
+            
             <div class="image">
                 <img
                     :src="joueur.image==null ?'https://www.kindpng.com/picc/m/235-2350646_login-user-name-user-avatar-svg-hd-png.png':'/joueur/image/'+joueur.image"
@@ -142,7 +181,14 @@ const deleteJoueur=($id)=>{
                 <div class="meta">
                     <span class="date">Age:{{ joueur.age }}</span
                     ><br />
+                    
                     <span class="date">Téléphone: {{ joueur.telephone }}</span>
+                    <br />
+                    <span v-show="VerfiyAdherationExpiration()" class="font-bold">Abonnement expiré</span>
+                  
+
+                    
+
                 </div>
                 <!-- <div class="description">
                             Kristy is an art director living in New York.
@@ -187,7 +233,7 @@ const deleteJoueur=($id)=>{
                 <i class="check circle icon"></i>
                 </button>
                 <button
-                    v-show="[4,5,6,7].includes(joueur.equipe_id) && joueur.plan_id"
+                    v-show="[4,5,6,7].includes(joueur.equipe_id) && joueur.plan_id && verifyEcheance3Days()"
                     @click="reglerAbonnement(joueur.id)"
                     data-content="Régler abonnement"
                     class="circular ui icon button"

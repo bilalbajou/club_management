@@ -56,9 +56,7 @@ const date=ref(props.date ?? []);
 
 const filter=_.throttle(()=>{
 
-console.log(search.value);
-console.log(equipe.value);
-console.log(etat.value);
+
 router.get(route('matches.index',{
     search:search.value,
     etat:etat.value,
@@ -79,7 +77,10 @@ router.get(route('matches.index',{
 
 
 const showModalAddMatch = () => {
-    $("#modalMatch").modal("show");
+    $("#modalMatch").modal({
+       
+    })
+    .modal("show");
 };
 </script>
 

@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <p>dsqdqsd</p>
     {{-- <h1>Voici la liste des joueurs conviés au matche contre {{ $matche->adversaire }} à {{ $matche->lieu}} le  {{$matche->date}} </h1>
     <ul>
         @foreach ($joueurs as $joueur)

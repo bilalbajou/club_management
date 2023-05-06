@@ -43,7 +43,12 @@
                                 <!-- Title -->
                                 <tr>
                                     <td style="padding:0 15px; text-align:center;">
-                                        <h1 style="color:#1e1e2d; font-weight:400; margin:0;font-size:32px;font-family:'Rubik',sans-serif;">scéance d'entrainement a été annulé</h1>
+                                        <h1 style="color:#1e1e2d; font-weight:400; margin:0;font-size:32px;font-family:'Rubik',sans-serif;">
+                                            Bonjour {{ $joueur->nom }} {{ $joueur->prenom }} 
+                                        </h1>
+                                        <p>
+                                            il reste 3 jours pour la date d'échéance de votre abonnement 
+                                        </p>
                                         <span style="display:inline-block; vertical-align:middle; margin:29px 0 26px; border-bottom:1px solid #cecece; 
                                         width:100px;"></span>
                                     </td>
@@ -84,7 +89,7 @@
                                                        Montant à payer:</td>
                                                     <td
                                                         style="padding: 10px; border-bottom: 1px solid #ededed; color: #455056;">
-                                                        {{ $plan->montant }}</td>
+                                                        {{ $plan->montant }} DH</td>
                                                 </tr>
 
                                             </tbody>

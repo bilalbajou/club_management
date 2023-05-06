@@ -52,10 +52,6 @@ const date=ref(props.date ?? []);
 
 const filter=_.throttle(()=>{
 
-console.log(search.value);
-console.log(equipe.value);
-console.log(type.value);
-console.log(date.value);
 router.get(route('salaires.index',{
     search:search.value,
     type:type.value,

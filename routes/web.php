@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\adhesionController;
+use App\Http\Controllers\backupController;
 use App\Http\Controllers\entrainementController;
 use App\Http\Controllers\equipeController;
 use App\Http\Controllers\joueurController;
@@ -12,8 +14,12 @@ use App\Http\Controllers\regSalaireController;
 use App\Http\Controllers\salaireReglelemntController;
 use App\Http\Controllers\staffControler;
 use App\Http\Controllers\UserController;
+use App\Models\Entrainement;
+use App\Models\Equipe;
+use App\Models\Matche;
 use App\Models\Personne;
 use App\Models\Prime;
+use App\Models\Plan;
 use App\Models\reglementSalaire;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -29,7 +35,9 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/test',function(){
+    return Inertia::render('Admin');
+});
 Route::get('/', function () {
     return Inertia::render('Auth/Login', [
         'canLogin' => Route::has('login'),
@@ -44,6 +52,13 @@ Route::get('/dashboard', function () {
     $nb_staffs=Personne::where('type','staff')->count();
     $montant_primes=Prime::all()->sum('montant');
     $montant_salaire=reglementSalaire::all()->sum('montant');
+    $nb_plans=Plan::all()->count();
+    $nb_matche=Matche::all()->count();
+    $nb_entrainement=Entrainement::all()->count();
+    $nb_equipes=Equipe::all()->count();
+    
+    
+    
 
  
 
@@ -51,8 +66,11 @@ Route::get('/dashboard', function () {
         'nb_joueurs'=>$nb_joueurs,
         'nb_staffs'=>$nb_staffs,
         'montant_primes'=>$montant_primes,
-        'montant_salaire'=>$montant_salaire
-
+        'montant_salaire'=>$montant_salaire,
+        'nb_plans'=>$nb_plans,
+        'nb_matches'=>$nb_matche,
+        'nb_entrainements'=>$nb_entrainement,
+        'nb_equipes'=>$nb_equipes
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -83,6 +101,12 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('salaires',salaireReglelemntController::class);
     Route::resource('plans',planController::class);
+    Route::get('/adhesions',[adhesionController::class,'index'])->name('adhesions.index');
+    Route::get('/backup',[backupController::class,'index'])->name('backup.index');
+
+
+
+
 
 
 

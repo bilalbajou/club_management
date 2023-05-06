@@ -47,7 +47,6 @@ const form = useForm({
 let joueursFilters= ref([]);
 
 const filterJoueurs=()=>{
-    console.log(form.equipe);
     let joueursFilter = props.personnes.filter(personne => personne.equipe_id==form.equipe);
     joueursFilters=joueursFilter;
 }

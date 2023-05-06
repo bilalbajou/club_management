@@ -45,9 +45,7 @@ const type=ref(props.type ?? "all");
 
 const filter=_.throttle(()=>{
 
-console.log(search.value);
-console.log(equipe.value);
-console.log(type.value);
+
 router.get(route('primes.index',{
     search:search.value,
     type:type.value,

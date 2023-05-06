@@ -3,6 +3,7 @@ import AdminDash from "@/Layouts/AdminDash.vue";
 
 export default {
     layout: AdminDash,
+    components: { Equipes,addModalEquipe}
 };
 </script>
 

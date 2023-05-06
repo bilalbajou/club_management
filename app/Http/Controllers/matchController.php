@@ -10,6 +10,7 @@ use App\Models\Equipe;
 use App\Models\Joueur;
 use App\Models\Matche;
 use App\Models\Personne;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -104,6 +105,8 @@ class matchController extends Controller
         $exclure=$request->exclure;
         $equipe=$request->equipe;
         dispatch(new matcheStoreDetailJob($matche,$exclure,$equipe));
+        
+
  
         }
 

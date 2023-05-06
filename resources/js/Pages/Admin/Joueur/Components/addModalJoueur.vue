@@ -26,7 +26,6 @@ const props = defineProps({
     plans:Array
 });
 
-console.log(props.plans);
 
 let url = ref(null);
 

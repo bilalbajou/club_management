@@ -3,9 +3,9 @@ import AdminDash from "@/Layouts/AdminDash.vue";
 
 
 export default{
-
-    layout:AdminDash
     
+    layout:AdminDash,
+    components:{Cards,addModalJoueur,Pagination}
 }
 
 
@@ -41,7 +41,7 @@ onMounted(() => {
 
 const props = defineProps({
     equipes: Array,
-    joueurs:Array,
+    joueurs:Object,
     poste:String,
     equipe:String,
     search:String,
@@ -54,9 +54,7 @@ const poste=ref(props.poste ?? "all");
 
 const filter=_.throttle(()=>{
 
-console.log(search.value);
-console.log(equipe.value);
-console.log(poste.value);
+
 router.get(route('joueurs.index',{
     search:search.value,
     poste:poste.value,
@@ -106,8 +104,7 @@ const showModalAddJoueur = () => {
                         <option value="all">Tous</option>
                         <option value="Gardien">Gardien</option>
                         <option value="Defense">Defense</option>
-                        <option value="Milieu">Milieu</option>
-                        <option value="Attack">Attack</option>
+                     
                         
                     </select>
                 </div>

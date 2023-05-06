@@ -5,7 +5,6 @@ const props = defineProps({
    joueurs:Object
 });
 
-console.log(props.joueurs.data)
 
 
 

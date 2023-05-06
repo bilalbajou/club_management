@@ -57,9 +57,6 @@ const fonction=ref(props.fonction ?? "all");
 
 const filter=()=>{
 
-console.log(search.value);
-console.log(equipe.value);
-console.log(fonction.value);
 router.get(route('staffs.index',{
     search:search.value,
     fonction:fonction.value,

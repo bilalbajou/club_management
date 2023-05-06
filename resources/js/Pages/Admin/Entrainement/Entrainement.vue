@@ -3,6 +3,7 @@ import AdminDash from "@/Layouts/AdminDash.vue";
 
 export default {
     layout: AdminDash,
+    components: { Entrainements,addModalEntr}
 };
 </script>
 
@@ -47,9 +48,7 @@ const date=ref(props.date ?? []);
 const filter=_.throttle(()=>{
 
 
-console.log(equipe.value);
-console.log(etat.value);
-console.log(date.value);
+
 router.get(route('entrainements.index',{
 
     etat:etat.value,

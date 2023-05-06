@@ -47,7 +47,6 @@ const form = useForm({
 
 
 const filterJoueurs=()=>{
-    console.log(form.equipe);
     let joueursFilter = props.joueurs.filter(joueur => joueur.equipe_id==form.equipe);
     joueursFilters=joueursFilter;
 }
@@ -120,6 +119,17 @@ const submitForm = () => {
                             </select>
                         </div>
 
+                    </div>
+                    <div class="">
+                        <div class="field" :class="form.errors.exclure ? 'error' : ''">
+                            <label>Exclure</label>
+                            <select v-model="form.exclure" class="ui fluid search dropdown"  multiple="">
+                               <option v-for="joueur in joueursFilters" :value="joueur.id" :key="joueur.id" >{{ joueur.nom }} {{ joueur.prenom }}---{{ joueur.type }}</option>
+                            </select>
+                        </div>
+                    
+
+                       
                     </div>
                     <div class="three fields">
                         <div class="field" :class="form.errors.exclure ? 'error' : ''">

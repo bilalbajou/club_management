@@ -51,8 +51,7 @@ class joueurController extends Controller
             if($equipe!="all"){
            $query->where("equipe_id",$equipe);
         }
-        })
-        
+        })  
         ->latest()
         ->paginate(9)
         ;
@@ -310,7 +309,10 @@ class joueurController extends Controller
        $joueur->derniere_paiement=Carbon::now()->format('Y-m-d');
        $joueur->date_echeance=Carbon::now()->addMonths($plan->duree)->format('Y-m-d');
         if($joueur->save()){
-          
+            
+           
+    
+       
         }
    
 

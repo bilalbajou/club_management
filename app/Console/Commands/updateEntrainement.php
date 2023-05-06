@@ -31,5 +31,7 @@ class updateEntrainement extends Command
         foreach ($entrainements as $entrainement) {
             $entrainement->update(['etat' => 'terminé']);
         }
+
+       
     }
 }

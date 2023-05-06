@@ -32,14 +32,18 @@ class alertJoueurAdhesion extends Command
     public function handle()
     {
         
-        $joueurs=Personne::all()
-        ->where('type','joueur')
-        ->where('date_echeance','!=',null)
-        ->where('date_echeance','=',now()->addDays(5));
+        $dateAujourdhui = date('Y-m-d');
+        $joueurs = Personne::where('type', 'joueur')
+                           ->whereNotNull('plan_id')
+                           ->whereNotNull('date_echeance')
+                           ->where('date_echeance', '>=', $dateAujourdhui)
+                           ->where('date_echeance','=', now()->addDay(3)->format('Y-m-d'))
+                           ->get();
+
         foreach($joueurs as $joueur){
             if($joueur->email){
             $plan=Plan::findOrfail($joueur->plan_id);
-            Mail::to($joueur->email)->queue(new alerterAdhesion($plan,$joueur));
+            Mail::to($joueur->email)->send(new alerterAdhesion($plan,$joueur));
         }
         }
         
