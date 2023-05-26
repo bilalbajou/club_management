@@ -90,40 +90,6 @@ class joueurController extends Controller
     {
 
 
-        // $joueur=new Personne();
-        // $joueur->nom=$request->nom;
-        // $joueur->prenom=$request->prenom;
-        // $joueur->age=$request->age;
-        // $joueur->salaire=$request->salaire;
-        // $joueur->cin=$request->cin;
-        // $joueur->adresse=$request->adresse;
-        // $joueur->telephone=$request->telephone;
-        // $joueur->email=$request->email;
-        // $joueur->poste=$request->poste;
-        // $joueur->equipe_id=$request->equipe;
-        // $joueur->type="joueur";
-        // if($request->file('image')){
-        //   $image=$request->file('image');
-        //   $joueur->image=uniqid()."_".$image->getClientOriginalName();
-        //   $image->move(public_path('joueur/image'),$joueur->image);
-
-        // }
-
-        // if($request->file('contrat')){
-        //     $contrat=$request->file('contrat');
-
-        //     $joueur->contrat=uniqid()."_".$contrat->getClientOriginalName();
-        //     $contrat->move(public_path('joueur/contrat'),$joueur->contrat);
-        // }
-
-
-        // if($joueur->save()){
-        //     if($joueur->email){
-        //         dispatch(new mailWelcomeJoueur($joueur));
-        //     }
-
-        // }
-
         $joueur = new Personne();
         $data = $request->only(['nom', 'prenom', 'age', 'salaire', 'cin', 'adresse', 'telephone', 'email', 'poste']);
         $data['plan_id'] =$request->plan_id;
@@ -309,9 +275,9 @@ class joueurController extends Controller
        $joueur->derniere_paiement=Carbon::now()->format('Y-m-d');
        $joueur->date_echeance=Carbon::now()->addMonths($plan->duree)->format('Y-m-d');
         if($joueur->save()){
-            
-           
-    
+            $data = ['title' => 'Mon titre', 'body' => 'Contenu du PDF'];
+        $pdf = PDF::loadView('pdf.reçuPaiement');
+        return $pdf->download('mon-fichier.pdf');
        
         }
    

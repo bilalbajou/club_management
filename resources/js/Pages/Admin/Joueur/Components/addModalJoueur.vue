@@ -188,7 +188,7 @@ const submitForm = () => {
                                 id="select"
                             >
                                 <option value="Attack" selected>Attack</option>
-                                <option value="Defense">Défense</option>
+                                <option value="Défense">Défense</option>
                                 <option value="Milieu">Milieu</option>
                                 <option value="Gardien">Gardien</option>
                             </select>

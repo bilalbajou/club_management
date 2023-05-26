@@ -2,7 +2,8 @@
 import AdminDash from '@/Layouts/AdminDash.vue';
 import { Head } from '@inertiajs/vue3';
 import {Link} from '@inertiajs/vue3';
-
+import pieChart from '@/Components/PieChart.vue';
+import Calendar from '@/Components/Calendar.vue';
 
 
 
@@ -20,20 +21,8 @@ const props=defineProps({
     nb_matches:Number,
     nb_entrainements:Number,
     nb_equipes:Number,
+    data_pie:Array
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -263,6 +252,49 @@ const props=defineProps({
           
           
        
+        </div>
+        <div class="ui grid stackable padded">
+          <div class="eight wide computer eight wide tablet sixteen wide mobile column">
+            <div class="ui fluid card">
+              <div class="content">
+               
+                <pieChart :data_pie="data_pie" />
+
+                
+                
+              </div>
+             
+            </div>
+          </div>
+          <div class="eight wide computer eight wide tablet sixteen wide mobile column">
+            <div class="ui fluid card">
+              <div class="content">
+              </div>
+              
+             
+             
+            </div>
+          </div>
+         
+          
+          
+       
+        </div>
+
+        <div class="ui grid stackable padded">
+          <div class="sixteen wide computer eight wide tablet sixteen wide mobile column">
+            <div class="ui fluid card">
+              <div class="content">
+               <Calendar />
+                
+
+                
+                
+              </div>
+             
+            </div>
+          </div>
+          
         </div>
 
 

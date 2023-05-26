@@ -226,7 +226,7 @@ const submitForm=($id)=>{
                        
                     </div>
                     <div class="three fields">
-                        <div v-show="[4,5,6,7].includes(joueur.equipe_id)" class="field" :class="form.errors.plan_id ? 'error':''">
+                        <div v-show="[4,5,6,7].includes(form.equipe)" class="field" :class="form.errors.plan_id ? 'error':''">
                             <label>Plan d'adhésion</label>
 
                             <select
@@ -244,7 +244,7 @@ const submitForm=($id)=>{
                                 </option>
                             </select>
                         </div>
-                        <div v-show="[1,2,3].includes(joueur.equipe_id)" class="field" :class="form.errors.salaire ? 'error':''">
+                        <div v-show="[1,2,3].includes(form.equipe)" class="field" :class="form.errors.salaire ? 'error':''">
                             <label>Salaire</label>
 
                             <input

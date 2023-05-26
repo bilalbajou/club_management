@@ -22,6 +22,7 @@ use App\Models\Prime;
 use App\Models\Plan;
 use App\Models\reglementSalaire;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -56,6 +57,18 @@ Route::get('/dashboard', function () {
     $nb_matche=Matche::all()->count();
     $nb_entrainement=Entrainement::all()->count();
     $nb_equipes=Equipe::all()->count();
+    $matchesCalendars=Matche::all(['adversaire','lieu','date','etat'])->toArray();
+    
+
+    $data_pie=DB::table('equipes')
+    ->join('personnes', 'equipes.id', '=', 'personnes.equipe_id')
+    ->select('equipes.nom', DB::raw('count(personnes.id) as nombre_des_joueurs'))
+    ->where('personnes.type', '=', 'joueur')
+    ->whereNull('personnes.deleted_at')
+    ->groupBy('equipes.nom')
+    ->get()
+    ->toArray();
+
     
     
     
@@ -70,7 +83,9 @@ Route::get('/dashboard', function () {
         'nb_plans'=>$nb_plans,
         'nb_matches'=>$nb_matche,
         'nb_entrainements'=>$nb_entrainement,
-        'nb_equipes'=>$nb_equipes
+        'nb_equipes'=>$nb_equipes,
+        'data_pie'=>$data_pie,
+        'matchesCalendars'=>$matchesCalendars
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 

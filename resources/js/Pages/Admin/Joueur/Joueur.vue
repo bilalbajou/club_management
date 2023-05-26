@@ -103,7 +103,9 @@ const showModalAddJoueur = () => {
                     <select @change="filter" v-model="poste"  class="ui dropdown" id="select">
                         <option value="all">Tous</option>
                         <option value="Gardien">Gardien</option>
-                        <option value="Defense">Defense</option>
+                        <option value="Défense">Défense</option>
+                        <option value="Attack">Attack</option>
+                        <option value="Milieu">Milieu</option>
                      
                         
                     </select>
@@ -133,3 +135,5 @@ const showModalAddJoueur = () => {
 
         <addModalJoueur :equipes="equipes" :plans="plans"/>
 </template>
+
+

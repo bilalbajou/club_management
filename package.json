@@ -26,6 +26,7 @@
         "chart.js": "^4.3.0",
         "portal-vue": "^3.0.0",
         "vue-chartjs": "^5.2.0",
+        "vue-simple-calendar": "^6.3.1",
         "vuex": "^4.0.2"
     }
 }

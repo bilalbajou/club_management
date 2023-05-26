@@ -1,6 +1,6 @@
 <script setup>
 
-import Adhesion from './adhesion.vue';
+import Adhesion from './Adhesion.vue';
 
 const props = defineProps({
     joueurs:Array
@@ -22,7 +22,9 @@ const props = defineProps({
     <th>Date d'echéance</th>
     <th>Equipe</th>
     <th>Plan</th>
-  </tr></thead>
+    
+  </tr>
+</thead>
   <tbody>
 
      <Adhesion v-for="(joueur, index)  in joueurs" :joueur="joueur" :index="index" :key="index"/>

@@ -54,7 +54,8 @@ const verifyEcheance3Days=()=>{
     let month = ("0" + (date_today.getMonth() + 1)).slice(-2);
     let year = date_today.getFullYear();
     let formatted_date = `${year}-${month}-${day}`;
-    if(date_echeance <= formatted_date){
+
+    if((date_echeance <= formatted_date )||( props.joueur.date_echeance==null)){
         return true
     }else{
         return false

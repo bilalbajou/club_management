@@ -13,7 +13,7 @@ use Illuminate\Queue\SerializesModels;
 class joueurConvt extends Mailable
 {
     use Queueable, SerializesModels;
-    public $pdfPath;
+ 
     public $matche;
     public $joueurs;
 

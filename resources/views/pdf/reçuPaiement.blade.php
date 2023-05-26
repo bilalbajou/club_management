@@ -1,29 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css" integrity="sha512-KXol4x3sVoO+8ZsWPFI/r5KBVB/ssCGB5tsv2nVOKwLg33wTFP3fmnXa47FdSVIshVTgsYk/1734xSk9aFIa4A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
+    <title>Reçu de paiement - Club de football</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            color: #333;
+        }
+        
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .content {
+            border: 1px solid #ccc;
+            padding: 30px;
+            margin-top: 20px;
+        }
+        
+        .details {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .details p {
+            margin: 0;
+        }
+        
+        .bold {
+            font-weight: bold;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-
-    <p>sdsqd
-        ssd
-    </p>
-     
-
-
-
-
-
-
-
-
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.js" integrity="sha512-Xo0Jh8MsOn72LGV8kU5LsclG7SUzJsWGhXbWcYs2MAmChkQzwiW/yTQwdJ8w6UA9C6EVG18GHb/TrYpYCjyAQw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <div class="container">
+        <div class="header">
+            <h2>Reçu de paiement - Club de football</h2>
+        </div>
+        <div class="content">
+            <p>Bonjour [nom du client],</p>
+            <p>Nous vous remercions pour votre paiement d'abonnement annuel au Club de Football. Nous sommes ravis de vous compter parmi notre communauté sportive.</p>
+            <p>Voici les détails de votre paiement :</p>
+            <div class="details">
+                <p class="bold">Date de paiement :</p>
+                <p>[date de paiement]</p>
+            </div>
+            <div class="details">
+                <p class="bold">Montant payé :</p>
+                <p>[montant payé] €</p>
+            </div>
+            <div class="details">
+                <p class="bold">Abonnement :</p>
+                <p>[abonnement]</p>
+            </div>
+        </div>
+        <div class="footer">
+            <p>Si vous avez des questions, n'hésitez pas à nous contacter à l'adresse [adresse e-mail].</p>
+            <p>Merci encore pour votre fidélité au Club de football.</p>
+        </div>
+    </div>
 </body>
 </html>

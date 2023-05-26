@@ -55,32 +55,20 @@ class matcheStoreDetailJob implements ShouldQueue
         }
        $joueursConvt=DB::table('personne_match')
        ->join('personnes', 'personne_match.personne_id', '=', 'personnes.id')
-       ->select('personnes.nom', 'personnes.prenom')
+       ->select('personnes.nom', 'personnes.prenom','personnes.poste')
        ->where('personnes.type', '=', 'joueur')
        ->where('personne_match.matche_id', '=', $this->matche->id)
        ->get();
+       
 
-    //    $pdf = new Dompdf();
-    //    $pdf->loadHtml(view('pdf.listeJoueursConvt', ['joueursConvt' => $joueursConvt])->render());
-    //    $pdf->setPaper('A4', 'portrait');
-    //    $pdf->render();
-    //    $pdfOutput = $pdf->output();
 
-   
-    // Mail::to('bilalbajou05@gmail.com')->send(new joueurConvt($this->matche,$joueursConvt));
     
-    $pdf = new Dompdf();
-$pdf->loadHtml(view('pdf.listeJoueursConvt', ['joueursConvt' => $joueursConvt])->render());
-$pdf->setPaper('A4', 'portrait');
-$pdf->render();
-$pdfOutput = $pdf->output();
+   
 
 
 Mail::to('bilalbajou05@gmail.com')
-    ->send(new joueurConvt($this->matche, $joueursConvt))
-    ->attachData($pdfOutput, 'liste_players.pdf', [
-        'mime' => 'application/pdf',
-    ]);
+    ->send(new joueurConvt($this->matche, $joueursConvt));
+    
    
    
 
