@@ -79,25 +79,15 @@ Copy .env.example to .env and update the file with your database credentials.
 
 ![App Screenshot](https://i.postimg.cc/Mpqt9wfJ/login.png)
 ![App Screenshot](https://i.postimg.cc/ZnjPgBdk/Capture.png)
-
 ![App Screenshot](https://i.postimg.cc/MZRpDJ8D/Capture1.png)
-
 ![App Screenshot](https://i.postimg.cc/TwKqSYch/Capture2.png)
-
 ![App Screenshot](https://i.postimg.cc/KcNBNTbQ/10.png)
-
 ![App Screenshot](https://i.postimg.cc/pLb9MQDD/20.png)
-
 ![App Screenshot](https://i.postimg.cc/CxGRhZN9/21213.png)
-
 ![App Screenshot](https://i.postimg.cc/g0GnnYtj/312.png)
-
 ![App Screenshot](https://i.postimg.cc/766hnKky/901212.png)
-
 ![App Screenshot](https://i.postimg.cc/pdkyjg3Z/9021.png)
-
 ![App Screenshot](https://i.postimg.cc/3RcRS280/dadzafzaf.png)
-
 ![App Screenshot](https://i.postimg.cc/4NhK02hf/dzadzazav.png)
 
 
