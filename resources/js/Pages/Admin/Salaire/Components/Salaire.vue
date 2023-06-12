@@ -17,7 +17,6 @@ const showEditModal=(id)=>{
   $('#editModalSalaire'+id).modal('show');
 }
 const deleteReglement = (id) => {
-
   Swal.fire({
     title: 'Êtes-vous sûr?',
     text: "Êtes-vous sûr de vouloir supprimer ce reglement !",

@@ -58,7 +58,12 @@ Route::get('/dashboard', function () {
     $nb_entrainement=Entrainement::all()->count();
     $nb_equipes=Equipe::all()->count();
     $matchesCalendars=Matche::all(['adversaire','lieu','date','etat'])->toArray();
-    
+    $data_plan=DB::table('personnes')
+    ->join('plans', 'personnes.plan_id', '=', 'plans.id')
+    ->select(DB::raw("CONCAT(plans.duree, ' Mois') AS plan"), DB::raw('COUNT(personnes.id) AS nb_adh'))
+    ->groupBy('plans.duree')
+    ->get()
+    ->toArray();
 
     $data_pie=DB::table('equipes')
     ->join('personnes', 'equipes.id', '=', 'personnes.equipe_id')
@@ -85,7 +90,8 @@ Route::get('/dashboard', function () {
         'nb_entrainements'=>$nb_entrainement,
         'nb_equipes'=>$nb_equipes,
         'data_pie'=>$data_pie,
-        'matchesCalendars'=>$matchesCalendars
+        'matchesCalendars'=>$matchesCalendars,
+        'data_plan'=>$data_plan
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 

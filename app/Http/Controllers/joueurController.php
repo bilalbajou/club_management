@@ -6,7 +6,6 @@ use App\Http\Requests\storeJoueurRequest;
 use App\Jobs\mailWelcomeJoueur;
 use App\Models\Adhesion;
 use App\Models\Equipe;
-// use Illuminate\Support\Facades\Request;
 use Illuminate\Http\Request;
 use App\Models\Joueur;
 use App\Models\Personne;
@@ -17,7 +16,10 @@ use App\Service\emailVerify;
 use Inertia\Inertia;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
-use Barryvdh\DomPDF\Facade\Pdf;
+
+
+
+
 use DateTime;
 use Illuminate\Support\Facades\Date;
 
@@ -210,11 +212,7 @@ class joueurController extends Controller
         return to_route('joueurs.index');
     }
 
-    public function generateFicheJoueur($id){
-        $joueur=Personne::findOrfail($id);
-        $pdf = PDF::loadView('pdf.ficheJoueur',compact('joueur'));
-        return $pdf->download(uniqid().$joueur->nom.' '.$joueur->prenom.'.pdf');    
-    }
+   
 
     public function reglerPrime(Request $request){
         $validated = $request->validate([
@@ -275,9 +273,10 @@ class joueurController extends Controller
        $joueur->derniere_paiement=Carbon::now()->format('Y-m-d');
        $joueur->date_echeance=Carbon::now()->addMonths($plan->duree)->format('Y-m-d');
         if($joueur->save()){
-            $data = ['title' => 'Mon titre', 'body' => 'Contenu du PDF'];
-        $pdf = PDF::loadView('pdf.reçuPaiement');
-        return $pdf->download('mon-fichier.pdf');
+
+
+
+
        
         }
    

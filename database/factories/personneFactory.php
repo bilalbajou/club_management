@@ -23,9 +23,11 @@ class personneFactory extends Factory
             'email' => fake()->safeEmail(),
             'salaire' => fake()->numberBetween(1000,1000000),
             'adresse' => fake()->address(),
-            'poste' => fake()->randomElement(["Défense","Attack","Gardien","Milieu"]),
+            // 'poste' => fake()->randomElement(["Défense","Attack","Gardien","Milieu"]),
+            'fonction' => fake()->randomElement(["Directeur","Directeur génerale","Entraineur","Entraineur gardien"]),
+
             'telephone' => fake()->phoneNumber(),
-            'type'=>'joueur',
+            'type'=>'staff',
             'age' => fake()->numberBetween(6,30),
             'equipe_id' => fake()->numberBetween(1,7)
             // 'image' => fake()->imageUrl(500,500,"sport")

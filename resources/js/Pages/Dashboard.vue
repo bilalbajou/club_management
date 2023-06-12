@@ -4,6 +4,7 @@ import { Head } from '@inertiajs/vue3';
 import {Link} from '@inertiajs/vue3';
 import pieChart from '@/Components/PieChart.vue';
 import Calendar from '@/Components/Calendar.vue';
+import DataPlan from '@/Components/DataPlan.vue';
 
 
 
@@ -21,7 +22,8 @@ const props=defineProps({
     nb_matches:Number,
     nb_entrainements:Number,
     nb_equipes:Number,
-    data_pie:Array
+    data_pie:Array,
+    data_plan:Array
 })
 
 
@@ -269,6 +271,7 @@ const props=defineProps({
           <div class="eight wide computer eight wide tablet sixteen wide mobile column">
             <div class="ui fluid card">
               <div class="content">
+                <DataPlan :data_plan="data_plan"/>
               </div>
               
              
@@ -285,10 +288,7 @@ const props=defineProps({
           <div class="sixteen wide computer eight wide tablet sixteen wide mobile column">
             <div class="ui fluid card">
               <div class="content">
-               <Calendar />
-                
-
-                
+          
                 
               </div>
              

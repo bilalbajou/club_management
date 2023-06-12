@@ -68,9 +68,7 @@ const deletePlan=(id)=>{
       <td> {{ plan.duree }} Mois </td>
       <td>{{ plan.montant  }} DH</td>
       <td> 
-        <button @click="deletePlan(plan.id)" class="ui icon button">
-           <i class="trash icon"></i>
-        </button>
+       
         <button @click="showModalEditPlan(plan.id)" class="ui icon button">
            <i class="edit icon"></i>
         </button>

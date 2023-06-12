@@ -16,7 +16,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('matcheTerminé')
-        ->everyMinute();
+        ->daily();
         $schedule->command('entrainementTerminé')->everyMinute();
         $schedule->command('alertAdhesion')->everyMinute();
 

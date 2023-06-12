@@ -131,13 +131,8 @@ const submitForm = () => {
 
                        
                     </div>
-                    <div class="three fields">
-                        <div class="field" :class="form.errors.exclure ? 'error' : ''">
-                            <label>Exclure</label>
-                            <select v-model="form.exclure" class="ui fluid multiple search selection dropdown"  multiple="">
-                               <option v-for="joueur in joueursFilters" :value="joueur.id" :key="joueur.id" >{{ joueur.nom }} {{ joueur.prenom }}---{{ joueur.type }}</option>
-                            </select>
-                        </div>
+                    <div class="two fields">
+                       
                         <div class="field" :class="form.errors.exclure ? 'error' : ''">
                             <label>Championat</label>
                             <input type="text" v-model="form.championat" placeholder="Championat" />
