@@ -78,8 +78,6 @@ Copy .env.example to .env and update the file with your database credentials.
 ## Screenshots
 
 ![App Screenshot](https://i.postimg.cc/Mpqt9wfJ/login.png)
-
-
 ![App Screenshot](https://i.postimg.cc/ZnjPgBdk/Capture.png)
 
 ![App Screenshot](https://i.postimg.cc/MZRpDJ8D/Capture1.png)
